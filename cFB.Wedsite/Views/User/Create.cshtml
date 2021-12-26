@@ -1,0 +1,108 @@
+﻿@model cFB.ViewModels.System.GetRegisterRequest;
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/assets/vendor/nucleo/css/nucleo.min.css" rel="stylesheet">
+<link type="text/css" href="/assets/css/argon.min.css" rel="stylesheet">
+<script>
+    setTimeout(function () {
+        $('#msgAlert').fadeOut('slow');
+    }, 1900);
+</script>
+<main>
+    @if (@ViewBag.SuccessMsg != null)
+    {
+        <button id="msgAlert" class="btn btn-primary btn-sm mb-2" type="button" style="font-size: 15px;position: absolute;margin-left: 23px;margin-top: 1rem;" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            @ViewBag.SuccessMsg
+        </button>
+    }
+
+    <div class="container-fluid px-4">
+        <h1 class="mt-4" style=" text-align:center">Thêm tài khoản</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active "><a href="/User">Danh sách tài khoản</a></li>
+            <li class="breadcrumb-item">Thêm tài khoản</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="col-md-8">
+                    <form method="post" enctype="multipart/form-data" action="/User/Create">
+                        <div asp-validation-summary="ModelOnly" style="color:red" class="text-danger">
+
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="AdministrativeDivision_Admin" value="@User.Identity.Name" hidden>
+                            <label asp-for="AdministrativeDivisionName" class="control-label"></label>
+                            <input asp-for="AdministrativeDivisionName" class="form-control" style="width:600px" />
+                            <span asp-validation-for="AdministrativeDivisionName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NumberPhone" class="control-label"></label>
+                            <input asp-for="NumberPhone" class="form-control" style="width:600px" />
+                            <span asp-validation-for="NumberPhone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Addrees" class="control-label"></label>
+                            <input asp-for="Addrees" class="form-control" style="width:600px" />
+                            <span asp-validation-for="Addrees" class="text-danger"></span>
+                        </div>
+                        <div class="form-group hide">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" type="password" class="form-control" id="ipnPassword" style="width:600px" />
+
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group hide">
+                            <label asp-for="ConfirmPassword" class="control-label"></label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" id="ipnPassword1" style="width:600px" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                            <input style="margin: 20px 10px 0 0;" type="checkbox" onclick="myFunction()"> Hiện mật khẩu
+                        </div>
+                        <div class="form-group">
+                            <input type="submit"  value="Lưu" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        const ipnElement = document.querySelector('#ipnPassword')
+        const btnElement = document.querySelector('#btnPassword')
+
+        // step 2
+        btnElement.addEventListener('click', function () {
+            // step 3
+            const currentType = ipnElement.getAttribute('type')
+            // step 4
+            ipnElement.setAttribute(
+                'type',
+                currentType === 'password' ? 'text' : 'password'
+            )
+        })
+        function myFunction() {
+            var x = document.getElementById("ipnPassword");
+            var y = document.getElementById("ipnPassword1");
+            if (x.type === "password" && y.type === "password") {
+                x.type = "text";
+                y.type = "text";
+            }
+            else if (x.type === null && y.type === null) {
+                x.type = "password";
+                y.type = "password";
+            }
+            else {
+                x.type = "password";
+                y.type = "password";
+            }
+        }
+
+    </script>
+
+</main>

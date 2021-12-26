@@ -1,0 +1,422 @@
+﻿@using cFB.ViewModels.Common;
+@model PagedResult<cFB.ViewModels.Catalog.Reports.GetReportViewModel>;
+@using cFB.Utilities.Constants;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+
+    <!--<link href="/assets/img/brand/favicon.png" rel="icon" type="image/png">-->
+    <link href="/assets/vendor/nucleo/css/nucleo.min.css" rel="stylesheet">
+    <link type="text/css" href="/assets/css/argon.min.css" rel="stylesheet">
+
+
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Danh sách bài viết đã thực hiện báo cáo</h1>
+
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active ">Quản lý thông tin</li>
+            <li class="breadcrumb-item">Bài viết báo cáo</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header" style=" padding-bottom: 60px;">
+                <i class="fas fa-clipboard-list"></i> Danh mục tìm kiếm
+                <div class="panel-heading" style="padding-top:20px">
+                    <div class="row">
+                        <div class="col-10">
+                            <form method="get" style="text-align:left; display:flex" asp-controller="Report" asp-action="Index">
+
+                                @if (@ViewBag.RoleOfUser == ShareContants.UserAdmin)
+                                {
+                                    <div class="col-3">
+                                        Đối tượng theo dõi:
+                                        <select name="userId" onchange="this.form.submit()" asp-items="@ViewBag.AdministrativeDivision" class="form-control input-sm" style="width:230px; height:46px">
+                                            <option></option>
+                                        </select>
+                                        <i class="fas fa-caret-down" style=" position: absolute; margin: -30px 0 0 204px;"></i>
+                                    </div>
+                                }
+                                <div class="col-2" style="margin-left: 82px; position: absolute; margin-top: 82px;">
+                                    <p style="margin: 11px 126px -37px -83px;">Số trang:</p>
+                                    <input type="text" class="form-control border-0 ps-3" value="@ViewBag.PageSize" name="pageSize" placeholder="Nhập..." style="background: #eee9e9; margin: 5px 10px 0 -15px; width: 60px; height: 35px; ">
+                                </div>
+                                <div class="col-3">
+                                    <p style="padding-top: 13px; margin: 10px 7px 0 0;"></p>
+                                    <input type="text" class="form-control border-0 ps-3" value="@ViewBag.Search" name="postId" placeholder="Nhập từ khóa cần tìm..." style="background: #eee9e9;  height: 45px; width: 250px;">
+                                    <button class="btn" type="submit" style="margin-top: -44px; margin-left: 12rem; position: absolute; z-index: 1; "><i class="fas fa-search"></i></button>
+
+                                </div>
+                                <button type="button" onclick="window.location.href='/Report'" class="btn btn-dark" style="width: 60px; padding: 0; margin: 23px 0 0 10px; height: 41px; background-color: #5e72e4; color: white;border:none">Reset</button>
+
+                            </form>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-sm btn-outline-danger" id="unfollow" onclick="unfollow()" style="margin-top: 32px; font-size: 15px;" disabled="">
+                                Hủy báo cáo&nbsp;
+                                <i class="fas fa-file-prescription" style="font-size:25px"></i>
+                                <div id="unfollow-loader" class="loader" style="float: right; margin-top: 1px; margin-left: 2px; margin-right: 1.34px" hidden=""></div>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card">
+            <style>
+
+
+                table tr {
+                    counter-increment: Rownumber;
+                }
+
+                table td:first-child + td::before {
+                    content: counter(Rownumber);
+                    min-width: 1em;
+                    margin-right: 0.5rem;
+                }
+            </style>
+            <div class="table-responsive">
+                <table id="" class="table align-items-center mb-0" role="grid" style="margin-bottom:10px">
+
+                    <thead>
+                        <tr role="row">
+
+                            <th>
+
+                            </th>
+                            <th rowspan="1" colspan="1" style="width: 200px; text-align: center;">STT</th>
+                            <th rowspan="1" colspan="1" style="width: 200px; text-align: center;">Mã</th>
+                            <th rowspan="1" colspan="1" style="width: 350px; text-align: center; ">Ngày</th>
+                            <th rowspan="1" colspan="1" style=" text-align: center;  ">PDF</th>
+                            <th rowspan="1" colspan="1" style="width: 60px; text-align: center;  ">Địa phương</th>
+                            <th rowspan="1" colspan="1" style="width: 60px; text-align: center;  ">Xem</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+
+                                <td style="text-align: center; width: 5%; ">
+                                    <input type="checkbox" id="@item.PostId" name="SelectPost" class="checkbox" onchange="addFacebookIDToArray('@item.PostId')" style="margin-bottom: 10px; cursor: pointer" />
+                                </td>
+                                <td width="5%" style=" text-align:center;">
+                                </td>
+                                <td width="20%" style=" text-align:center ;max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    @Html.DisplayFor(modelItem => item.ReportId)
+                                </td>
+                                <td width="20%" style=" text-align:center ;max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    @item.Date.ToString("dd/MM/yyyy") (<a style="color: #f5365c">@Html.DisplayFor(modelItem => item.DateFill) </a>)
+                                </td>
+
+                                <td width="30%" style=" overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    <a href="@Html.DisplayFor(modelItem => item.FileReport)" target="_blank">@item.FileReport</a>
+                                </td>
+                                <td width="10%" style="text-align: center; ">
+                                    @Html.DisplayFor(modelItem => item.AdministrativeDivisionName)
+                                </td>
+
+                                <td style="text-align: center; ">
+                                    <button id="btn-view-post-detail" class="btn " data-toggle="modal" data-target="#view-post-detail" onclick="viewPostDetail('@item.PostId')">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="col-sm-6" style="margin:10px 0 0 0">
+                    <strong>Tổng cộng: @Model.TotalRecords</strong>
+
+                </div>
+                @await Component.InvokeAsync("Pager", Model)
+            </div>
+        </div>
+    </div>
+
+    <div id="view-post-detail" class="modal fade">
+        <div class="modal-dialog" id="md-view-post-detail">
+            <div class="modal-content" style="width:1000px; height:860px; margin-left:-240px">
+
+                <div class="modal-header" style="border-bottom: 1px solid #ccc;">
+                    <button type="button" id="reprot-post" class="btn btn-outline-warning" data-dismiss="modal" onclick="Report()" style="" disabled="">Đã lập báo cáo </button>
+                    <h4 class="modal-title" id="title-h4" style="margin-left: 230px; font-size: 28px; margin-top: 4px; font-weight: bold;">Thông tin bài viết</h4>
+                    <button type="button" class="close" data-dismiss="modal" onclick="clearLabelColor()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label style="font-weight: bold;">Url bài viết:</label>
+                        <a href="#" id="post-url" target="_blank">
+                            <p style="margin-left: 151px; margin-top: -32px;">Url bài viết</p>
+                        </a>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;">Url người đăng:</label>
+                        <a href="#" id="user-url" target="_blank">
+                            <p style="margin-left: 150px; margin-top: -36px;">Url người đăng</p>
+                        </a>
+                    </div>
+                    <div class="form-group" style=" float: right; margin-top: -48px;">
+                        <label style="font-weight: bold; margin-right: 166px;">Thời gian đăng:</label>
+                        <p id="upload-time" style="margin-left: 135px; margin-top: -34px;">25/12/2020 21:16:13</p>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;">Nội dung bài viết</label>
+                        <textarea id="post-content" class="form-control" rows="10" style="max-height: 250px; max-width: 965px !important;" readonly>
+                            </textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Hình ảnh</label>
+                                <br />
+                                <a href="#" target="_blank" id="image">
+                                    <img src="~/assets/img/IDOLTV-hinh-nen-pokemon-full-hd-661561.jpg" width="400" height="300" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Tương tác</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <strong><i class="fa fa-thumbs-up"></i>&nbsp;Thích:&nbsp;</strong><span id="like">0</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <strong><i class="fa fa-comment"></i>&nbsp;Bình luận:&nbsp;</strong><span id="comment">0</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <strong><i class="fa fa-share"></i>&nbsp;Chia sẻ:&nbsp;</strong><span id="share">0</span>
+                                    </div>
+                                </div>
+                                <br /> (Cập nhật lúc: <span id="crawled-time">25/12/2020 21:16:13</span>)
+                                <br />
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Nhãn bài viết</label>
+                                <p id="news-label">Nhãn bài viết</p>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Mức độ</label>
+                                <br />
+                                <div class="col-auto m-auto">
+                                    <div class="dropdown">
+                                        <button id="sentiment-label" class="boderHit label-primary" data-target="#change-SL" data-bs-toggle="dropdown" aria-expanded="false" style="-moz-box-shadow: 3px 3px 5px 0px #4565c4; -webkit-box-shadow: 3px 3px 5px 0px #4565c4; box-shadow: 3px 3px 5px 0px #4565c4; font-size: 20px; color: rgb(0, 128, 0); border: none; background-color: white; border-radius: 20px; padding: 8px; width: 165px; font-size: 20px; color: rgb(0, 128, 0); ">Bình thường</button>
+                                        <ul id="change-SL" class="dropdown-menu dropdown-menu-right px-2 py-3 ms-n4" aria-labelledby="dropdownMenuButton">
+                                            <li style="padding-bottom: 13px; text-align: center; justify-content: center; font-size: 21px;"><strong>Thay đổi mức độ đánh giá</strong> </li>
+                                            <li style="width: 430px; margin-left: -3px; display: flex; justify-content: space-between; ">
+                                                <button type="button" onclick="ChangeSenmalLable('POS')" class="btn btn-outline-success">Tích Cực <svg class="svg-inline--fa fa-laugh-beam fa-w-16" aria-hidden="true" focusable="false" data-prefix="far" data-icon="laugh-beam" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm141.4 389.4c-37.8 37.8-88 58.6-141.4 58.6s-103.6-20.8-141.4-58.6S48 309.4 48 256s20.8-103.6 58.6-141.4S194.6 56 248 56s103.6 20.8 141.4 58.6S448 202.6 448 256s-20.8 103.6-58.6 141.4zM328 152c-23.8 0-52.7 29.3-56 71.4-.7 8.6 10.8 11.9 14.9 4.5l9.5-17c7.7-13.7 19.2-21.6 31.5-21.6s23.8 7.9 31.5 21.6l9.5 17c4.1 7.4 15.6 4 14.9-4.5-3.1-42.1-32-71.4-55.8-71.4zm-201 75.9l9.5-17c7.7-13.7 19.2-21.6 31.5-21.6s23.8 7.9 31.5 21.6l9.5 17c4.1 7.4 15.6 4 14.9-4.5-3.3-42.1-32.2-71.4-56-71.4s-52.7 29.3-56 71.4c-.6 8.5 10.9 11.9 15.1 4.5zM362.4 288H133.6c-8.2 0-14.5 7-13.5 15 7.5 59.2 58.9 105 121.1 105h13.6c62.2 0 113.6-45.8 121.1-105 1-8-5.3-15-13.5-15z"></path></svg><!-- <i class="far fa-laugh-beam"></i> Font Awesome fontawesome.com --> </button>
+                                                <button type="button" onclick="ChangeSenmalLable('NEU')" class="btn btn-outline-info">Bình Thường <svg class="svg-inline--fa fa-smile-beam fa-w-16" aria-hidden="true" focusable="false" data-prefix="far" data-icon="smile-beam" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 448c-110.3 0-200-89.7-200-200S137.7 56 248 56s200 89.7 200 200-89.7 200-200 200zm84-143.4c-20.8 25-51.5 39.4-84 39.4s-63.2-14.3-84-39.4c-8.5-10.2-23.6-11.5-33.8-3.1-10.2 8.5-11.5 23.6-3.1 33.8 30 36 74.1 56.6 120.9 56.6s90.9-20.6 120.9-56.6c8.5-10.2 7.1-25.3-3.1-33.8-10.2-8.4-25.3-7.1-33.8 3.1zM136.5 211c7.7-13.7 19.2-21.6 31.5-21.6s23.8 7.9 31.5 21.6l9.5 17c2.1 3.7 6.2 4.7 9.3 3.7 3.6-1.1 6-4.5 5.7-8.3-3.3-42.1-32.2-71.4-56-71.4s-52.7 29.3-56 71.4c-.3 3.7 2.1 7.2 5.7 8.3 3.4 1.1 7.4-.5 9.3-3.7l9.5-17zM328 152c-23.8 0-52.7 29.3-56 71.4-.3 3.7 2.1 7.2 5.7 8.3 3.5 1.1 7.4-.5 9.3-3.7l9.5-17c7.7-13.7 19.2-21.6 31.5-21.6s23.8 7.9 31.5 21.6l9.5 17c2.1 3.7 6.2 4.7 9.3 3.7 3.6-1.1 6-4.5 5.7-8.3-3.3-42.1-32.2-71.4-56-71.4z"></path></svg><!-- <i class="far fa-smile-beam"></i> Font Awesome fontawesome.com --></button>
+                                                <button type="button" onclick="ChangeSenmalLable('NEG')" class="btn btn-outline-danger">Tiêu Cực<svg class="svg-inline--fa fa-tired fa-w-16" aria-hidden="true" focusable="false" data-prefix="far" data-icon="tired" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 448c-110.3 0-200-89.7-200-200S137.7 56 248 56s200 89.7 200 200-89.7 200-200 200zm129.1-303.8c-3.8-4.4-10.3-5.4-15.3-2.5l-80 48c-3.6 2.2-5.8 6.1-5.8 10.3s2.2 8.1 5.8 10.3l80 48c5.4 3.2 11.8 1.6 15.3-2.5 3.8-4.5 3.9-11 .1-15.5L343.6 208l33.6-40.3c3.8-4.5 3.7-11.1-.1-15.5zM220 208c0-4.2-2.2-8.1-5.8-10.3l-80-48c-5-3-11.5-1.9-15.3 2.5-3.8 4.5-3.9 11-.1 15.5l33.6 40.3-33.6 40.3c-3.8 4.5-3.7 11 .1 15.5 3.5 4.1 9.9 5.7 15.3 2.5l80-48c3.6-2.2 5.8-6.1 5.8-10.3zm28 64c-45.4 0-100.9 38.3-107.8 93.3-1.5 11.8 6.9 21.6 15.5 17.9C178.4 373.5 212 368 248 368s69.6 5.5 92.3 15.2c8.5 3.7 17-6 15.5-17.9-6.9-55-62.4-93.3-107.8-93.3z"></path></svg><!-- <i class="far fa-tired"></i> Font Awesome fontawesome.com --></button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group" style="display:flex">
+                                <p id="title-pdf" style="font-weight:bold;margin-top:10px">Xem File PDF</p>
+                                <span>
+                                    <a href="#" target="_blank" id="pdf">
+                                        <i class="fas fa-file-pdf" id="this-pdf" style="background-color:white; font-size: 40px;margin-left:30px ; color:red"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       baseUrl = '@SystemContants.MainConectionAPI';
+        listFacebookID = [];
+
+        function deleteItemInArray(arr, item) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] === item) {
+                    arr.splice(i, 1);
+                    i--;
+                }
+            }
+        };
+
+        function findFacebookID(arr, item) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] === item) {
+                    return true;
+                }
+            }
+        };
+
+        function toggleButton() {
+            if (listFacebookID.length == 0) {
+                $('#unfollow').prop('disabled', true);
+                $('#follow').prop('disabled', true);
+            } else {
+                $('#unfollow').prop('disabled', false);
+                $('#follow').prop('disabled', false);
+            }
+        };
+
+        function addFacebookIDToArray(facebookID) {
+            if (!findFacebookID(listFacebookID, facebookID)) {
+                listFacebookID.push(facebookID);
+
+                console.log(listFacebookID)
+
+            } else {
+                deleteItemInArray(listFacebookID, facebookID);
+            }
+            toggleButton()
+        };
+
+        async function unfollow() {
+            
+            $('#unfollow').prop('disabled', true);
+            $('#fa-pause-circle').hide();
+            $('#unfollow-loader').show();
+            for (var i = 0; i < listFacebookID.length; i++) {
+                console.log(i)
+                await $.ajax({
+                    url: baseUrl + '/api/Posts/UnReported/' + listFacebookID[i] + '/',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        document.getElementById('msg').innerHTML =
+                            `
+                                        <button id="msgAlert" class="btn btn-primary btn-sm mb-2" style="background-color: #f5365c; " type="button" disabled>
+                                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                            Bỏ theo dõi thành công
+                                        </button>
+                                    `;
+                        setTimeout(function () { location.reload(); }, 200);
+                    },
+                    error: function () {
+                        console.log('Kết nối sever thất bại');
+                    },
+                });
+            }
+            $('#unfollow-loader').hide();
+            $('#fa-pause-circle').show();
+            location.reload();
+        };
+
+        async function viewPostDetail(postID) {
+            AddposId = [];
+            AddposIdne = [];
+            AddposId.push(postID)
+            AddposIdne.push(postID)
+            await $.ajax({
+                //url: 'https://localhost:44347/api/Home/GetPostByID/' + postID + '/',
+                url: baseUrl + '/api/Posts/GetPostByID/' + postID + '/',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data)
+                    $('#post-url').attr('href', data.postUrl).children('p').html(data.postUrl);
+                    $('#user-url').attr('href', data.userUrl).children('p').html(data.userUrl);
+
+                    $('#upload-time').html(data.uploadTime);
+                    $('#post-content').html(data.postContent);
+                    if (data.filePDF == '...' || data.filePDF == null || data.filePDF == "") {
+                        $('#pdf').attr('href', data.filePDF).hide();
+                        $('#title-pdf').html("Không có PDF")
+                    } else {
+                        $('#pdf').attr('href', data.filePDF).show();
+                        $('#title-pdf').html("Xem PDF")
+                    }
+                    $('#pdf').attr('href', data.filePDF);
+                    $('#crawled-time').html(data.crawledTime);
+                    $('#like').html(data.totalLikes);
+                    $('#comment').html(data.totalComment);
+                    $('#share').html(data.totalShare);
+                    $('#news-label').html(data.newsLabelName);
+
+                    if (data.report == 0) {
+                        $('#reprot-post').html("Đã lập báo cáo").prop('disabled', true)
+                        $('#sentiment-label').prop('disabled', true)
+
+                    } else {
+                        $('#reprot-post').html("Lập báo cáo").prop('disabled', false)
+                        $('#sentiment-label').prop('disabled', false)
+                    }
+                    if (data.image != 'None') {
+                        $('#image').attr('href', data.image).children('img').attr('src', data.image);
+                    }
+                    if (data.sentimentLabelID == 'NEG') {
+                        $('#sentiment-label').html(data.sentimentLabelName).addClass('label-danger');
+                        $('#reprot-post').show();
+                        $('#title-h4').css({
+                            'margin-left': '230px',
+                            'font-size': '28px',
+                            'font-weight': 'bold'
+                        })
+                        $('#sentiment-label').css({
+                            'font-size': '20px',
+                            'color': 'red'
+                        })
+                        $('#news-label').css({
+                            'font-size': '20px',
+                            'color': 'red'
+                        })
+                    } else if (data.sentimentLabelID == 'POS') {
+                        $('#sentiment-label').html(data.sentimentLabelName).addClass('label-success');
+                        $('#reprot-post').hide();
+                        $('#title-h4').css({
+                            'margin-left': '340px',
+                            'font-size': '28px',
+                            'font-weight': 'bold'
+                        })
+                        $('#sentiment-label').css({
+                            'font-size': '20px',
+                            'color': '#1E90FF'
+                        })
+                        $('#news-label').css({
+                            'font-size': '20px',
+                            'color': '#1E90FF'
+                        })
+                    } else {
+                        $('#sentiment-label').html(data.sentimentLabelName).addClass('label-primary');
+                        $('#reprot-post').hide();
+                        $('#title-h4').css({
+                            'margin-left': '340px',
+                            'font-size': '28px',
+                            'font-weight': 'bold'
+                        })
+                        $('#sentiment-label').css({
+                            'font-size': '20px',
+                            'color': '#008000'
+                        })
+                        $('#news-label').css({
+                            'font-size': '20px',
+                            'color': '#008000'
+                        })
+                    }
+                },
+                error: function () {
+                    alert('Lỗi kết nối đến server!');
+                }
+            });
+        }
+
+        function clearValidate() {
+            $("#add-facebook-url")[0].setCustomValidity('');
+        };
+
+        function cancelAdd() {
+            $("#add-facebook-name").val('');
+            $("#add-facebook-url").val('');
+            $("#add-facebook-type-id").val('PAGE');
+        }
+    </script>
+</main>
+

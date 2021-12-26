@@ -1,0 +1,253 @@
+﻿@using cFB.ViewModels.Common;
+@model PagedResult<cFB.ViewModels.Catalog.WatchLists.GetWatchListViewModel>;
+@using cFB.Data.Enums;
+<!DOCTYPE html>
+<html>
+<head>
+    @*<meta name="viewport" content="width=device-width" />*@
+    <link href="~/Content/css/layout.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
+    <link rel="stylesheet" href="~/Content/icon/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/Content/js/jquery.canvasjs.min.js"></script>
+    <link href="~/Content/css/select2.min.css" rel="stylesheet" />
+    <script src="~/Content/js/select2.min.js"></script>
+    <script src="~/Content/js/alert-message.js"></script>
+    <script src="~/Content/js/moment.js"></script>
+    <link href="~/iconfinder_analysis.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <title>@ViewBag.Title</title>
+    @*@Styles.Render("~/Content/css")*@
+    @*@Scripts.Render("~/bundles/modernizr")*@
+</head>
+<body>
+
+
+    <ul class="nav">
+        <li>
+            <a href="@Url.Action("WatchList", "Home")"><i class="fa fa-th-list"></i>Danh sách theo dõi</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Post", "Home")"><i class="fa fa-newspaper-o"></i>Danh sách bài viết</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Analysis", "Home")"><i class="fa fa-pie-chart"></i>Thống kê - Đánh giá</a>
+        </li>
+        <li>
+            <a href="#"><i class="fa fa-cog"></i>Cài đặt</a>
+        </li>
+    </ul>
+    <footer>
+        Copyright © 2020 Hai Bui. All Rights Reserved
+    </footer>
+    </div>
+    <div id="content">
+        <div id="header">
+            <ul>
+                <li>
+                    <a href="@Url.Action("ProcessLogout", "Account")">
+                        Đăng xuất&nbsp;
+                        <i class="fa fa-sign-out"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="https://drive.google.com/drive/folders/1mkPFRiaIApaKdRL5vmF_QgiqvnpXknhZ?usp=sharing" target="_blank">
+                        Download tool &nbsp;
+                        <i class="fa fa-download"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="main">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">Danh sách theo dõi</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                </div>
+                                <div class="col-sm-6" style="text-align:right">
+                                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#add-to-watch-list">Thêm mới&nbsp;<i class="fa fa-plus"></i></button>
+                                    <button class="btn btn-sm btn-success" id="follow" onclick="follow()" disabled>
+                                        Theo dõi&nbsp;
+                                        <i id="fa-plus-circle" class="fa fa-plus-circle"></i>
+                                        <div id="follow-loader" class="loader" style="float: right; margin-top: 1px; margin-left: 2px; margin-right: 1.34px" hidden></div>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" id="unfollow" onclick="unfollow()" disabled>
+                                        Hủy theo dõi&nbsp;
+                                        <i id="fa-pause-circle" class="fa fa-pause-circle"></i>
+                                        <div id="unfollow-loader" class="loader" style="float: right; margin-top: 1px; margin-left: 2px; margin-right: 1.34px" hidden></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <form method="post" action="@Url.Action("FilterWatchList", "Home")">
+                                    <label>
+                                        Loại:
+                                        <select class="form-control input-sm" id="facebook-type-id" name="facebookTypeID">
+                                            <option value="ALL">Tất cả</option>
+                                            <option value="PAGE">Trang</option>
+                                            <option value="GR">Nhóm công khai</option>
+                                            <option value="PGR">Nhóm kín</option>
+                                            <option value="USER">Cá nhân</option>
+                                        </select>
+                                        &nbsp;
+                                        Trạng thái
+                                        <select class="form-control input-sm" id="status" name="status">
+                                            <option value="ALL">Tất cả</option>
+                                            <option value="true">Đang theo dõi</option>
+                                            <option value="false">Hủy theo dõi</option>
+                                        </select>
+                                        <input type="submit" class="btn btn-sm btn-primary" value="OK" />
+                                    </label>
+                                </form>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTables-example" role="grid">
+                                        <thead>
+                                            <tr role="row">
+                                                <th rowspan="1" colspan="1" style="width: 30px"></th>
+                                                <th rowspan="1" colspan="1" style="width: 200px">ID</th>
+                                                <th rowspan="1" colspan="1" style="width: 350px">Tên</th>
+                                                <th rowspan="1" colspan="1" style="width: 650px">URL</th>
+                                                <th rowspan="1" colspan="1" style="width: 150px; text-align: center">Loại</th>
+                                                <th rowspan="1" colspan="1" style="width: 150px; text-align: center">Trạng thái</th>
+                                                <th rowspan="1" colspan="1" style="width: 60px; text-align: center">Sửa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Items)
+                                            {
+                                                <tr role="row">
+                                                    <td>
+                                                        <input type="checkbox" id="@item.FaceBookID" name="SelectPost" class="checkbox" onchange="addFacebookIDToArray('@item.FaceBookID')" style="margin-bottom: 1px; cursor: pointer" />
+                                                    </td>
+                                                    <td>@item.FaceBookID</td>
+                                                    <td>@item.FaceBookName</td>
+                                                    <td>
+                                                        <a href="@item.FaceBookUrl" target="_blank">@item.FaceBookUrl</a>
+                                                    </td>
+                                                    <td style="text-align: center">@item.FaceBookTypeName</td>
+                                                    @if (item.Status == Status.Activate)
+                                                    {
+                                                        <td style="text-align: center"><span class="label">Đang theo dõi</span></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="text-align: center"><span class="label label-default">Hủy theo dõi</span></td>
+                                                    }
+                                                    <td style="text-align: center">
+                                                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-item-watch-list" onclick="editItemInWatchList('@item.FaceBookID')">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="add-to-watch-list" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="@Url.Action("AddToWatchList", "Home")">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Thêm đối tượng mới</h4>
+                            <button type="button" class="close" data-dismiss="modal" onclick="cancelAdd()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Tên</label>
+                                <input type="text" class="form-control" id="add-facebook-name" name="FacebookName" maxlength="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>URL</label>
+                                <input type="text" class="form-control" id="add-facebook-url" name="FacebookUrl" onkeypress="clearValidate()" maxlength="200" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Loại</label>
+                                <select class="form-control" id="add-facebook-type-id" name="FacebookTypeID">
+                                    <option value="PAGE">Trang</option>
+                                    <option value="GR">Nhóm công khai</option>
+                                    <option value="PGR">Nhóm kín</option>
+                                    <option value="USER">Cá nhân</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelAdd()">Hủy</button>
+                            <button type="submit" class="btn btn-primary" onclick="checkValidUrl()">Thêm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="edit-item-watch-list" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" , action="@Url.Action("UpdateToWatchList", "Home")">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Sửa thông tin đối tượng</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>ID</label>
+                                <input type="text" class="form-control" id="edit-facebook-id" name="FacebookID" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Tên</label>
+                                <input type="text" class="form-control" id="edit-facebook-name" name="FacebookName" maxlength="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Loại</label>
+                                <select class="form-control" id="edit-facebook-type-id" name="FacebookTypeID">
+                                    <option value="PAGE">Trang</option>
+                                    <option value="GR">Nhóm công khai</option>
+                                    <option value="PGR">Nhóm kín</option>
+                                    <option value="USER">Cá nhân</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Trạng thái</label>
+                                <div class="form-inline">
+                                    <label class="radio-inline">
+                                        <input type="radio" class="radio-inline" id="status1" name="Status" value="true" />Đang theo dõi
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" class="radio-inline" id="status0" name="Status" value="false" />Bỏ theo dõi
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+                            <input type="submit" class="btn btn-primary" value="Lưu">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

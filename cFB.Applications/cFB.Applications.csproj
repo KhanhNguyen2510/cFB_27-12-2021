@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\cFB.Data\cFB.Data.csproj" />
+    <ProjectReference Include="..\cFB.Utilities\cFB.Utilities.csproj" />
+    <ProjectReference Include="..\cFB.ViewModels\cFB.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

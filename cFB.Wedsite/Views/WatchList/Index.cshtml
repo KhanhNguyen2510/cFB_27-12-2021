@@ -1,0 +1,404 @@
+﻿@using cFB.ViewModels.Common;
+@model PagedResult<cFB.ViewModels.Catalog.WatchLists.GetWatchListViewModel>;
+@using cFB.Data.Enums;
+@using cFB.Utilities.Constants;
+
+@{ ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+<main>
+
+    <!--<link href="/assets/img/brand/favicon.png" rel="icon" type="image/png">-->
+    <link href="/assets/vendor/nucleo/css/nucleo.min.css" rel="stylesheet">
+    <link type="text/css" href="/assets/css/argon.min.css" rel="stylesheet">
+
+    <script>
+        setTimeout(function () {
+            $('#msgAlert').fadeOut('slow');
+        }, 1700);
+    </script>
+    <style>
+        #msg {
+            position: absolute;
+            padding-left: 72%;
+            padding-top: 83px;
+        }
+    </style>
+    @if (ViewBag.SuccessMsg != null)
+    {
+        <div class="row" id="msg">
+            <button id="msgAlert" class="btn btn-primary btn-sm mb-2" disabled>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                @ViewBag.SuccessMsg
+            </button>
+        </div>
+    }
+
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Danh sách đối tượng giám sát</h1>
+
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active ">Quản lý thông tin</li>
+            <li class="breadcrumb-item">Danh sách theo dõi</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-clipboard-list"></i> Danh mục tìm kiếm
+                <div class="panel-heading" style="padding-top:20px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <form method="get" style="text-align:left; display:flex" asp-controller="WatchList" asp-action="Index">
+                                <label>
+                                    Loại URL:
+                                    <svg class="svg-inline--fa fa-caret-down fa-w-10" style=" position: absolute; margin: 36px 0 0 62px;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg><!-- <i class="fas fa-caret-down" style=" position: absolute; margin: 36px 0 0 96px;"></i> Font Awesome fontawesome.com -->
+                                    <select class="form-control input-sm" id="facebook-type-id" name="facebookTypeID" onchange="this.form.submit()" asp-items="@ViewBag.FaceBookTypeID" style="width:150px; height:40px">
+                                        <option></option>
+                                    </select>
+                                </label>
+                                <label style="margin-left: 15px;">
+                                    Trạng thái :<svg class="svg-inline--fa fa-caret-down fa-w-10" style="position: absolute; margin: 36px 0 0 42px;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg><!-- <i class="fas fa-caret-down" style="position: absolute; margin: 36px 0 0 42px;"></i> Font Awesome fontawesome.com -->
+                                    <select class="form-control input-sm" id="status" onchange="this.form.submit()" asp-items="@ViewBag.Status" name="status" style="width:140px; height:40px">
+                                        <option></option>
+                                    </select>
+                                </label>
+                                <button type="button" onclick="window.location.href='/WatchList/Index'" class="btn btn-dark" style="width: 60px; padding: 0; margin: 23px 0 0 10px; height: 41px; background-color: #5e72e4; color: white;border:none">Reset</button>
+                            </form>
+                            <div class="col-sm-9 form-inline" style="height: 30px">
+                                <form method="get" style="text-align:left; display:flex" action="/WatchList">
+                                    <p style="margin: 10px 22px 0 -15px;">Số trang:</p>
+                                    <input type="text" class="form-control border-0 ps-3" value="@ViewBag.PageSize" name="pageSize" placeholder="Nhập..." style="background: #eee9e9; margin: 5px 10px 0 -15px; width: 60px; height: 35px; ">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" style="text-align: right;padding-top:31px">
+                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#add-to-watch-list" style="font-size:15px">
+                                Thêm mới&nbsp;&nbsp;<i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-success" id="follow" onclick="follow()" style="font-size:15px" disabled="">
+                                Theo dõi&nbsp;
+                                <svg id="fa-plus-circle" class="svg-inline--fa fa-plus-circle fa-w-16" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="plus-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"></path></svg><!-- <i id="fa-plus-circle" class="fa fa-plus-circle"></i> Font Awesome fontawesome.com -->
+                                <div id="follow-loader" class="loader" style="float: right; margin-top: 1px; margin-left: 2px; margin-right: 1.34px" hidden=""></div>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" id="unfollow" onclick="unfollow()" style="font-size:15px" disabled="">
+                                Hủy theo dõi&nbsp;
+                                <i class="fas fa-minus-circle"></i>
+                                <div id="unfollow-loader" class="loader" style="float: right; margin-top: 1px; margin-left: 2px; margin-right: 1.34px" hidden=""></div>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card">
+            <style>
+
+
+                table tr {
+                    counter-increment: Rownumber;
+                }
+
+                table td:first-child + td::before {
+                    content: counter(Rownumber);
+                    min-width: 1em;
+                    margin-right: 0.5rem;
+                }
+            </style>
+            <div class="table-responsive">
+                <table id="" class="table align-items-center mb-0" role="grid" style="margin-bottom:10px">
+
+                    <thead>
+                        <tr role="row">
+
+                            <th>
+                                @*<input type="checkbox" id="select-all-post" class="checkbox" style="margin-bottom: 3px; cursor: pointer" />*@
+                            </th>
+                            <th rowspan="1" colspan="1" style="width: 200px; text-align: center;">STT</th>
+                            <th rowspan="1" colspan="1" style="width: 200px; text-align: center;">Tên</th>
+                            <th rowspan="1" colspan="1" style="width: 350px; text-align: center; ">URL</th>
+                            <th rowspan="1" colspan="1" style="width: 200px; text-align: center;  ">Trạng thái</th>
+                            <th rowspan="1" colspan="1" style="width: 60px; text-align: center;  ">Loại</th>
+                            <th rowspan="1" colspan="1" style="width: 20px; text-align: center;  ">Thuộc</th>
+                            <th rowspan="1" colspan="1" style="width: 20px; text-align: center;  ">Sửa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+
+                                <td style="text-align: center; width: 5%; ">
+                                    <input type="checkbox" id="@item.FaceBookID" name="SelectPost" class="checkbox" onchange="addFacebookIDToArray('@item.FaceBookID')" style="margin-bottom: 10px; cursor: pointer" />
+                                </td>
+                                <td width="5%" style=" text-align:center;">
+                                </td>
+                                <td width="20%" style=" text-align:center ;max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    @Html.DisplayFor(modelItem => item.FaceBookName)
+                                </td>
+                                <td width="30%" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    <a href="@item.FaceBookUrl" target="_blank">@item.FaceBookUrl</a>
+                                </td>
+                                <td width="15%" style="text-align: center; ">
+                                    @Html.DisplayFor(modelItem => item.FaceBookTypeName)
+                                </td>
+                                @if (item.Status == Status.Activate)
+                                {
+                                    <td style="text-align: center; ">
+                                        <span class="badge badge-success">Đang theo dõi</span>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td style="text-align: center;">
+
+                                        <span class="badge badge-danger">Ngừng theo dõi</span>
+                                    </td>
+                                }
+                                <td width="10%" style="text-align: center; ">
+                                    @Html.DisplayFor(modelItem => item.AdministrativeDivisionName)
+                                </td>
+
+                                <td style="text-align: center; ">
+                                    <button class="btn btn-sm btn-outline-default" data-toggle="modal" data-target="#edit-item-watch-list" onclick="editItemInWatchList('@item.FaceBookID')" style="border:none">
+                                        <i class="fas fa-user-edit" style="font-size:18px"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="col-sm-6" style="margin:10px 0 0 0">
+                    <strong>Tổng cộng: @Model.TotalRecords</strong>
+
+                </div>
+                @await Component.InvokeAsync("Pager", Model)
+            </div>
+        </div>
+    </div>
+    <div id="add-to-watch-list" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin-top: 120px;">
+                <form method="post" enctype="multipart/form-data" action="/WatchList/Create">
+                    <div class="modal-header" style="border-bottom: 1px solid #ccc;">
+                        <h4 class="modal-title" style=" margin-left: 105px; font-size:25px; margin-top:4px">Thêm mới đối tượng</h4>
+                        <button type="button" class="close" data-dismiss="modal" onclick="cancelAdd()">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" name="FaceBookID" maxlength="100" hidden="">
+                            <label>Tên đối tượng :</label>
+                            <input type="text" class="form-control" id="add-facebook-name" name="FacebookName" maxlength="100" required="" style="font-size:15px">
+                        </div>
+                        <div class="form-group">
+                            <label>Đường dẫn đến đối tượng :</label>
+                            <input type="text" class="form-control" id="add-facebook-url" name="FacebookUrl" onkeypress="clearValidate()" maxlength="200" required="" style="font-size:15px">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="AdministrativeDivisionID" value="@User.Identity.Name" hidden="" style="font-size:15px">
+                        </div>
+                        <div class="form-group">
+                            <label>Định dạng loại URL :</label>
+                            <select class="form-control" id="add-facebook-type-id" name="FaceBookTypeID" style="font-size: 16px; padding: 7px;">
+                                <option value="PAGE">Trang</option>
+                                <option value="GR">Nhóm công khai</option>
+                                <option value="CGR">Nhóm kín</option>
+                                <option value="USER">Cá nhân</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: 1px solid #ccc;">
+                        <button type="submit" class="btn btn-primary" onclick="checkValidUrl()">Thêm</button>
+                    </div>
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8FL67Z1SjLdDsTvawd6QFin6pzRv7oNzwoY5-SOkjGcsL8yjXBkugNKC8lNDyFNQnLjMi7kDYnYeuEqykORpj_FsmSQwfCK_vxWT7Frrx4CXOD8b5xRY91sXY5ozSssCyNQhXMp_yEC019egpZ5NnmW3vxOUp_VITGaUtOpALNaIbtIr1s4biirhNtQ-svnKeg">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="edit-item-watch-list" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" enctype="multipart/form-data" action="/WatchList/Update">
+                    <div class="modal-header" style="border-bottom: 1px solid #ccc;">
+                        <h4 class="modal-title" style=" margin-left: 52px; font-size:25px">Cập nhật thông tin đối tượng</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Mã đối tượng :</label>
+                            <input type="text" style="color:red" class="form-control" id="edit-facebook-id" name="FacebookID" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <label>Tên :</label>
+                            <input type="text" class="form-control" id="edit-facebook-name" name="FacebookName" maxlength="100" required="" style="font-size:15px">
+                        </div>
+                        <div class="form-group">
+                            <label>Định dạng loại URL :</label>
+                            <select class="form-control" id="edit-facebook-type-id" name="FacebookTypeID" style="font-size: 16px; padding: 7px;">
+                                <option value="PAGE">Trang</option>
+                                <option value="GR">Nhóm công khai</option>
+                                <option value="CGR">Nhóm kín</option>
+                                <option value="USER">Cá nhân</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: 1px solid #ccc;">
+
+                        <input type="submit" class="btn btn-primary" value="Cập nhật">
+                    </div>
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8FL67Z1SjLdDsTvawd6QFin6pzRv7oNzwoY5-SOkjGcsL8yjXBkugNKC8lNDyFNQnLjMi7kDYnYeuEqykORpj_FsmSQwfCK_vxWT7Frrx4CXOD8b5xRY91sXY5ozSssCyNQhXMp_yEC019egpZ5NnmW3vxOUp_VITGaUtOpALNaIbtIr1s4biirhNtQ-svnKeg">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       baseUrl = '@SystemContants.MainConectionAPI';
+        listFacebookID = [];
+
+        function deleteItemInArray(arr, item) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] === item) {
+                    arr.splice(i, 1);
+                    i--;
+                }
+            }
+        };
+
+        function findFacebookID(arr, item) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] === item) {
+                    return true;
+                }
+            }
+        };
+
+        function toggleButton() {
+            if (listFacebookID.length == 0) {
+                $('#unfollow').prop('disabled', true);
+                $('#follow').prop('disabled', true);
+            } else {
+                $('#unfollow').prop('disabled', false);
+                $('#follow').prop('disabled', false);
+            }
+        };
+
+        function addFacebookIDToArray(facebookID) {
+            if (!findFacebookID(listFacebookID, facebookID)) {
+                listFacebookID.push(facebookID);
+
+                console.log(listFacebookID)
+
+            } else {
+                deleteItemInArray(listFacebookID, facebookID);
+            }
+            toggleButton()
+        };
+
+        async function unfollow() {
+            $('#unfollow').prop('disabled', true);
+            $('#fa-pause-circle').hide();
+            $('#unfollow-loader').show();
+            for (var i = 0; i < listFacebookID.length; i++) {
+                await $.ajax({
+                    url: baseUrl + '/api/WatchList/Unfollow/' + listFacebookID[i] + '/',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        //document.getElementById('msg').innerHTML =
+                        //    `
+                        //    <div class="row" id="msg">
+                        //        <button id="msgAlert" class="btn btn-primary btn-sm mb-2" style="background-color: #f5365c;" disabled>
+                        //            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        //            Bỏ theo dõi thành công
+                        //        </button>
+                        //    </div>
+                        //   `;
+                        /*setTimeout(function () { location.reload(); }, 200);*/
+
+                        location.reload();
+                    },
+                    error: function () {
+                        console.log('Kết nối sever thất bại');
+                    },
+                });
+            }
+            $('#unfollow-loader').hide();
+            $('#fa-pause-circle').show();
+            location.reload();
+        };
+
+        async function follow() {
+            $('#follow').prop('disabled', true);
+            $('#fa-plus-circle').hide();
+            $('#follow-loader').show();
+            for (var i = 0; i < listFacebookID.length; i++) {
+                await $.ajax({
+                    url: baseUrl + '/api/WatchList/Follow/' + listFacebookID[i] + '/',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        //document.getElementById('msg').innerHTML =
+                        //    `
+                        //    <div class="row" id="msg">
+                        //        <button id="msgAlert" class="btn btn-primary btn-sm mb-2" style="background-color: #2dce89;" disabled>
+                        //            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        //            Theo dõi thành công !
+                        //        </button>
+                        //    </div>
+                        //            `;
+                        /*setTimeout(function () { location.reload(); }, 200);*/
+                        location.reload();
+                    },
+                    error: function () {
+                        alert('Kết nối với sever thất bại');
+                    },
+                });
+            }
+            $('#follow-loader').hide();
+            $('#fa-plus-circle').show();
+        }
+
+
+
+        async function editItemInWatchList(FacebookID) {
+            await $.ajax({
+                url: baseUrl + '/api/WatchList/GetWatchListItemByID/' + FacebookID + '/',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $("#edit-facebook-id").val(data.faceBookID)
+                    $("#edit-facebook-name").val(data.faceBookName);
+                    $("#edit-facebook-type-id").val(data.faceBookTypeID);
+                },
+                error: function () {
+                    alert('Lỗi kết nối đến server!');
+                }
+            });
+        }
+
+        function checkValidUrl() {
+            var facebookUrl = $("#add-facebook-url");
+            var pattern = /^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i;
+            if (!pattern.test(facebookUrl.val())) {
+                facebookUrl[0].setCustomValidity('Link facebook không hợp lệ');
+            } else {
+                facebookUrl[0].setCustomValidity('');
+            }
+        };
+
+        function clearValidate() {
+            $("#add-facebook-url")[0].setCustomValidity('');
+        };
+
+        function cancelAdd() {
+            $("#add-facebook-name").val('');
+            $("#add-facebook-url").val('');
+            $("#add-facebook-type-id").val('PAGE');
+        }
+    </script>
+</main>
+   
+
+
+

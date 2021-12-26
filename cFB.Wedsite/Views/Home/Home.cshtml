@@ -1,0 +1,33 @@
+﻿@using cFB.ViewModels.Common;
+
+@model cFB.ViewModels.System.GetUserSeviceViewModel;
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<main>
+    <script>
+    setTimeout(function () {
+        $('#msgAlert').fadeOut('slow');
+    }, 1700);
+    </script>
+    @*Icons*@
+    <link href="/assets/vendor/nucleo/css/nucleo.min.css" rel="stylesheet"> @*Argon CSS*@
+    <link type="text/css" href="/assets/css/argon.min.css" rel="stylesheet">
+
+    <h1 style="padding: 25px;">Chào bạn trở lại @Model.AdministrativeDivisionName</h1>
+
+    @if (ViewBag.SuccessMsg != null)
+    {
+        <div id="msgAlert" class="alert alert-danger alert-dismissible fade show" style="position: absolute;width: 31rem;margin-left: 61rem;margin-top: -5rem;" role="alert">
+            <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i></span>
+            <span class="alert-text"><b style="font-size:16px">@ViewBag.SuccessMsg</b></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+
+</main>
+
+
+

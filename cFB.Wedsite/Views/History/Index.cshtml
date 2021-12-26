@@ -1,0 +1,182 @@
+﻿@using cFB.ViewModels.Common; 
+@model PagedResult<cFB.ViewModels.Catalog.Historys.GetHistoryViewModel>; 
+@using cFB.Data.Enums; 
+@using cFB.Utilities.Constants;
+@{ ViewData["Title"] = "Index"; Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+    <main>
+        @*Icons*@
+        <link href="/assets/vendor/nucleo/css/nucleo.min.css" rel="stylesheet"> @*Argon CSS*@
+        <link type="text/css" href="/assets/css/argon.min.css" rel="stylesheet">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Lịch sử thao tác</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active ">Quản lý thông tin</li>
+                <li class="breadcrumb-item">Lịch sử</li>
+            </ol>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-clipboard-list"></i> Danh mục tìm kiếm
+                    <div class="panel-heading" style="padding-top:20px">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form method="get" asp-controller="History" asp-action="Index" style="text-align:left; display:flex">
+                                    @if (@ViewBag.RoleOfUser == ShareContants.UserAdmin)
+                                    {
+                                        <label style="padding-right:5px">
+                                            Địa phương:
+                                            <select class="form-control input-sm" id="news-label-id" onchange="this.form.submit()" asp-items="@ViewBag.AdministrativeDivision" name="userId" style="width:195px; height:46px">
+                                                <option></option>
+                                            </select>
+                                            <i class="fas fa-caret-down" style=" position: absolute; margin: -30px 0 0 175px;"></i>
+                                        </label>
+                                    }
+                                        <label style="padding-right:5px">
+                                            Trạng thái:
+                                            <select class="form-control input-sm" id="news-label-id" onchange="this.form.submit()" asp-items="@ViewBag.Event" name="Event" style="width:165px; height:46px">
+                                                <option></option>
+                                            </select>
+                                            <i class="fas fa-caret-down" style=" position: absolute; margin: -30px 0 0 139px;"></i>
+                                        </label>
+                                        <label style="padding-right:5px">
+                                            &nbsp;
+                                            Từ ngày:
+                                            <input type="date" class="form-control input-sm" id="start-date" value="@ViewBag.StartDate" name="StartDate" />
+                                        </label>
+                                        <label>
+                                            &nbsp;
+                                            Đến ngày:
+                                            <input type="date" class="form-control input-sm" id="end-date" value="@ViewBag.EndDate" onchange="this.form.submit()" name="EndDate" />
+                                        </label>
+                                        <button type="button" onclick="window.location.href='/History/Index'" class="btn btn-dark" style="height: 45px; width: 70px; margin: 25px 0 0 10px; padding: 0px; background-color: #5e72e4; border:none">Reset</button>
+                                    </form>
+                                <div class="page" style="float:right;margin:-46px 0 0 0">
+                                    <form method="get" asp-controller="History" asp-action="Index" style="text-align:left; display:flex">
+                                        <p style=" margin: 9px 25px 0 185px;">Số trang:</p>
+                                        <input type="text" class="form-control border-0 ps-3" value="@ViewBag.PageSize" name="pageSize" placeholder="Nhập..." style="background: #eee9e9; margin: 4px 10px 0 -15px; width: 60px; height: 35px;">
+                                        @*<button class="btn btn-primary my-1 me-1" type="submit" style=" height: 33px; width: 48px; padding: 1px; color: white;">OK </button>*@
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card">
+                <style>
+
+
+                    table tr {
+                        counter-increment: Rownumber;
+                    }
+
+                    table td:first-child + td::before {
+                        content: counter(Rownumber);
+                        min-width: 1em;
+                        margin-right: 0.5rem;
+                    }
+                </style>    
+                <div class="table-responsive">
+                    <table id="" class="table align-items-center mb-0" role="grid">
+                        <thead>
+                            <tr role="row">
+                                <th aria-controls="dataTables-example" style="width: 1%; text-align: center;">
+                                    
+                                </th>
+                                <th style=" text-align: center;">STT</th>
+                                <th style=" text-align: center;">Địa phương thực hiện</th>
+                                <th style="text-align: center; ">Thao tác thực hiện</th>
+                                <th style="text-align: center; ">Thời gian</th>
+                                <th style="text-align: center; ">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr role="row">
+                                    <td style="text-align: center; width: 5%; ">
+                                        <input type="checkbox" id="@item.AdministrativeDivision_Id" name="SelectPost" class="checkbox" onchange="addPostIDToArray('@item.AdministrativeDivision_Id')" style="margin-bottom: 3px; cursor: pointer" />
+                                    </td>
+                                    <td width="5%" style=" text-align:center;">
+                                    </td>
+                                    <td style=" width: 9%; text-align: center; ">
+                                        <span><a>@item.AdministrativeDivision_Name</a></span>
+                                    </td>
+                                    <td style="text-align:center ;max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; ">
+                                        <span><a>@item.StatusHistory</a></span>
+                                    </td>
+                                    <td style="width: 13%; text-align: center; ">@item.Time.ToString("dd/MM/yyyy") (<a style="color: #f5365c">@item.Time.ToString("HH:mm:ss")</a>)</td>
+
+                                    @if (item.Event == Event.Create)
+                                    {
+                                        <td style="width: 10%; text-align: center; ">
+                                            @*<b style=" background-color: darkorange; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
+                                            <span class="badge badge-primary">Create</span>
+                                        </td>
+                                    }
+                                    else if (item.Event == Event.Update)
+                                    {
+                                        <td style="width: 10%; text-align: center; ">
+                                            @*<b style=" background-color: royalblue; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
+                                            <span class="badge badge-warning">Update</span>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="width: 10%; text-align: center;  ">
+                                            @*<b style=" background-color: green; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
+                                            <span class="badge badge-warning">Delete</span>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="col-sm-6" style="margin:10px 0 0 0">
+                        <strong>Tổng cộng: @Model.TotalRecords</strong>
+
+                    </div>
+                    @await Component.InvokeAsync("Pager", Model)
+                </div>
+            </div>
+        </div>
+
+        <script>
+            baseUrl = '@SystemContants.MainConectionAPI';
+            var listPostID = [];
+            async function deletePost() {
+                var listPost = [];
+                $('#delete-post').prop('disabled', true);
+                $('#fa-trash').hide();
+                $('#loader').show();
+                for (var i = 0; i < listPostID.length; i++) {
+                    var PostDTO = {
+                        AdministrativeDivisionId: listPostID[i]
+                    };
+                    listPost.push(PostDTO);
+                }
+                var dataToSend = JSON.stringify(listPost);
+                //console.log(dataToSend);
+                await $.ajax({
+                    //url: 'https://localhost:44347/api/Home/RemovePost/',
+                    url: baseUrl + 'api/Home/RemovePost/',
+                    type: 'post',
+                    data: dataToSend + ,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    success: function (data) {
+                        //console.log(data);
+                    },
+                    error: function () {
+                        console.log('connect failled');
+                    }
+                });
+                $('#loader').hide();
+                $('#fa-trash').show();
+                location.reload();
+            }
+        </script>
+    </main>

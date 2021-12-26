@@ -1,0 +1,108 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Quản lý thông tin</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" asp-controller="Home" asp-action="Home">Quản lý thông tin</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        </form>
+        <div><h4 style="color: whitesmoke; padding-top: 15px; ">Xin chào,  <strong>@User.Identity.Name</strong></h4></div>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-circle" style="font-size:35px"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    
+                    <li><a class="dropdown-item" asp-action="Index" asp-controller="User" style="font-weight:bold; text-align:center"><i class="fas fa-user-tag"></i>Danh sách tài khoản</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                        @*DESIGN LAI NUT THOAT*@
+                        <a class="dropdown-item">
+                            <form asp-controller="User" asp-action="Logout">
+                                <button type="submit" style="margin-left: 55px;font-size:15px;background-color: Transparent; background-repeat: no-repeat; border: none; cursor: pointer; overflow: hidden; font-weight:bold;"> Exit &nbsp;<i class="fas fa-sign-out-alt"></i></button>
+                            </form>
+                        </a>
+
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <a class="nav-link" asp-controller="Home" asp-action="Home" style="padding-top:30px">
+                            <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                            Trang chủ
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Quản lý thông tin</div>
+                        <a class="nav-link collapsed" asp-controller="WatchList" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="far fa-address-book"></i></div>
+                           Danh sách Theo dõi
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <a class="nav-link collapsed" asp-controller="Post" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                           Danh sách Bài viết
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <a class="nav-link collapsed" asp-controller="History" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-history"></i></div>
+                            Lịch sử
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <a class="nav-link collapsed" asp-controller="Report" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-file-export"></i></div>
+                            Bài viết báo cáo
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Biểu đồ đánh giá</div>
+                        <a class="nav-link" asp-controller="Analysis" asp-action="AnalysisAll">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-pie"></i></div>
+                            Báo cáo & thống kê
+                        </a>
+
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Copyright &copy; K.Nguyen</div>
+
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            @RenderBody();
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="/assets/demo/chart-area-demo.js"></script>
+    <script src="/assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="~/js/datatables-simple-demo.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+</body>
+</html>

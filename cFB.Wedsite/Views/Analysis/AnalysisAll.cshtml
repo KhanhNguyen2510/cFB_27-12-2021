@@ -1,0 +1,543 @@
+﻿@model cFB.Wedsite.Models.Analysis;
+@using cFB.Utilities.Constants;
+@{
+    ViewData["Title"] = "AnalysisAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*Argon CSS*@
+<link type="text/css" href="/assets/css/argon.min.css" rel="stylesheet">
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Báo cáo và thông kê thông tin</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Biểu đồ đáng giá</li>
+        <li class="breadcrumb-item">Báo cáo & thông kê</li>
+    </ol>
+
+    <div class="row" style="display:flex; justify-content:space-around">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="head" style="display: flex; justify-content: space-between;">
+                    <div class="icon" style="padding: 26px; font-size: 35px;"> <i class="fas fa-users-slash"></i></div>
+
+                    <div class="card-body" style="font-size: 13px; margin-top: 36px;margin-left:40px">Đối tượng đang theo dõi</div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+
+                    <a class="small text-white stretched-link" href="#" style="font-size: 47px; margin-top: -205px; margin-left: 181px; ">@Model.NumberOfWatchList</a>
+
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="head1" style="display: flex; justify-content: space-between;">
+                    <div class="icon1" style="padding: 22px; font-size: 40px;"><i class="fas fa-copy"></i></div>
+                    <div class="card-body" style="font-size: 13px; margin-top: 35px;margin-left:50px">Tổng hợp bài viết </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#" style="font-size: 47px; margin-top:-214px; margin-left:148px"> @Model.NumberOfPost</a>
+
+
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="head2" style="display: flex; justify-content: space-between;">
+                    <div class="icon2" style="padding: 19px; font-size: 44px;"><i class="fas fa-smile-beam"></i></div>
+                    <div class="card-body" style="font-size: 13px; margin-top: 36px;margin-left:66px">Bài viết tích cực</div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#" style="font-size: 47px; color: red; margin-top: -214px; margin-left: 180px;"> @Model.NumberOfPositivePost</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6" style="margin-left: 1px;">
+            <div class="card bg-danger text-white mb-4">
+                <div class="head3" style="display: flex; justify-content: space-between;">
+                    <div class="icon3" style="padding: 19px; font-size: 45px;">
+                        <i class="fas fa-angry"></i>
+                    </div>
+                    <div class="card-body" style="font-size: 13px; margin-top: 36px; margin-left:65px">Bài viết tiêu cực</div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#" style="font-size: 47px; color: red; margin-top:-214px; margin-left:150px"> @Model.NumberOfNegativePost</a>
+
+
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-default text-white mb-4">
+                <div class="head3" style="display: flex; justify-content: space-between;">
+                    <div class="icon3" style="padding: 19px; font-size: 45px;">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="card-body" style="font-size: 13px; margin-top: 36px; margin-left:42px">Bài viết chưa đánh giá</div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#" style="font-size: 47px; color: red; margin-top:-214px; margin-left:150px"> @Model.NumberOfUnReported</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-cyan text-white mb-4">
+                <div class="head3" style="display: flex; justify-content: space-between;">
+                    <div class="icon3" style="padding: 19px; font-size: 45px;">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="card-body" style="font-size: 13px; margin-top: 36px; margin-left:33px">Bài viết đã đánh giá</div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#" style="font-size: 47px; color: red; margin-top:-213px; margin-left:180px"> @Model.NumberOfReported</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="card mb-4 header1" id="myHeader" >
+        <style>
+            .header1 {
+                
+              
+                z-index:1;
+            }
+
+
+            .sticky {
+                position: fixed;
+                top: 60px;
+               width:100%;
+               left:240px;
+               right:0;
+               border:5px solid #f0f8ff;
+            }
+
+        </style>
+        <div class="card-header">
+            <i class="fas fa-chart-line"></i> Danh mục thống kê
+            <div class="row" style="padding-bottom: 20px; padding-top:20px">
+                <form method="get" asp-controller="Analysis" asp-action="AnalysisAll">
+                    <div class="row">
+                        <div class="col-3">
+                            Đối tượng theo dõi :
+                            <select class="form-control input-sm" id="news-label-id" onchange="this.form.submit()" asp-items="@ViewBag.WatchList" name="facebookID" style="width: 330px; height: 50px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                <option></option>
+                            </select>
+                            <i class="fas fa-caret-down" style=" position: absolute; margin: -30px 0 0 298px;"></i>
+                        </div>
+                        <div class="col-3">
+                            Địa phương:
+                            <select class="form-control input-sm" id="news-label-id" onchange="this.form.submit()" asp-items="@ViewBag.AdministrativeDivision" name="userId" style="width: 330px; height: 50px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size:18px ">
+                                <option></option>
+                            </select>
+                            <i class="fas fa-caret-down" style="position: absolute; margin: -30px 0 0 298px; "></i>
+                        </div>
+                        <div class="col-2" style="padding-top: 15px;">
+                            <p style="margin: 10px 7px 0 0;"></p>
+                            <input type="text" placeholder="Nhập từ khóa cần tìm..." class="form-control border-0 ps-3" value="@ViewBag.KeyWord" name="keyword" style="background: #eee9e9; height: 45px; width: 260px; position: absolute;" />
+                            <button class="btn" type="submit" style="height: 45px; width: 50px;  color: black; border: none; padding: 12px; margin-left: 13rem; "><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.ListPostByID != null && ViewBag.ListPostByID != 0)
+    {
+        <div class="row">
+            <ol class="breadcrumb mb-4">
+
+                <li class="breadcrumb-item active"><h2><u>Đối tượng theo dõi</u> :</h2></li>
+                <li><h2><a style="color: #fb6340">&ensp; @ViewBag.FacebookName </a></h2></li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card-header">
+                    <h4 class="card-title" style="text-align:center; font-size:22px"> Biểu đồ hình tròn thống kê - đánh giá mức độ của đối tượng <a style="color:red">( @ViewBag.FacebookName )</a></h4>
+                    <div id="donutchart" style=" height: 500px;width:655px;"></div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card-header">
+                    <h4 class="card-title" style="text-align: center; font-size: 22px"> Biểu đồ hình cột thống kê - đánh giá mức độ của đối tượng &nbsp; <a style="color:#f5365c">( @ViewBag.FacebookName )</a> </h4>
+                    <div id="columnchart_material"></div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        @if (@ViewBag.TopInteractive.Count > 0)
+        {
+            <style>
+
+                table tr {
+                    counter-increment: rowNumber;
+                }
+
+                    table tr td:first-child::before {
+                        content: counter(rowNumber);
+                        min-width: 1em;
+                        margin-right: 0.5em;
+                    }
+            </style>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col" style=" width:100%">
+                        <div><h2 style="text-align: center;padding: 30px 0px 20px 0px;">Thông tin các bài viết của đối tượng <a style="color:#f5365c"> @ViewBag.FacebookName </a> có lượng tương tác cao nhất</h2></div>
+                        <table class="table">
+                            <thead class="table-success">
+                                <tr>
+                                    <th style="width: 25%; text-align: center; color: red; font-size: 18px; ">STT</th>
+                                    <th style="width: 25%; text-align:center;color:red; font-size:18px">URL</th>
+                                    <th style="width: 25%; text-align: center; color: red; font-size: 18px">Thích</th>
+                                    <th style="width: 25%; text-align: center; color: red; font-size: 18px">Bình luận</th>
+                                    <th style="width: 25%; text-align: center; color: red; font-size: 18px">Chia sẻ</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in ViewBag.TopInteractive)
+                                {
+
+                                    <tr>
+                                        <td style="text-align: center; font-size: 18px;">
+                                        </td>
+                                        <td style="text-align: center; font-size: 18px;  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; ">
+                                            <a href="@item.PostUrl" target="_blank">@item.PostUrl</a>
+                                        </td>
+                                        <td style="text-align:center; font-size:18px">@item.TotalLikes</td>
+                                        <td style="text-align: center; font-size: 18px">@item.TotalComment</td>
+                                        <td style="text-align: center; font-size: 18px">@item.TotalShare</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        <div class="row">
+            <ol class="breadcrumb mb-4">
+
+                <li class="breadcrumb-item active"><h2>Đối tượng @ViewBag.FacebookName này chưa có thông tin !</h2></li>
+
+            </ol>
+        </div>
+    }
+
+    @if (ViewBag.UserId != null)
+    {
+        <style>
+
+
+            table tr {
+                counter-increment: rowNumber;
+            }
+
+                table tr td:first-child::before {
+                    content: counter(rowNumber);
+                    min-width: 1em;
+                    margin-right: 0.5em;
+                }
+        </style>
+        <div class="row">
+            <ol class="breadcrumb mb-4" style="margin-top: 2%;">
+
+                <li class="breadcrumb-item active"><h2><u>Địa phương</u>:</h2></li>
+                <li><h2><a style="color: #fb6340">&ensp;@ViewBag.AdministrativeDivisionName </a></h2></li>
+            </ol>
+        </div>
+        <h1></h1>
+
+        <div class="bieudo" style="text-align: center; font-size: 23px;"><b>Biểu đồ ngang thống kê số lượng bài đăng đã và chưa báo cáo của địa phương <a style="color:#f5365c"> @ViewBag.AdministrativeDivisionName </a></b></div>
+        @if (ViewBag.ListPostByID == null)
+        {
+            <div id="barchart_values" style="width: 100%; height: 25%"></div>
+        }
+        else if (ViewBag.ListPostByID == 0)
+        {
+            <div id="barchart_values" style="width: 100%; height: 25%"></div>
+        }
+        else if (ViewBag.Keyword == null)
+        {
+            <div id="barchart_values" style="width: 100%; height: 13%"></div>
+        }
+        else
+        {
+            <div id="barchart_values" style="width: 100%; height: 11%"></div>
+        }
+
+        @if (@ViewBag.TopReport.Count > 0)
+        {
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col" style=" width:100%;">
+                        <div><h1 style="text-align: center;padding: 30px 0px 20px 0px;">Thông tin một số bài viết của <a style="color:#f5365c"> @ViewBag.AdministrativeDivisionName </a> được đánh giá gần đây</h1></div>
+
+                        <table class="table">
+                            <thead class="table-success">
+                                <tr>
+                                    <th style="width: 25%; text-align:center;color:red; font-size:18px">STT</th>
+                                    <th style="width: 25%; text-align:center;color:red; font-size:18px">URL</th>
+                                    <th style="width: 25%; text-align: center; color: red; font-size: 18px">Thích</th>
+                                    <th style="width: 25%; text-align: center; color: red; font-size: 18px">Bình luận</th>
+                                    <th style="width: 25%; text-align: center; color: red; font-size: 18px">Chia sẻ</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in ViewBag.TopReport)
+                                {
+
+                                    <tr class="tr1">
+                                        <td style="text-align: center; font-size: 18px; ">
+                                        </td>
+                                        <td style="text-align: center; font-size: 18px">
+                                            <a href="@item.PostUrl" target="_blank">@item.PostUrl</a>
+                                        </td>
+                                        <td style="text-align:center; font-size:18px">@item.TotalLikes</td>
+                                        <td style="text-align: center; font-size: 18px">@item.TotalComment</td>
+                                        <td style="text-align: center; font-size: 18px">@item.TotalShare</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="row">
+            <ol class="breadcrumb mb-4">
+
+                <li class="breadcrumb-item active"><h2>Địa phương @ViewBag.AdministrativeDivisionName này chưa có thông tin !</h2></li>
+
+            </ol>
+        </div>
+    }
+
+    @if (ViewBag.KeyWord != null)
+    {
+        <style>
+
+
+            table tr {
+                counter-increment: rowNumber;
+            }
+
+                table tr td:first-child::before {
+                    content: counter(rowNumber);
+                    min-width: 1em;
+                    margin-right: 0.5em;
+                }
+        </style>
+        <div class="row">
+            <ol class="breadcrumb mb-4">
+
+                <li class="breadcrumb-item active"><h2> <u>Nội dung tìm kiếm</u> :</h2></li>
+                <li><h2><a style="color: #fb6340"> &nbsp; @ViewBag.Keyword </a></h2></li>
+            </ol>
+        </div>
+
+        <div class="row" style="flex-direction:column;">
+            <div class="col-12">
+                <div class="card-header" style="margin-bottom:30px; text-align:center">
+                    <h4 class="card-title" style="text-align:center; font-size:25px"> Biểu đồ hình tròn thống kê - đánh giá mức độ của từ khóa tìm kiếm <a style="color:#f5365c"> @ViewBag.Keyword </a></h4>
+                    <div id="donutchart1" style=" height: 500px;width:655px; display:inline-block"></div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card-header">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col">
+                                <div><h1 style="text-align: center;padding: 30px 0px 20px 0px;">Các bài viết phù hợp với  từ khóa<a style="color:#f5365c"> @ViewBag.Keyword </a> được lấy  về gần đây</h1></div>
+                                <table class="table">
+                                    <thead class="table-success">
+                                        <tr>
+                                            <th style="width: 25%; text-align: center; color: red; font-size: 18px; ">STT</th>
+                                            <th style="width: 25%; text-align:center;color:red; font-size:18px">URL</th>
+                                            <th style="width: 25%; text-align: center; color: red; font-size: 18px">Thích</th>
+                                            <th style="width: 25%; text-align: center; color: red; font-size: 18px">Bình luận</th>
+                                            <th style="width: 25%; text-align: center; color: red; font-size: 18px">Chia sẻ</th>
+                                            @*<th style="width: 25%; text-align: center; color: red; font-size: 18px">Xem</th>*@
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        @foreach (var item in ViewBag.ListPostByKeyWord)
+                                        {
+
+                                            <tr>
+                                                <td style="text-align: center; font-size: 18px;">
+                                                </td>
+                                                <td style=" font-size: 18px; text-align:center ">
+                                                    <a href="@item.PostUrl" target="_blank">@item.PostUrl</a>
+                                                </td>
+                                                <td style="text-align:center; font-size:18px">@item.TotalLikes</td>
+                                                <td style="text-align: center; font-size: 18px">@item.TotalComment</td>
+                                                <td style="text-align: center; font-size: 18px">@item.TotalShare</td>
+                                                @*<td width="5%" style="text-align: center; ">
+                                                    <button id="btn-view-post-detail" class="btn " data-toggle="modal" data-target="#view-post-detail" onclick="viewPostDetail('@item.PostUrl')">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </button>
+                                                </td>*@
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    }
+
+
+</div>
+
+        <style>
+            #chartdiv {
+                width: 100%;
+                height: 500px;
+            }
+        </style>
+        <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script>
+
+    baseUrl = '@SystemContants.MainConectionAPI';
+
+    google.charts.load("current", { packages: ["corechart"] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Tích cực', @ViewBag.POS],
+            ['Tiêu cực', @ViewBag.NEG],
+            ['Bình thường', @ViewBag.NEU]
+        ]);
+
+        var options = {
+            pieHole: 0.4,
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+            }
+
+    google.charts.load("current", { packages: ["corechart"] });
+    google.charts.setOnLoadCallback(drawChart11);
+    function drawChart11() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Tích cực', @ViewBag.KeyWordPOS],
+            ['Tiêu cực', @ViewBag.KeyWordNEU],
+            ['Bình thường', @ViewBag.KeyWordNEG]
+        ]);
+
+        var options = {
+            pieHole: 0.4,
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart1'));
+        chart.draw(data, options);
+        }
+
+                google.charts.load('current', { 'packages': ['bar'] });
+    google.charts.setOnLoadCallback(drawChart1);
+    function drawChart1() {
+        var data = google.visualization.arrayToDataTable([
+            ['Genre', 'Tích cực', 'Tiêu cực', 'Bình thường', { role: 'annotation' }],
+            ['An ninh trật tự', @ViewBag.ANQGPOS, @ViewBag.ANQGNEG, @ViewBag.ANQGNEU, ''],
+            ['An ninh quốc gia', @ViewBag.ANTTPOS, @ViewBag.ANTTNEG, @ViewBag.ANTTNEU, '']
+        ]);
+
+        var options = {
+            isStacked: 'percent',
+            width: 650,
+            height: 500,
+            legend: { position: 'top', maxLines: 3 },
+            bar: { groupWidth: '30%' },
+            vAxis: {
+                minValue: 0,
+                ticks: [0, .3, .6, .9, 1]
+            }
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_material"));
+        chart.draw(data, options);
+        }
+
+    google.charts.setOnLoadCallback(drawChart123);
+    function drawChart123() {
+        var data = google.visualization.arrayToDataTable([
+
+            ["Element", "Số lượng", { role: "style" }],
+            ["Đã báo cáo", @ViewBag.GetCountReportedByUser, "#FA8072"],
+            ["Chưa báo cáo", @ViewBag.GetCountUnReportedByUser, "#90EE90"]
+        ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+            {
+                calc: "stringify",
+                sourceColumn: 1,
+                type: "string",
+                role: "annotation"
+            },
+            2]);
+
+        var options = {
+            height: 400,
+            bar: { groupWidth: "95%" },
+            legend: { position: "none" },
+        };
+        var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+        chart.draw(view, options);
+        }
+            window.onscroll = function () { myFunction() };
+
+            var header = document.getElementById("myHeader");
+            var sticky = header.offsetTop;
+
+            function myFunction() {
+                if (window.pageYOffset > sticky) {
+                    header.classList.add("sticky");
+                } else {
+                    header.classList.remove("sticky");
+                }
+            }
+        </script>
+
