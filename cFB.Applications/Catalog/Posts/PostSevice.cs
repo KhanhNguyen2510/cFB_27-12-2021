@@ -31,7 +31,7 @@ namespace cFB.Applications.Catalog.Posts
             _reportsSevice = reportsSevice;
         }
         //Check
-        public async Task<bool> CheckExistPostStatus(string postUrl, string sentimentLabel_Id, string administrativeDivisionId)
+        public async Task<bool> CheckExistPostStatus(string postUrl, string sentimentLabel_Id, string administrativeDivisionId) //hay
         {
             try
             {
@@ -286,7 +286,7 @@ namespace cFB.Applications.Catalog.Posts
                 var data = await _context.Posts.SingleOrDefaultAsync(x => x.PostId == request.PostId);
                 var post = new Post()
                 {
-                    PostId = data == null ? AutoGenerate.PostRandomID(request.AdministrativeDivisionId) : request.PostId,
+                    PostId = data != null ? AutoGenerate.PostRandomID(request.AdministrativeDivisionId) : request.PostId,
                     UserUrl = request.UserUrl,
                     PostUrl = request.PostUrl,
                     PostContent = (request.PostContent == null || request.PostContent == "None") ? "..." : request.PostContent,

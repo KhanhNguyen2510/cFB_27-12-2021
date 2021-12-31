@@ -121,7 +121,7 @@ namespace cFB.BackEndAPI
             }
             app.UseCors(MyAllowSpecificOrigins);
 
-            app.UseHttpsRedirection();
+            
 
             app.UseAuthentication();
             app.UseRouting();

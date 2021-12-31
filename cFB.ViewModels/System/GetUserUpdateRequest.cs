@@ -11,7 +11,7 @@ namespace cFB.ViewModels.System
         public string AdministrativeDivisionName { get; set; }
 
         [Display(Name = "Số điện thoại")]
-        [RegularExpression("/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/", ErrorMessage = "Số điện thoại này không tồn tại")]
+        [RegularExpression(@"^((09(\d){8})|(086(\d){7})|(088(\d){7})|(089(\d){7})|(01(\d){9})|(02(\d){9}))$", ErrorMessage = "Số điện thoại này không tồn tại")]
         public string NumberPhone { get; set; }
 
         [Display(Name = "Địa chỉ")]
