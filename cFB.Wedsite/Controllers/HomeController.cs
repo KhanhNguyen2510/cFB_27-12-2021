@@ -1,15 +1,18 @@
-﻿using cFB.IntergrationAPI.Systems.Users;
+﻿using cFB.IntergrationAPI.Historys;
+using cFB.IntergrationAPI.Systems.Users;
 using cFB.Utilities.Constants;
 using cFB.ViewModels.System;
 using cFB.Wedsite.Messages;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,11 +23,15 @@ namespace cFB.Wedsite.Controllers
     {
         private readonly IUserApiSevice _userApiClient;
         private readonly IConfiguration _configuration;
+        private readonly IHistoryApiClient _historyApiClient;
 
-        public HomeController(IUserApiSevice userApiSevice, IConfiguration configuration)
+
+
+        public HomeController(IUserApiSevice userApiSevice, IConfiguration configuration,IHistoryApiClient historyApiClient)
         {
             _userApiClient = userApiSevice;
             _configuration = configuration;
+            _historyApiClient = historyApiClient;
         }
 
         [HttpGet]
@@ -62,6 +69,7 @@ namespace cFB.Wedsite.Controllers
                     return View();
                 }
                 var check = await _userApiClient.CheckRole(request.UserName);
+                await _historyApiClient.CreateHistoryClient(request.UserName);
                 TempData["Role"] = check.ManagerID;
                 TempData["name"] = request.UserName;
 
@@ -96,7 +104,6 @@ namespace cFB.Wedsite.Controllers
         public async Task<IActionResult> Home()
         {
             var user = User.Identity.Name;
-
             var data = await _userApiClient.GetUserById(user);
 
             if (TempData["result"] != null)

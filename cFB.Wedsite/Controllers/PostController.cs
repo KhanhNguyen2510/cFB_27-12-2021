@@ -46,6 +46,8 @@ namespace cFB.Wedsite.Controllers
 
         public async Task<IActionResult> Index(string userId, string search, string newsLabelID, string sentimentLabelID, string watchlistID, Reported? report, DateTime? timeCrawl, DateTime? startDate, DateTime? endDate, int pageIndex = 1, int pageSize = 100)
         {
+            Response.Headers.Add("Refresh", "15"); // reset sau 15 phút
+
             ShareContants.NumberPageVisits++;
             ViewBag.RoleOfUser = LoadRoleUser();
 
