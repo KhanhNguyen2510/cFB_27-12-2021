@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.13" />
+    <PackageReference Include="Microsoft.IdentityModel.Logging" Version="6.15.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\cFB.BackEndAPI\cFB.BackEndAPI.csproj" />
+    <ProjectReference Include="..\cFB.Data\cFB.Data.csproj" />
+    <ProjectReference Include="..\cFB.IntergrationAPI\cFB.IntergrationAPI.csproj" />
+    <ProjectReference Include="..\cFB.Utilities\cFB.Utilities.csproj" />
+    <ProjectReference Include="..\cFB.ViewModels\cFB.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

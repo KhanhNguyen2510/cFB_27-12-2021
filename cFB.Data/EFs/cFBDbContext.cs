@@ -23,6 +23,7 @@ namespace cFB.Data.EFs
             modelBuilder.ApplyConfiguration(new HistoryConfiguration());
             modelBuilder.ApplyConfiguration(new RoleManagersConfiguration());
             modelBuilder.ApplyConfiguration(new ReportsConfiguration());
+            modelBuilder.ApplyConfiguration(new HistoryClientConfiguration());
             modelBuilder.Seed();
         }
 
@@ -35,5 +36,6 @@ namespace cFB.Data.EFs
         public DbSet<History> Histories { get; set; }
         public DbSet<RoleManager> RoleManagers { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<HistoryClient> HistoryClients { get; set; }
     }
 }

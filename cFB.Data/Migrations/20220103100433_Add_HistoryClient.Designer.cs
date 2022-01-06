@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using cFB.Data.EFs;
 
 namespace cFB.Data.Migrations
 {
     [DbContext(typeof(cFBDbContext))]
-    partial class cFBDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220103100433_Add_HistoryClient")]
+    partial class Add_HistoryClient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +52,7 @@ namespace cFB.Data.Migrations
                     b.Property<DateTime>("TimeOnline")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2022, 1, 5, 11, 44, 27, 302, DateTimeKind.Local).AddTicks(6155));
+                        .HasDefaultValue(new DateTime(2022, 1, 3, 17, 4, 32, 905, DateTimeKind.Local).AddTicks(4067));
 
                     b.HasKey("AdministrativeDivisionId");
 
@@ -248,30 +250,23 @@ namespace cFB.Data.Migrations
 
             modelBuilder.Entity("cFB.Data.Entites.HistoryClient", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AdministrativeDivisionID")
-                        .HasColumnType("varchar(10)");
-
                     b.Property<string>("IPAddress")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("Time")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2022, 1, 3, 17, 4, 32, 926, DateTimeKind.Local).AddTicks(9539));
+
+                    b.Property<string>("AdministrativeDivisionID")
+                        .HasColumnType("varchar(10)");
 
                     b.Property<string>("NameMachine")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime>("Time")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 1, 5, 11, 44, 27, 325, DateTimeKind.Local).AddTicks(4015));
-
-                    b.HasKey("ID");
+                    b.HasKey("IPAddress", "Time", "AdministrativeDivisionID");
 
                     b.HasIndex("AdministrativeDivisionID");
 
@@ -402,7 +397,7 @@ namespace cFB.Data.Migrations
                     b.Property<DateTime>("CrawledTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2022, 1, 5, 11, 44, 27, 313, DateTimeKind.Local).AddTicks(2779));
+                        .HasDefaultValue(new DateTime(2022, 1, 3, 17, 4, 32, 915, DateTimeKind.Local).AddTicks(6823));
 
                     b.Property<string>("FaceBookId")
                         .HasColumnType("nvarchar(450)");
@@ -453,7 +448,7 @@ namespace cFB.Data.Migrations
                     b.Property<DateTime>("UploadTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2022, 1, 5, 11, 44, 27, 313, DateTimeKind.Local).AddTicks(2344));
+                        .HasDefaultValue(new DateTime(2022, 1, 3, 17, 4, 32, 915, DateTimeKind.Local).AddTicks(6467));
 
                     b.Property<string>("UserUrl")
                         .IsRequired()
@@ -484,7 +479,7 @@ namespace cFB.Data.Migrations
                     b.Property<DateTime>("DateReport")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 1, 5, 11, 44, 27, 323, DateTimeKind.Local).AddTicks(3892));
+                        .HasDefaultValue(new DateTime(2022, 1, 3, 17, 4, 32, 925, DateTimeKind.Local).AddTicks(5215));
 
                     b.Property<string>("FileReport")
                         .ValueGeneratedOnAdd()
@@ -794,7 +789,9 @@ namespace cFB.Data.Migrations
                 {
                     b.HasOne("cFB.Data.Entites.AdministrativeDivision", "AdministrativeDivisions")
                         .WithMany("HistoryClients")
-                        .HasForeignKey("AdministrativeDivisionID");
+                        .HasForeignKey("AdministrativeDivisionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AdministrativeDivisions");
                 });

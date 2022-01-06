@@ -8,6 +8,7 @@ using cFB.Utilities.Constants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,6 +50,7 @@ namespace cFB.BackEndAPI
             services.AddTransient<IHistorySevice, HistorySevice>();
             services.AddTransient<IUserSevice, UserSevice>();
             services.AddTransient<IReportSevice, ReportSevice>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSwaggerGen(c =>
             {

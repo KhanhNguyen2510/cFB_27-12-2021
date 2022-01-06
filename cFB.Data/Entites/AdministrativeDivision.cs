@@ -18,5 +18,6 @@ namespace cFB.Data.Entites
         public IEnumerable<History> Histories { get; set; }
         public RoleManager RoleManager { get; set; }
         public IEnumerable<Report> Reports { get; set; }
+        public IEnumerable<HistoryClient> HistoryClients { get; set; }
     }
 }

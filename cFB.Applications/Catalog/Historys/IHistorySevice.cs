@@ -11,5 +11,6 @@ namespace cFB.Applications.Catalog.Historys
         Task CreateInHistory(string AdministrativeDivisionId, Event Event, string StatusHistory);
         //List
         Task<PagedResult<GetHistoryViewModel>> GetAllHistory(GetManagerHistoryRequest request);
+        Task<PagedResult<GetHistoryClientViewModel>> GetAllHistoryClient(GetManagerHistoryClientRequest request);
     }
 }

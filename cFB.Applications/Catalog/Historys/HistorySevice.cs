@@ -107,5 +107,73 @@ namespace cFB.Applications.Catalog.Historys
                 return null;
             }
         }
+
+        public async Task<PagedResult<GetHistoryClientViewModel>> GetAllHistoryClient(GetManagerHistoryClientRequest request)
+        {
+            try
+            {
+                var query = from h in _context.HistoryClients
+                            join ad in _context.AdministrativeDivisions
+                            on h.AdministrativeDivisionID equals ad.AdministrativeDivisionId
+                            orderby h.Time descending
+                            select new
+                            {
+                                ad.AdministrativeDivisionName,
+                                h.AdministrativeDivisionID,
+                                h.ID,
+                                h.IPAddress,
+                                h.NameMachine,
+                                h.Time
+                            };
+
+
+                if (!string.IsNullOrEmpty(request.AdministrativeDivision_Id))
+                {
+                    if (!string.IsNullOrEmpty(request.AdministrativeDivision_Id))
+                    {
+                        var rs = await _context.AdministrativeDivisions.Where(x => x.AdministrativeDivisionId == request.AdministrativeDivision_Id).Select(x => x.ManagerId).FirstOrDefaultAsync();
+                        if (rs == null && request.AdministrativeDivision_Id != ShareContants.UserAdmin)
+                        {
+                            return null;
+                        }
+                        if (rs != ShareContants.UserAdmin || request.AdministrativeDivision_Id != ShareContants.UserAdmin)
+                        {
+                            query = query.Where(x => x.AdministrativeDivisionID == request.AdministrativeDivision_Id);
+                        }
+                    }
+                }
+
+                if (request.Time != null)
+                    query = query.Where(x => x.Time.Date >= request.Time.Value.Date );
+                if (request.IPAdress != null)
+                    query = query.Where(x => x.IPAddress.Contains(request.IPAdress));
+
+                int totalRow = await query.CountAsync();
+                var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                    .Take(request.PageSize).Select(x => new GetHistoryClientViewModel()
+                    {
+                        AdministrativeDivisionName = x.AdministrativeDivisionName,
+                        IPAddress = x.IPAddress,
+                        Time = x.Time,
+                        ID = x.ID,
+                        NameMachine = x.NameMachine
+
+                    }).ToListAsync();
+
+                var pagedResult = new PagedResult<GetHistoryClientViewModel>()
+                {
+                    TotalRecords = totalRow,
+                    PageIndex = request.PageIndex,
+                    PageSize = request.PageSize,
+                    Items = data
+                };
+
+                return pagedResult;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
