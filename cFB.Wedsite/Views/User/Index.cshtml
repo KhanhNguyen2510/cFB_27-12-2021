@@ -29,47 +29,50 @@
     }
 
 
-    <div class="container-fluid px-4">
-        <h1 class="mt-4">Danh sách tài khoản địa phương</h1>
+<div class="container-fluid px-4">
+    <h1 class="mt-4"></h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active "><h2>Danh sách tài khoản địa phương</h2></li>
+    </ol>
 
 
 
-        <div class="card mb-4">
-            <div class="card-header" style="height: 80px;">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-sm-6"></div>
-                        <div class="col-sm-6" style="text-align: right; margin-top: 10px;">
-                            <a href="User/Create" style="padding: 7px; background-color: #5e72e4; color: white; border-radius: 5px; ">
-                                Thêm thành viên&nbsp;<i class="fa fa-plus"></i>
-                            </a>
+    <div class="card mb-4">
+        <div class="card-header" style="height: 80px;">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-6" style="text-align: right; margin-top: 10px;">
+                        <a href="User/Create" style="padding: 7px; background-color: #5e72e4; color: white; border-radius: 5px; ">
+                            Thêm thành viên&nbsp;<i class="fa fa-plus"></i>
+                        </a>
 
 
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            @*CSS CAP QUYEN VA IMG CAP QUYEN NUT SUA*@
-            <div class="card-body">
-                <table id="datatablesSimple" role="grid">
-                    <thead>
-                        <tr role="row">
-                            <th>
-                                @*<input type="checkbox" id="select-all-post" class="checkbox" style="margin-bottom: 3px; cursor: pointer" />*@
-                            </th>
-                            <th rowspan="1" colspan="1" style=" width: 10px; text-align: center">Mã</th>
-                            <th rowspan="1" colspan="1" style=" width: 10px; text-align: center">Tên</th>
-                            <th rowspan="1" colspan="1" style="width: 350px; text-align: center">SĐT</th>
-                            <th rowspan="1" colspan="1" style="width: 200px; text-align: center">Địa chỉ</th>
-                            <th rowspan="1" colspan="1" style="width: 60px; text-align: center">Hoạt động</th>
-                            @*<th rowspan="1" colspan="1" style="width: 20px; text-align: center">Cấp quyền</th>*@
-                            <th rowspan="1" colspan="1" style="width: 20px; text-align: center">Sửa</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+        @*CSS CAP QUYEN VA IMG CAP QUYEN NUT SUA*@
+        <div class="card-body">
+            <table id="datatablesSimple" role="grid">
+                <thead>
+                    <tr role="row">
+                        <th>
+                            @*<input type="checkbox" id="select-all-post" class="checkbox" style="margin-bottom: 3px; cursor: pointer" />*@
+                        </th>
+                        <th rowspan="1" colspan="1" style=" width: 10px; text-align: center">Mã</th>
+                        <th rowspan="1" colspan="1" style=" width: 10px; text-align: center">Tên</th>
+                        <th rowspan="1" colspan="1" style="width: 350px; text-align: center">SĐT</th>
+                        <th rowspan="1" colspan="1" style="width: 200px; text-align: center">Địa chỉ</th>
+                        <th rowspan="1" colspan="1" style="width: 60px; text-align: center">Hoạt động</th>
+                        @*<th rowspan="1" colspan="1" style="width: 20px; text-align: center">Cấp quyền</th>*@
+                        <th rowspan="1" colspan="1" style="width: 20px; text-align: center">Sửa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
                         <tr>
                             <td style="text-align:center; width:1%">
                                 <input type="checkbox" id="@item.AdministrativeDivisionID" name="SelectPost" class="checkbox" onchange="addFacebookIDToArray('@item.AdministrativeDivisionID')" style="margin-bottom: 10px; cursor: pointer" />
@@ -92,27 +95,27 @@
 
                             @*CHINH IMG CAP QUYEN*@
                             <!--<td width="10%" style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-    <form asp-action="UpdateRole" asp-controller="User" method="post" enctype="multipart/form-data">
-        <input type="text" name="AdministrativeDivision_Admin" value="@User.Identity.Name" hidden>
-        <input type="text" name="AdministrativeDivision_Id" value="@item.AdministrativeDivisionID" hidden>-->
+                            <form asp-action="UpdateRole" asp-controller="User" method="post" enctype="multipart/form-data">
+                                <input type="text" name="AdministrativeDivision_Admin" value="@User.Identity.Name" hidden>
+                                <input type="text" name="AdministrativeDivision_Id" value="@item.AdministrativeDivisionID" hidden>-->
                             @*<input type="submit" value="Xoa" />*@
                             <!--<button type="submit" style=" background-color: Transparent; background-repeat: no-repeat; border: none; cursor: pointer; overflow: hidden;"><i class="fas fa-caret-square-up" style="font-size:25px;"></i></button>
-        </form>
-    </td>-->
+                                </form>
+                            </td>-->
                             <td width="5%" style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                 <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#edit-to-users" onclick="editItemInWatchList('@item.AdministrativeDivisionID')" style="border:none">
                                     <i class="fas fa-user-edit" style="font-size: 20px; color: #5e72e4"></i>
                                 </button>
                             </td>
                         </tr>
-                        }
+                    }
 
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
     <div id="edit-to-users" class="modal fade">
         <div class="modal-dialog">
@@ -153,6 +156,7 @@
     </div>
     <script>
         baseUrl = '@SystemContants.MainConectionAPI';
+        /*baseUrl = 'http://117.2.159.103:8012' ;*/
 
         function myFunction() {
             var x = document.getElementById("edit-facebook-password");

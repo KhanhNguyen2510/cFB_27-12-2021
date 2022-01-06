@@ -402,6 +402,7 @@
 
     <script>
         baseUrl = '@SystemContants.MainConectionAPI';
+        /*baseUrl = 'http://117.2.159.103:8012';*/
         var listPostID = []; //list postID for delete button and export excel
         var AddposId = [];
         var AddposIdne = [];
@@ -478,8 +479,8 @@
                 },
             });
             location.reload();
-
         }
+
 
         async function deletePost() {
             $('#delete-post').prop('disabled', true);

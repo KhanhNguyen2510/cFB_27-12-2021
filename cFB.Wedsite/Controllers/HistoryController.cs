@@ -38,6 +38,7 @@ namespace cFB.Wedsite.Controllers
 
         public async Task<IActionResult> Index(string userId, Event? Event, DateTime? StartDate, DateTime? EndDate, int pageIndex = 1, int pageSize = 100)
         {
+            Response.Headers.Add("Refresh", "15"); // reset sau 15 phút
             ShareContants.NumberPageVisits = 0;
 
             if (pageSize == ShareContants.PageSizeErro) pageSize = 1;
@@ -65,6 +66,45 @@ namespace cFB.Wedsite.Controllers
                 Value = x.Id.ToString(),
                 Selected = Event == x.Id
             });
+
+            var requestAdministrativeDivision = new GetUserRequest()
+            {
+                AdministrativeDivisionID = LoadRoleUser()
+            };
+            var administrativeDivision = await _userApiSevice.GetUsersPaging(requestAdministrativeDivision);
+            ViewBag.AdministrativeDivision = administrativeDivision.Select(x => new SelectListItem()
+            {
+                Text = x.AdministrativeDivisionName,
+                Value = x.AdministrativeDivisionID,
+                Selected = userId == x.AdministrativeDivisionID
+            });
+
+            ViewBag.StartDate = StartDate;
+            ViewBag.EndDate = EndDate;
+            ViewBag.PageSize = pageSize;
+            ViewBag.RoleOfUser = LoadRoleUser();
+
+            return View(data);
+        }
+        public async Task<IActionResult> HistoryClient(string userId, string IpAdress, DateTime? StartDate, DateTime? EndDate, int pageIndex = 1, int pageSize = 100)
+        {
+            ShareContants.NumberPageVisits = 0;
+
+            if (pageSize == ShareContants.PageSizeErro) pageSize = 1;
+
+            if (EndDate != null && StartDate == null) StartDate = EndDate;
+
+
+            var request = new GetManagerHistoryClientRequest()
+            {
+                AdministrativeDivision_Id = userId == null ? LoadRoleUser() : userId,
+                IPAdress = IpAdress,
+                StartDate = StartDate?.Date,
+                EndDate = EndDate?.Date,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+            var data = await _historyApiClient.GetAllHistoryClient(request);
 
             var requestAdministrativeDivision = new GetUserRequest()
             {

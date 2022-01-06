@@ -109,7 +109,7 @@ namespace cFB.Applications.Catalog.Reports
 
                 return pagedResult;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

@@ -43,7 +43,7 @@ namespace cFB.BackEndAPI.Controllers
         public async Task<JsonResult> CreateHistoryClient(string AdministrativeDivisionID)
         {
             var ipAdress = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var userAgent = Request?.Headers?["User-Agent"];
+            var userAgent = Request.Headers["User-Agent"];
 
             var data = new HistoryClient()
             {

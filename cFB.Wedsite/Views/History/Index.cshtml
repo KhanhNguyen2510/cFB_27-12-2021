@@ -67,8 +67,6 @@
             </div>
             <div class="card">
                 <style>
-
-
                     table tr {
                         counter-increment: Rownumber;
                     }
@@ -84,54 +82,54 @@
                         <thead>
                             <tr role="row">
                                 <th aria-controls="dataTables-example" style="width: 1%; text-align: center;">
-                                    
+
                                 </th>
                                 <th style=" text-align: center;">STT</th>
                                 <th style=" text-align: center;">Địa phương thực hiện</th>
-                                <th style="text-align: center; ">Thao tác thực hiện</th>
                                 <th style="text-align: center; ">Thời gian</th>
                                 <th style="text-align: center; ">Trạng thái</th>
+                                <th style="text-align: center; ">Thao tác thực hiện</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model.Items)
                             {
-                                <tr role="row">
-                                    <td style="text-align: center; width: 5%; ">
-                                        <input type="checkbox" id="@item.AdministrativeDivision_Id" name="SelectPost" class="checkbox" onchange="addPostIDToArray('@item.AdministrativeDivision_Id')" style="margin-bottom: 3px; cursor: pointer" />
-                                    </td>
-                                    <td width="5%" style=" text-align:center;">
-                                    </td>
-                                    <td style=" width: 9%; text-align: center; ">
-                                        <span><a>@item.AdministrativeDivision_Name</a></span>
-                                    </td>
-                                    <td style="text-align:center ;max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; ">
-                                        <span><a>@item.StatusHistory</a></span>
-                                    </td>
-                                    <td style="width: 13%; text-align: center; ">@item.Time.ToString("dd/MM/yyyy") (<a style="color: #f5365c">@item.Time.ToString("HH:mm:ss")</a>)</td>
+                            <tr role="row">
+                                <td style="text-align: center; width: 5%; ">
+                                    <input type="checkbox" id="@item.AdministrativeDivision_Id" name="SelectPost" class="checkbox" onchange="addPostIDToArray('@item.AdministrativeDivision_Id')" style="margin-bottom: 3px; cursor: pointer" />
+                                </td>
+                                <td width="5%" style=" text-align:center;">
+                                </td>
+                                <td style=" width: 9%; text-align: center; ">
+                                    <span><a>@item.AdministrativeDivision_Name</a></span>
+                                </td>
+                                <td style="width: 13%; text-align: center; ">@item.Time.ToString("dd/MM/yyyy") (<a style="color: #f5365c">@item.Time.ToString("HH:mm:ss")</a>)</td>
 
-                                    @if (item.Event == Event.Create)
-                                    {
-                                        <td style="width: 10%; text-align: center; ">
-                                            @*<b style=" background-color: darkorange; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
-                                            <span class="badge badge-primary">Create</span>
-                                        </td>
-                                    }
-                                    else if (item.Event == Event.Update)
-                                    {
-                                        <td style="width: 10%; text-align: center; ">
-                                            @*<b style=" background-color: royalblue; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
-                                            <span class="badge badge-warning">Update</span>
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td style="width: 10%; text-align: center;  ">
-                                            @*<b style=" background-color: green; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
-                                            <span class="badge badge-warning">Delete</span>
-                                        </td>
-                                    }
-                                </tr>
+                                @if (item.Event == Event.Create)
+                                {
+                                    <td style="width: 10%; text-align: center; ">
+                                        @*<b style=" background-color: darkorange; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
+                                        <span class="badge badge-primary">Create</span>
+                                    </td>
+                                }
+                                else if (item.Event == Event.Update)
+                                {
+                                    <td style="width: 10%; text-align: center; ">
+                                        @*<b style=" background-color: royalblue; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
+                                        <span class="badge badge-warning">Update</span>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td style="width: 10%; text-align: center;  ">
+                                        @*<b style=" background-color: green; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
+                                        <span class="badge badge-warning">Delete</span>
+                                    </td>
+                                }
+                                <td >
+                                    <span><a>@item.StatusHistory</a></span>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>

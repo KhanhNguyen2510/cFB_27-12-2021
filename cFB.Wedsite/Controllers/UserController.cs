@@ -25,6 +25,7 @@ namespace cFB.Wedsite.Controllers
         }
         public async Task<IActionResult> Index(string Keyword)
         {
+            Response.Headers.Add("Refresh", "15"); // reset sau 15 phút
             ShareContants.NumberPageVisits = 0;
             if (!ModelState.IsValid)
                 return View();

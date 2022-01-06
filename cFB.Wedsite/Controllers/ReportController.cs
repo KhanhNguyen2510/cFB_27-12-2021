@@ -31,6 +31,7 @@ namespace cFB.Wedsite.Controllers
 
         public async Task<IActionResult> Index(string userId, string postId, DateTime? dateReport, string reportID, int pageIndex = 1, int pageSize = 50)
         {
+            Response.Headers.Add("Refresh", "15"); // reset sau 15 phút
             ShareContants.NumberPageVisits = 0;
 
             if (pageSize == ShareContants.PageSizeErro) pageSize = 1;

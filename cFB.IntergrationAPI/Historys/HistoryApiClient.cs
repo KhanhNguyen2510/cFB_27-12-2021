@@ -31,17 +31,17 @@ namespace cFB.IntergrationAPI.Historys
             return data;
         }
 
-        //public async Task<PagedResult<GetHistoryClientViewModel>> GetAllHistory(GetManagerHistoryClientRequest request)
-        //{
-        //    var data = await GetAsync<PagedResult<GetHistoryViewModel>>($"/api/Historys/GetAllHistory" +
-        //        $"?AdministrativeDivision_Id={request.AdministrativeDivision_Id}" +
-        //        $"&Event={request.Event}" +
-        //        $"&StartDate={request.StartDate}" +
-        //        $"&EndDate={request.EndDate}" +
-        //        $"&PageIndex={request.PageIndex}" +
-        //        $"&PageSize={request.PageSize}");
-        //    return data;
-        //}
+        public async Task<PagedResult<GetHistoryClientViewModel>> GetAllHistoryClient(GetManagerHistoryClientRequest request)
+        {
+            var data = await GetAsync<PagedResult<GetHistoryClientViewModel>>($"/api/Historys/GetAllHistoryClient" +
+                $"?AdministrativeDivision_Id={request.AdministrativeDivision_Id}" +
+                $"&StartDate={request.StartDate}" +
+                $"&EndDate={request.EndDate}" +
+                $"&IPAdress={request.IPAdress}" +
+                $"&PageIndex={request.PageIndex}" +
+                $"&PageSize={request.PageSize}");
+            return data;
+        }
 
         public async Task<bool> CreateHistoryClient(string AdministrativeDivisionID)
         {

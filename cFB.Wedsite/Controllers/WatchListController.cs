@@ -31,6 +31,7 @@ namespace cFB.Wedsite.Controllers
 
         public async Task<IActionResult> Index(string facebookTypeID, Status? Status, int pageIndex = 1, int pageSize = 100)
         {
+            Response.Headers.Add("Refresh", "15"); // reset sau 15 phút
             ShareContants.NumberPageVisits = 0;
             if (pageSize == ShareContants.PageSizeErro) pageSize = 1;
             ViewBag.PageSize = pageSize;

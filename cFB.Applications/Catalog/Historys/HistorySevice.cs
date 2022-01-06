@@ -143,8 +143,9 @@ namespace cFB.Applications.Catalog.Historys
                     }
                 }
 
-                if (request.Time != null)
-                    query = query.Where(x => x.Time.Date >= request.Time.Value.Date );
+                if ((request.StartDate != null || request.EndDate != null))
+                    query = query.Where(x => x.Time.Date >= request.StartDate.Value.Date && x.Time.Date <= request.EndDate.Value.Date);
+
                 if (request.IPAdress != null)
                     query = query.Where(x => x.IPAddress.Contains(request.IPAdress));
 
