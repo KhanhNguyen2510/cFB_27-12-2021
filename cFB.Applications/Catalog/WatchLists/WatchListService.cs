@@ -83,7 +83,7 @@ namespace cFB.Applications.Catalog.WatchLists
                 var watchList = new WatchList()
                 {
                     FaceBookId = (request.FaceBookID != null) ? request.FaceBookID : AutoGenerate.WatchListRandomId(request.FaceBookUrl, request.AdministrativeDivisionID), // Nếu người dùng không tạo thì máy sẽ tự setup cho bạn
-                    FaceBookName = (request.FaceBookName != null) ? request.FaceBookName : "...",
+                    FaceBookName = (request.FaceBookName != null) ? request.FaceBookName : "",
                     FaceBookUrl = request.FaceBookUrl.TrimEnd('/'),
                     Status = (Status)(request.Status == null ? Status.Activate : request.Status),
                     AdministrativeDivisionId = request.AdministrativeDivisionID,
@@ -105,7 +105,7 @@ namespace cFB.Applications.Catalog.WatchLists
         {
             try
             {
-                var watchlist = await _context.WatchLists.SingleOrDefaultAsync(x => x.FaceBookId == FaceBookID);
+                var watchlist = await _context.WatchLists.FirstOrDefaultAsync(x => x.FaceBookId == FaceBookID);
 
                 if (watchlist == null) return false;
 
@@ -130,7 +130,7 @@ namespace cFB.Applications.Catalog.WatchLists
             {
                 if (await CheckExistInWatchList(request.FaceBookUrl, request.AdministrativeDivisionID))
                 {
-                    var data = await _context.WatchLists.Where(x => x.FaceBookUrl == request.FaceBookUrl && x.AdministrativeDivisionId == request.AdministrativeDivisionID).SingleOrDefaultAsync();
+                    var data = await _context.WatchLists.Where(x => x.FaceBookUrl == request.FaceBookUrl && x.AdministrativeDivisionId == request.AdministrativeDivisionID).FirstOrDefaultAsync();
                     var update = await UpdateToWatchList(data.FaceBookId, request.FaceBookName, request.FaceBookTypeID);
 
                     if (update == true)
@@ -147,7 +147,6 @@ namespace cFB.Applications.Catalog.WatchLists
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
@@ -235,13 +234,14 @@ namespace cFB.Applications.Catalog.WatchLists
                 return null;
             }
         }
-        public async Task<List<GetWatchListInPython>> GetAllWatchList(GetWatchListInPython request)
+        public async Task<List<GetWatchListInPython>> GetAllWatchList(GetWatchListInPython request)  /// load các thông tin đã được cấp phép  
         {
             try
             {
                 var query = from wl in _context.WatchLists
                             join ft in _context.FaceBookTypes
                             on wl.FaceBookTypeId equals ft.FaceBookTypeId
+                            where wl.Status == Status.Activate
                             select new
                             {
                                 wl.FaceBookId,

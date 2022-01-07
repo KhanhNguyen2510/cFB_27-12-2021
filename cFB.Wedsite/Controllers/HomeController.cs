@@ -68,8 +68,10 @@ namespace cFB.Wedsite.Controllers
                     ViewBag.SuccessMsg = ShowMessage.AuthenticateFailed();
                     return View();
                 }
+
+                var userAgent = Request.Headers["User-Agent"];
                 var check = await _userApiClient.CheckRole(request.UserName);
-                await _historyApiClient.CreateHistoryClient(request.UserName);
+                await _historyApiClient.CreateHistoryClient(request.UserName, userAgent);
                 TempData["Role"] = check.ManagerID;
                 TempData["name"] = request.UserName;
 

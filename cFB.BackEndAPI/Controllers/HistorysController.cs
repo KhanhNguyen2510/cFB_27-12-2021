@@ -40,16 +40,15 @@ namespace cFB.BackEndAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> CreateHistoryClient(string AdministrativeDivisionID)
+        public async Task<JsonResult> CreateHistoryClient(string AdministrativeDivisionID, string UserAgent)
         {
             var ipAdress = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var userAgent = Request.Headers["User-Agent"];
 
             var data = new HistoryClient()
             {
                 AdministrativeDivisionID = AdministrativeDivisionID,
                 IPAddress = ipAdress,
-                NameMachine = userAgent,
+                NameMachine = UserAgent,
                 Time = DateTime.Now
             };
           

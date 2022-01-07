@@ -31,7 +31,7 @@ namespace cFB.Applications.Catalog.Posts
             _reportsSevice = reportsSevice;
         }
         //Check
-        public async Task<bool> CheckExistPostStatus(string postUrl, string sentimentLabel_Id, string administrativeDivisionId) //hay
+        public async Task<bool> CheckExistPostStatus(string postUrl, string sentimentLabel_Id, string administrativeDivisionId) 
         {
             try
             {
@@ -283,13 +283,13 @@ namespace cFB.Applications.Catalog.Posts
         {
             try
             {
-                var data = await _context.Posts.SingleOrDefaultAsync(x => x.PostId == request.PostId);
+                var data = await _context.Posts.FirstOrDefaultAsync(x => x.PostId == request.PostId);
                 var post = new Post()
                 {
                     PostId = data != null ? AutoGenerate.PostRandomID(request.AdministrativeDivisionId) : request.PostId,
                     UserUrl = request.UserUrl,
                     PostUrl = request.PostUrl,
-                    PostContent = (request.PostContent == null || request.PostContent == "None") ? "..." : request.PostContent,
+                    PostContent = (request.PostContent == null || request.PostContent == "None") ? "" : request.PostContent,
                     Image = (request.Image == null || request.Image == "None") ? "" : request.Image,
                     UploadTime = (DateTime)(request.UploadTime == null ? DateTime.Now : request.UploadTime),
                     CrawledTime = (DateTime)(request.CrawledTime == null ? DateTime.Now : request.CrawledTime),
@@ -299,7 +299,7 @@ namespace cFB.Applications.Catalog.Posts
                     NewsLabelId = request.NewsLabelID,
                     FaceBookId = request.FacebookID,
                     SentimentLabelId = request.SentimentLabelID,
-                    AdministrativeDivisionId = request.AdministrativeDivisionId != null ? request.AdministrativeDivisionId : "...",
+                    AdministrativeDivisionId = request.AdministrativeDivisionId != null ? request.AdministrativeDivisionId : "",
                     Report = Data.Enums.Reported.UnReported,
                     FilePDF = request.FilePDF == null || request.FilePDF == "string" ? "" : request.FilePDF
                 };
@@ -548,179 +548,194 @@ namespace cFB.Applications.Catalog.Posts
         //List
         public async Task<GetPostViewModel> GetPostStatusById(string postId)
         {
-            var query = await (from p in _context.Posts
-                               join wl in _context.WatchLists
-                               on p.FaceBookId equals wl.FaceBookId
-                               join nl in _context.NewsLabels
-                               on p.NewsLabelId equals nl.NewsLabelId
-                               join sl in _context.SentimentLabels
-                               on p.SentimentLabelId equals sl.SentimentLabelId
-                               join ad in _context.AdministrativeDivisions
-                               on p.AdministrativeDivisionId equals ad.AdministrativeDivisionId
-                               where p.PostId == postId
-                               select new
-                               {
-                                   p.PostId,
-                                   p.PostUrl,
-                                   p.UserUrl,
-                                   p.PostContent,
-                                   p.Image,
-                                   p.UploadTime,
-                                   p.CrawledTime,
-                                   p.TotalLikes,
-                                   p.TotalComment,
-                                   p.TotalShare,
-                                   p.FaceBookId,
-                                   wl.FaceBookName,
-                                   wl.FaceBookUrl,
-                                   p.NewsLabelId,
-                                   nl.NewsLabelName,
-                                   p.SentimentLabelId,
-                                   sl.SentimentLabelName,
-                                   ad.AdministrativeDivisionName,
-                                   ad.AdministrativeDivisionId,
-                                   p.FilePDF,
-                                   p.Report
-                               }).FirstOrDefaultAsync();
-
-            if (query == null) return null;
-
-
-            var data = new GetPostViewModel()
+            try
             {
-                PostID = query.PostId,
-                PostUrl = query.PostUrl,
-                UserUrl = query.UserUrl,
-                PostContent = query.PostContent,
-                Image = query.Image,
-                UploadTime = query.UploadTime,
-                CrawledTime = query.CrawledTime,
-                TotalLikes = query.TotalLikes,
-                TotalComment = query.TotalComment,
-                TotalShare = query.TotalShare,
-                Facebook_ID = query.FaceBookId,
-                FacebookName = query.FaceBookName,
-                FacebookUrl = query.FaceBookUrl,
-                NewsLabelID = query.NewsLabelId,
-                NewsLabelName = query.NewsLabelName,
-                SentimentLabelID = query.SentimentLabelId,
-                SentimentLabelName = query.SentimentLabelName,
-                AdministrativeDivisionID = query.AdministrativeDivisionId,
-                AdministrativeDivisionName = query.AdministrativeDivisionName,
-                FilePDF = query.FilePDF,
-                Report = query.Report
-            };
+                var query = await (from p in _context.Posts
+                                   join wl in _context.WatchLists
+                                   on p.FaceBookId equals wl.FaceBookId
+                                   join nl in _context.NewsLabels
+                                   on p.NewsLabelId equals nl.NewsLabelId
+                                   join sl in _context.SentimentLabels
+                                   on p.SentimentLabelId equals sl.SentimentLabelId
+                                   join ad in _context.AdministrativeDivisions
+                                   on p.AdministrativeDivisionId equals ad.AdministrativeDivisionId
+                                   where p.PostId == postId
+                                   select new
+                                   {
+                                       p.PostId,
+                                       p.PostUrl,
+                                       p.UserUrl,
+                                       p.PostContent,
+                                       p.Image,
+                                       p.UploadTime,
+                                       p.CrawledTime,
+                                       p.TotalLikes,
+                                       p.TotalComment,
+                                       p.TotalShare,
+                                       p.FaceBookId,
+                                       wl.FaceBookName,
+                                       wl.FaceBookUrl,
+                                       p.NewsLabelId,
+                                       nl.NewsLabelName,
+                                       p.SentimentLabelId,
+                                       sl.SentimentLabelName,
+                                       ad.AdministrativeDivisionName,
+                                       ad.AdministrativeDivisionId,
+                                       p.FilePDF,
+                                       p.Report
+                                   }).FirstOrDefaultAsync();
 
-            return data;
+                if (query == null) return null;
+
+
+                var data = new GetPostViewModel()
+                {
+                    PostID = query.PostId,
+                    PostUrl = query.PostUrl,
+                    UserUrl = query.UserUrl,
+                    PostContent = query.PostContent,
+                    Image = query.Image,
+                    UploadTime = query.UploadTime,
+                    CrawledTime = query.CrawledTime,
+                    TotalLikes = query.TotalLikes,
+                    TotalComment = query.TotalComment,
+                    TotalShare = query.TotalShare,
+                    Facebook_ID = query.FaceBookId,
+                    FacebookName = query.FaceBookName,
+                    FacebookUrl = query.FaceBookUrl,
+                    NewsLabelID = query.NewsLabelId,
+                    NewsLabelName = query.NewsLabelName,
+                    SentimentLabelID = query.SentimentLabelId,
+                    SentimentLabelName = query.SentimentLabelName,
+                    AdministrativeDivisionID = query.AdministrativeDivisionId,
+                    AdministrativeDivisionName = query.AdministrativeDivisionName,
+                    FilePDF = query.FilePDF,
+                    Report = query.Report
+                };
+
+                return data;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+           
 
         }
         public async Task<PagedResult<GetPostViewModel>> GetAllPostStatus(GetManagePostRequest request)
         {
-            var query = from p in _context.Posts
-                        join wl in _context.WatchLists
-                        on p.FaceBookId equals wl.FaceBookId
-                        join nl in _context.NewsLabels
-                        on p.NewsLabelId equals nl.NewsLabelId
-                        join sl in _context.SentimentLabels
-                        on p.SentimentLabelId equals sl.SentimentLabelId
-                        join ad in _context.AdministrativeDivisions
-                        on p.AdministrativeDivisionId equals ad.AdministrativeDivisionId
-                        orderby p.CrawledTime descending
-                        select new
-                        {
-                            p.PostId,
-                            p.PostUrl,
-                            p.UserUrl,
-                            p.PostContent,
-                            p.Image,
-                            p.UploadTime,
-                            p.CrawledTime,
-                            p.TotalLikes,
-                            p.TotalComment,
-                            p.TotalShare,
-                            p.FaceBookId,
-                            wl.FaceBookName,
-                            wl.FaceBookUrl,
-                            p.NewsLabelId,
-                            nl.NewsLabelName,
-                            p.SentimentLabelId,
-                            sl.SentimentLabelName,
-                            ad.AdministrativeDivisionName,
-                            ad.AdministrativeDivisionId,
-                            p.FilePDF,
-                            p.Report
-                        };
-
-            if (!string.IsNullOrEmpty(request.NewsLabelID))
-                query = query.Where(x => x.NewsLabelId == request.NewsLabelID);
-
-            if (!string.IsNullOrEmpty(request.AdministrativeDivisionID))
+            try
             {
-                var rs = await _context.AdministrativeDivisions.Where(x => x.AdministrativeDivisionId == request.AdministrativeDivisionID).Select(x => x.ManagerId).FirstOrDefaultAsync();
-                if (rs == null && request.AdministrativeDivisionID != ShareContants.UserAdmin)
+                var query = from p in _context.Posts
+                            join wl in _context.WatchLists
+                            on p.FaceBookId equals wl.FaceBookId
+                            join nl in _context.NewsLabels
+                            on p.NewsLabelId equals nl.NewsLabelId
+                            join sl in _context.SentimentLabels
+                            on p.SentimentLabelId equals sl.SentimentLabelId
+                            join ad in _context.AdministrativeDivisions
+                            on p.AdministrativeDivisionId equals ad.AdministrativeDivisionId
+                            orderby p.CrawledTime descending
+                            select new
+                            {
+                                p.PostId,
+                                p.PostUrl,
+                                p.UserUrl,
+                                p.PostContent,
+                                p.Image,
+                                p.UploadTime,
+                                p.CrawledTime,
+                                p.TotalLikes,
+                                p.TotalComment,
+                                p.TotalShare,
+                                p.FaceBookId,
+                                wl.FaceBookName,
+                                wl.FaceBookUrl,
+                                p.NewsLabelId,
+                                nl.NewsLabelName,
+                                p.SentimentLabelId,
+                                sl.SentimentLabelName,
+                                ad.AdministrativeDivisionName,
+                                ad.AdministrativeDivisionId,
+                                p.FilePDF,
+                                p.Report
+                            };
+
+                if (!string.IsNullOrEmpty(request.NewsLabelID))
+                    query = query.Where(x => x.NewsLabelId == request.NewsLabelID);
+
+                if (!string.IsNullOrEmpty(request.AdministrativeDivisionID))
                 {
-                    return null;
+                    var rs = await _context.AdministrativeDivisions.Where(x => x.AdministrativeDivisionId == request.AdministrativeDivisionID).Select(x => x.ManagerId).FirstOrDefaultAsync();
+                    if (rs == null && request.AdministrativeDivisionID != ShareContants.UserAdmin)
+                    {
+                        return null;
+                    }
+                    if (rs != ShareContants.UserAdmin)
+                    {
+                        query = query.Where(x => x.AdministrativeDivisionId == request.AdministrativeDivisionID);
+                    }
                 }
-                if (rs != ShareContants.UserAdmin)
+
+                if (!string.IsNullOrEmpty(request.WatchListID))
+                    query = query.Where(x => x.FaceBookId == request.WatchListID);
+
+                if (!string.IsNullOrEmpty(request.SentimentLabelID))
+                    query = query.Where(x => x.SentimentLabelId == request.SentimentLabelID);
+
+                if (request.TimeCrawl != null)
+                    query = query.Where(x => x.CrawledTime.Date == request.TimeCrawl.Value.Date);
+
+                if (request.Report != null)
+                    query = query.Where(x => x.Report == request.Report);
+
+                if ((request.StartDate != null || request.EndDate != null))
+                    query = query.Where(x => x.UploadTime.Date >= request.StartDate.Value.Date && x.UploadTime.Date <= request.EndDate.Value.Date);
+
+                if (!string.IsNullOrEmpty(request.Search))
+                    query = query.Where(x => x.PostId.Contains(request.Search) || x.PostUrl.Contains(request.Search) || x.PostContent.Contains(request.Search));
+
+                int totalRow = await query.CountAsync();
+                var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                    .Take(request.PageSize).Select(x => new GetPostViewModel()
+                    {
+                        PostID = x.PostId,
+                        PostUrl = x.PostUrl,
+                        UserUrl = x.UserUrl,
+                        PostContent = x.PostContent,
+                        Image = x.Image,
+                        UploadTime = x.UploadTime,
+                        CrawledTime = x.CrawledTime,
+                        TotalLikes = x.TotalLikes,
+                        TotalComment = x.TotalComment,
+                        TotalShare = x.TotalShare,
+                        Facebook_ID = x.FaceBookId,
+                        FacebookName = x.FaceBookName,
+                        FacebookUrl = x.FaceBookUrl,
+                        NewsLabelID = x.NewsLabelId,
+                        NewsLabelName = x.NewsLabelName,
+                        SentimentLabelID = x.SentimentLabelId,
+                        SentimentLabelName = x.SentimentLabelName,
+                        AdministrativeDivisionID = x.AdministrativeDivisionId,
+                        AdministrativeDivisionName = x.AdministrativeDivisionName,
+                        FilePDF = x.FilePDF,
+                        Report = x.Report
+                    }).ToListAsync();
+
+                var pagedResult = new PagedResult<GetPostViewModel>()
                 {
-                    query = query.Where(x => x.AdministrativeDivisionId == request.AdministrativeDivisionID);
-                }
+                    TotalRecords = totalRow,
+                    PageIndex = request.PageIndex,
+                    PageSize = request.PageSize,
+                    Items = data
+                };
+
+                return pagedResult;
             }
-
-            if (!string.IsNullOrEmpty(request.WatchListID))
-                query = query.Where(x => x.FaceBookId == request.WatchListID);
-
-            if (!string.IsNullOrEmpty(request.SentimentLabelID))
-                query = query.Where(x => x.SentimentLabelId == request.SentimentLabelID);
-
-            if (request.TimeCrawl != null)
-                query = query.Where(x => x.CrawledTime.Date == request.TimeCrawl.Value.Date);
-
-            if (request.Report != null)
-                query = query.Where(x => x.Report == request.Report);
-
-            if ((request.StartDate != null || request.EndDate != null))
-                query = query.Where(x => x.UploadTime.Date >= request.StartDate.Value.Date && x.UploadTime.Date <= request.EndDate.Value.Date);
-
-            if (!string.IsNullOrEmpty(request.Search))
-                query = query.Where(x => x.PostId.Contains(request.Search) || x.PostUrl.Contains(request.Search) || x.PostContent.Contains(request.Search));
-
-            int totalRow = await query.CountAsync();
-            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
-                .Take(request.PageSize).Select(x => new GetPostViewModel()
-                {
-                    PostID = x.PostId,
-                    PostUrl = x.PostUrl,
-                    UserUrl = x.UserUrl,
-                    PostContent = x.PostContent,
-                    Image = x.Image,
-                    UploadTime = x.UploadTime,
-                    CrawledTime = x.CrawledTime,
-                    TotalLikes = x.TotalLikes,
-                    TotalComment = x.TotalComment,
-                    TotalShare = x.TotalShare,
-                    Facebook_ID = x.FaceBookId,
-                    FacebookName = x.FaceBookName,
-                    FacebookUrl = x.FaceBookUrl,
-                    NewsLabelID = x.NewsLabelId,
-                    NewsLabelName = x.NewsLabelName,
-                    SentimentLabelID = x.SentimentLabelId,
-                    SentimentLabelName = x.SentimentLabelName,
-                    AdministrativeDivisionID = x.AdministrativeDivisionId,
-                    AdministrativeDivisionName = x.AdministrativeDivisionName,
-                    FilePDF = x.FilePDF,
-                    Report = x.Report
-                }).ToListAsync();
-
-            var pagedResult = new PagedResult<GetPostViewModel>()
+            catch (Exception)
             {
-                TotalRecords = totalRow,
-                PageIndex = request.PageIndex,
-                PageSize = request.PageSize,
-                Items = data
-            };
-
-            return pagedResult;
+                return null;
+            }
         }
         public async Task<List<Post>> GetListWatchListReportByFacebookID(string administrativeDivisionId, Reported report)
         {

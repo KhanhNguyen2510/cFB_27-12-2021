@@ -43,15 +43,16 @@ namespace cFB.IntergrationAPI.Historys
             return data;
         }
 
-        public async Task<bool> CreateHistoryClient(string AdministrativeDivisionID)
+        public async Task<bool> CreateHistoryClient(string AdministrativeDivisionID, string UserAgent)
         {
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_configuration[SystemContants.AppSettings.BaseAddress]);
 
             var requestContent = new MultipartFormDataContent();
             requestContent.Add(new StringContent(AdministrativeDivisionID.ToString()), "AdministrativeDivisionID");
+            requestContent.Add(new StringContent(UserAgent.ToString()), "UserAgent");
 
-            var response = await client.PostAsync($"/api/Historys?AdministrativeDivisionID={AdministrativeDivisionID}", requestContent);
+            var response = await client.PostAsync($"/api/Historys?AdministrativeDivisionID={AdministrativeDivisionID}&UserAgent={UserAgent}", requestContent);
 
             return response.IsSuccessStatusCode;
         }

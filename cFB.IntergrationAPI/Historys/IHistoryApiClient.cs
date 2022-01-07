@@ -8,6 +8,6 @@ namespace cFB.IntergrationAPI.Historys
     {
         Task<PagedResult<GetHistoryViewModel>> GetAllHistory(GetManagerHistoryRequest request);
         Task<PagedResult<GetHistoryClientViewModel>> GetAllHistoryClient(GetManagerHistoryClientRequest request);
-        Task<bool> CreateHistoryClient(string AdministrativeDivisionID);
+        Task<bool> CreateHistoryClient(string AdministrativeDivisionID, string UserAgent);
     }
 }
