@@ -262,10 +262,10 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label style="font-weight: bold;">Hình ảnh</label>
+                                <label id="img-name" style="font-weight: bold;">Hình ảnh</label>
                                 <br />
                                 <a href="#" target="_blank" id="image">
-                                    <img src="~/assets/img/IDOLTV-hinh-nen-pokemon-full-hd-661561.jpg" width="400" height="300" />
+                                    <img src="~/assets/img/huy-hieu-cong-an-nhan.png" width="400" height="300" />
                                 </a>
                             </div>
                         </div>
@@ -577,7 +577,8 @@
                     }
                     if (data.image == '')
                     {
-                        $('#image').attr('href', data.image).children('img').attr('src', data.image).hide();
+                        $('#img-name').html("Không có hình ảnh").prop('disabled', false)
+                        $('#image').attr('href', "/assets/img/huy-hieu-cong-an-nhan.png").children('img').attr('src', "/assets/img/huy-hieu-cong-an-nhan.png");
                     }
                     else if (data.image != 'None') {
                         $('#image').attr('href', data.image).children('img').attr('src', data.image);
