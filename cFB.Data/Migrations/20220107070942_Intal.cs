@@ -64,7 +64,7 @@ namespace cFB.Data.Migrations
                     AdministrativeDivisionName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     NumberPhone = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: true),
                     Addrees = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    TimeOnline = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 27, 1, 58, 53, 76, DateTimeKind.Local).AddTicks(6288)),
+                    TimeOnline = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2022, 1, 7, 14, 9, 41, 624, DateTimeKind.Local).AddTicks(7356)),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CheckPass = table.Column<bool>(type: "bit", nullable: false)
@@ -98,6 +98,28 @@ namespace cFB.Data.Migrations
                         principalTable: "AdministrativeDivision",
                         principalColumn: "AdministrativeDivisionId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HistoryClient",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IPAddress = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    AdministrativeDivisionID = table.Column<string>(type: "varchar(10)", nullable: true),
+                    NameMachine = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 1, 7, 14, 9, 41, 648, DateTimeKind.Local).AddTicks(9328))
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HistoryClient", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_HistoryClient_AdministrativeDivision_AdministrativeDivisionID",
+                        column: x => x.AdministrativeDivisionID,
+                        principalTable: "AdministrativeDivision",
+                        principalColumn: "AdministrativeDivisionId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,8 +159,8 @@ namespace cFB.Data.Migrations
                     PostUrl = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
                     PostContent = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UploadTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 27, 1, 58, 53, 87, DateTimeKind.Local).AddTicks(4443)),
-                    CrawledTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 27, 1, 58, 53, 87, DateTimeKind.Local).AddTicks(4847)),
+                    UploadTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2022, 1, 7, 14, 9, 41, 636, DateTimeKind.Local).AddTicks(581)),
+                    CrawledTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2022, 1, 7, 14, 9, 41, 636, DateTimeKind.Local).AddTicks(988)),
                     TotalLikes = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     TotalComment = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     TotalShare = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
@@ -184,7 +206,7 @@ namespace cFB.Data.Migrations
                 {
                     ReportId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FileReport = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true, defaultValue: ""),
-                    DateReport = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 12, 27, 1, 58, 53, 97, DateTimeKind.Local).AddTicks(5573)),
+                    DateReport = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 1, 7, 14, 9, 41, 646, DateTimeKind.Local).AddTicks(7032)),
                     AdministrativeDivisionId = table.Column<string>(type: "varchar(10)", nullable: true),
                     PostId = table.Column<string>(type: "nvarchar(500)", nullable: true)
                 },
@@ -266,17 +288,17 @@ namespace cFB.Data.Migrations
                 columns: new[] { "AdministrativeDivisionId", "Addrees", "AdministrativeDivisionName", "CheckPass", "ManagerId", "NumberPhone", "Password" },
                 values: new object[,]
                 {
-                    { "86C1", "158 Đặng Văn Lãnh, TP Phan Thiết", "Thành phố Phan Thiết", false, "Admin", "02523822694", "1" },
-                    { "Admin", "239 Hùng Vương, thôn Quý Thanh, xã Ngũ Phụng, huyện Phú Quý", "Admin", false, "Admin", "02523767434", "1" },
-                    { "86B1", "Đường 17/4, thị trấn Liên Hương, huyện Tuy Phong", "Huyện Tuy Phong", false, "User", "02523850163", "1" },
-                    { "86B2", "17 Lê Hồng Phong, khu phố Xuân An 2, thị trấn Chợ Lầu, huyện Bắc Bình", "Huyện Bắc Bình", false, "User", "02523860133", "1" },
-                    { "86B3", "Khu phố Lâm Hòa, thị trấn Ma Lâm, huyện Hàm Thuận Bắc", "Huyện Hàm Thuận Bắc", false, "User", "02523865113", "1" },
-                    { "86B4", "14 Trần phú, thị trấn Thuận Nam, huyện Hàm Thuận Nam", "Huyện Hàm Thuận Nam", false, "User", "02523867113", "1" },
-                    { "86B5", "Khu phố 2, Thị trấn Tân Nghĩa, huyện Hàm Tân", "Huyện Hàm Tân", false, "User", "02523876100", "1" },
-                    { "86B6", "02 Ngô Gia Tự, phường Tân An, thị xã La Gi", "Thị xã La Gi", false, "User", "02523871988", "1" },
-                    { "86B7", "449 Trần Hưng Đạo, khu phố Lạc Hóa 1, thị trấn Lạc Tánh, huyện Tánh Linh", "Huyện Tánh Linh", false, "User", "0794201396", "1" },
-                    { "86B8", "Thôn 2, xã Nam Chính, huyện Đức Linh", "Huyện Đức Linh", false, "User", "02523882113", "1" },
-                    { "86B9", "239 Hùng Vương, thôn Quý Thanh, xã Ngũ Phụng, huyện Phú Quý", "Huyện Phú Quý", false, "User", "02523767434", "1" }
+                    { "Admin", "239 Hùng Vương, thôn Quý Thanh, xã Ngũ Phụng, huyện Phú Quý", "Admin", false, "Admin", "02523767434", "c4ca4238a0b923820dcc509a6f75849b" },
+                    { "86C1", "158 Đặng Văn Lãnh, TP Phan Thiết", "Thành phố Phan Thiết", false, "User", "02523822694", "c4ca4238a0b923820dcc509a6f75849b" },
+                    { "86B1", "Đường 17/4, thị trấn Liên Hương, huyện Tuy Phong", "Huyện Tuy Phong", false, "User", "02523850163", "c4ca4238a0b923820dcc509a6f75849b" },
+                    { "86B2", "17 Lê Hồng Phong, khu phố Xuân An 2, thị trấn Chợ Lầu, huyện Bắc Bình", "Huyện Bắc Bình", false, "User", "02523860133", "c4ca4238a0b923820dcc509a6f75849b" },
+                    { "86B3", "Khu phố Lâm Hòa, thị trấn Ma Lâm, huyện Hàm Thuận Bắc", "Huyện Hàm Thuận Bắc", false, "User", "02523865113", "c4ca4238a0b923820dcc509a6f75849b" },
+                    { "86B4", "14 Trần phú, thị trấn Thuận Nam, huyện Hàm Thuận Nam", "Huyện Hàm Thuận Nam", false, "User", "02523867113", "c4ca4238a0b923820dcc509a6f75849b" },
+                    { "86B5", "Khu phố 2, Thị trấn Tân Nghĩa, huyện Hàm Tân", "Huyện Hàm Tân", false, "User", "02523876100", "c4ca4238a0b923820dcc509a6f75849b" },
+                    { "86B6", "02 Ngô Gia Tự, phường Tân An, thị xã La Gi", "Thị xã La Gi", false, "User", "02523871988", "c4ca4238a0b923820dcc509a6f75849b" },
+                    { "86B7", "449 Trần Hưng Đạo, khu phố Lạc Hóa 1, thị trấn Lạc Tánh, huyện Tánh Linh", "Huyện Tánh Linh", false, "User", "0794201396", "c4ca4238a0b923820dcc509a6f75849b" },
+                    { "86B8", "Thôn 2, xã Nam Chính, huyện Đức Linh", "Huyện Đức Linh", false, "User", "02523882113", "c4ca4238a0b923820dcc509a6f75849b" },
+                    { "86B9", "239 Hùng Vương, thôn Quý Thanh, xã Ngũ Phụng, huyện Phú Quý", "Huyện Phú Quý", false, "User", "02523767434", "c4ca4238a0b923820dcc509a6f75849b" }
                 });
 
             migrationBuilder.InsertData(
@@ -284,31 +306,36 @@ namespace cFB.Data.Migrations
                 columns: new[] { "FaceBookId", "AdministrativeDivisionId", "FaceBookName", "FaceBookTypeId", "FaceBookUrl" },
                 values: new object[,]
                 {
-                    { "1648199831900386", "Admin", "Triệt Hạ Bò Đỏ", "GR", "https://www.facebook.com/groups/1648199831900386" },
-                    { "thuc.tranhuynhduy", "Admin", "Trần Huỳnh Duy Thức", "USER", "https://www.facebook.com/thuc.tranhuynhduy" },
-                    { "thong.luan.1", "Admin", "Tập Hợp Dân Chủ Đa Nguyên", "PAGE", "https://www.facebook.com/thong.luan.1" },
-                    { "TamConXuyenDiep", "Admin", "Tam Côn Xuyên Diệp", "GR", "https://www.facebook.com/groups/TamConXuyenDiep" },
-                    { "phapluatvacuocsong.vn", "Admin", "Pháp luật & Cuộc sống", "PAGE", "https://www.facebook.com/phapluatvacuocsong.vn" },
-                    { "nhatkyyeunuoc1", "Admin", "Nhật Ký Yêu Nước", "PAGE", "https://www.facebook.com/nhatkyyeunuoc1" },
-                    { "nhabaocongdan", "Admin", "Góc nhìn báo chí - Công dân", "GR", "https://www.facebook.com/groups/nhabaocongdan" },
-                    { "mothermushroom", "Admin", "Mẹ Nấm", "USER", "https://www.facebook.com/mothermushroom" },
-                    { "vietnamconghoa123", "Admin", "Việt Nam Cộng Hòa", "PAGE", "https://www.facebook.com/vietnamconghoa123" },
-                    { "lukhach", "Admin", "Nguyen Huy Vu", "USER", "https://www.facebook.com/lukhach" },
-                    { "HuyFreedomSaigon", "Admin", "Huỳnh Quốc Huy (John Whale)", "USER", "https://www.facebook.com/HuyFreedomSaigon" },
-                    { "DuaLeo.Stand.up.comedian", "Admin", "Dưa Leo - Stand up comedian", "PAGE", "https://www.facebook.com/DuaLeo.Stand.up.comedian" },
-                    { "BinhLuanVeDangCongSan", "Admin", "Bình Luận Về Đảng Cộng Sản", "PAGE", "https://www.facebook.com/BinhLuanVeDangCongSan" },
-                    { "bao.luong.5011516", "Admin", "Luong Quang Bao", "USER", "https://www.facebook.com/bao.luong.5011516" },
-                    { "90trieunguoi", "Admin", "VIỆT NAM DÂN CHỦ", "PAGE", "https://www.facebook.com/90trieunguoi" },
-                    { "187530275233978", "Admin", "BÀN LUẬN về KINH TẾ - CHÍNH TRỊ 2", "GR", "https://www.facebook.com/groups/187530275233978" },
-                    { "1752456318197543", "Admin", "Xây Dựng Đảng", "GR", "https://www.facebook.com/groups/1752456318197543" },
-                    { "kinhtechinhtrixahoivn", "Admin", "Bàn Luận về Kinh Tế - Chính Trị", "GR", "https://www.facebook.com/groups/kinhtechinhtrixahoivn" },
-                    { "viettan", "Admin", "Việt Tân", "PAGE", "https://www.facebook.com/viettan" }
+                    { "1648199831900386Admin", "Admin", "Triệt Hạ Bò Đỏ", "GR", "https://www.facebook.com/groups/1648199831900386" },
+                    { "thuc.tranhuynhduyAdmin", "Admin", "Trần Huỳnh Duy Thức", "USER", "https://www.facebook.com/thuc.tranhuynhduy" },
+                    { "thong.luan.1Admin", "Admin", "Tập Hợp Dân Chủ Đa Nguyên", "PAGE", "https://www.facebook.com/thong.luan.1" },
+                    { "TamConXuyenDiepAdmin", "Admin", "Tam Côn Xuyên Diệp", "GR", "https://www.facebook.com/groups/TamConXuyenDiep" },
+                    { "phapluatvacuocsong.vnAdmin", "Admin", "Pháp luật & Cuộc sống", "PAGE", "https://www.facebook.com/phapluatvacuocsong.vn" },
+                    { "nhatkyyeunuoc1Admin", "Admin", "Nhật Ký Yêu Nước", "PAGE", "https://www.facebook.com/nhatkyyeunuoc1" },
+                    { "nhabaocongdanAdmin", "Admin", "Góc nhìn báo chí - Công dân", "GR", "https://www.facebook.com/groups/nhabaocongdan" },
+                    { "mothermushroomAdmin", "Admin", "Mẹ Nấm", "USER", "https://www.facebook.com/mothermushroom" },
+                    { "vietnamconghoa123Admin", "Admin", "Việt Nam Cộng Hòa", "PAGE", "https://www.facebook.com/vietnamconghoa123" },
+                    { "lukhachAdmin", "Admin", "Nguyen Huy Vu", "USER", "https://www.facebook.com/lukhach" },
+                    { "HuyFreedomSaigonAdmin", "Admin", "Huỳnh Quốc Huy (John Whale)", "USER", "https://www.facebook.com/HuyFreedomSaigon" },
+                    { "DuaLeo.Stand.up.comedianAdmin", "Admin", "Dưa Leo - Stand up comedian", "PAGE", "https://www.facebook.com/DuaLeo.Stand.up.comedian" },
+                    { "BinhLuanVeDangCongSanAdmin", "Admin", "Bình Luận Về Đảng Cộng Sản", "PAGE", "https://www.facebook.com/BinhLuanVeDangCongSan" },
+                    { "bao.luong.5011516Admin", "Admin", "Luong Quang Bao", "USER", "https://www.facebook.com/bao.luong.5011516" },
+                    { "90trieunguoiAdmin", "Admin", "VIỆT NAM DÂN CHỦ", "PAGE", "https://www.facebook.com/90trieunguoi" },
+                    { "187530275233978Admin", "Admin", "BÀN LUẬN về KINH TẾ - CHÍNH TRỊ 2", "GR", "https://www.facebook.com/groups/187530275233978" },
+                    { "1752456318197543Admin", "Admin", "Xây Dựng Đảng", "GR", "https://www.facebook.com/groups/1752456318197543" },
+                    { "kinhtechinhtrixahoivnAdmin", "Admin", "Bàn Luận về Kinh Tế - Chính Trị", "GR", "https://www.facebook.com/groups/kinhtechinhtrixahoivn" },
+                    { "viettanAdmin", "Admin", "Việt Tân", "PAGE", "https://www.facebook.com/viettan" }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AdministrativeDivision_ManagerId",
                 table: "AdministrativeDivision",
                 column: "ManagerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HistoryClient_AdministrativeDivisionID",
+                table: "HistoryClient",
+                column: "AdministrativeDivisionID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Post_AdministrativeDivisionId",
@@ -355,6 +382,9 @@ namespace cFB.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "History");
+
+            migrationBuilder.DropTable(
+                name: "HistoryClient");
 
             migrationBuilder.DropTable(
                 name: "Report");

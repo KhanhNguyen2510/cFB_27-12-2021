@@ -34,7 +34,7 @@ namespace cFB.Applications.System.Users
         //Check
         public async Task<GetCheckRole> CheckRole(string administrativeDivision_Id)
         {
-            var user = await _context.AdministrativeDivisions.SingleOrDefaultAsync(x => x.AdministrativeDivisionId == administrativeDivision_Id);
+            var user = await _context.AdministrativeDivisions.FirstOrDefaultAsync(x => x.AdministrativeDivisionId == administrativeDivision_Id);
             if (user == null) return null;
 
             var userSeviceViewModel = new GetCheckRole()
@@ -55,7 +55,7 @@ namespace cFB.Applications.System.Users
         {
             try
             {
-                var user = await _context.AdministrativeDivisions.FirstOrDefaultAsync(x => x.AdministrativeDivisionId == request.UserName && x.Password == request.Password);
+                var user = await _context.AdministrativeDivisions.FirstOrDefaultAsync(x => x.AdministrativeDivisionId == request.UserName && x.Password == ShareContants.MD5(request.Password));
                 if (user != null)
                 {
                     await UpdateTimeOnline(request.UserName);
@@ -83,7 +83,7 @@ namespace cFB.Applications.System.Users
                 var token = new JwtSecurityToken(_config["Tokens:Issuer"],
                     _config["Tokens:Issuer"],
                     claims,
-                    expires: DateTime.Now.AddMinutes(120),
+                    expires: DateTime.Now.AddMinutes(200),
                     signingCredentials: creds);
 
                 return new JwtSecurityTokenHandler().WriteToken(token);
@@ -103,7 +103,7 @@ namespace cFB.Applications.System.Users
                     AdministrativeDivisionName = (request.AdministrativeDivisionName != null) ? request.AdministrativeDivisionName : "",
                     Addrees = (request.Addrees != null) ? request.Addrees : "",
                     NumberPhone = (request.NumberPhone != null) ? request.NumberPhone : "",
-                    Password = (request.Password != null) ? request.Password : administrativeDivisionId,// khi mà không tạo password thì sẽ lấy tên người đó làm mật khẫu 
+                    Password = (request.Password != null) ? ShareContants.MD5(request.Password) : ShareContants.MD5(administrativeDivisionId),// khi mà không tạo password thì sẽ lấy tên người đó làm mật khẫu 
                     TimeOnline = DateTime.Now,
                     ManagerId = "User"
                 };
@@ -143,7 +143,7 @@ namespace cFB.Applications.System.Users
                 user.AdministrativeDivisionName = (request.AdministrativeDivisionName != null) ? request.AdministrativeDivisionName : user.AdministrativeDivisionName;
                 user.NumberPhone = (request.NumberPhone != null) ? request.NumberPhone : user.NumberPhone;
                 user.Addrees = (request.Addrees != null) ? request.Addrees : user.Addrees;
-                user.Password = (request.Password != null) ? request.Password : user.Password;
+                user.Password = (request.Password != null) ? ShareContants.MD5(request.Password) : user.Password;
 
                 await _context.SaveChangesAsync();
                 await _historySevice.CreateInHistory(user.AdministrativeDivisionId, Event.Update, $"Tài khoản {user.AdministrativeDivisionId} đã cập nhật lại thông tin của mình");
@@ -158,7 +158,7 @@ namespace cFB.Applications.System.Users
         {
             try
             {
-                var user = await _context.AdministrativeDivisions.SingleOrDefaultAsync(x => x.AdministrativeDivisionId == request.AdministrativeDivisionID);
+                var user = await _context.AdministrativeDivisions.FirstOrDefaultAsync(x => x.AdministrativeDivisionId == request.AdministrativeDivisionID);
                 if (user == null) return false;
                 if (user.ManagerId == "Admin")
                 {
@@ -183,7 +183,7 @@ namespace cFB.Applications.System.Users
         {
             try
             {
-                var user = await _context.AdministrativeDivisions.Where(x => x.AdministrativeDivisionId == administrativeDivision_Id).FirstOrDefaultAsync();
+                var user = await _context.AdministrativeDivisions.FirstOrDefaultAsync(x => x.AdministrativeDivisionId == administrativeDivision_Id);
                 if (user == null) return false;
 
                 _context.AdministrativeDivisions.Remove(user);
@@ -227,7 +227,7 @@ namespace cFB.Applications.System.Users
                 Addrees = x.u.Addrees,
                 NumberPhone = x.u.NumberPhone,
                 TimeOnline = x.u.TimeOnline,
-                Password = x.u.Password,
+                Password =  x.u.Password,
                 ManagerID = x.u.ManagerId
 
             }).ToListAsync();

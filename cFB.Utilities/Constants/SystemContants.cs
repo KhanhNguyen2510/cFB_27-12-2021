@@ -9,6 +9,6 @@
             public const string BaseAddress = "BaseAddress";
             public const string Token = "Token";
         }
-        public const string MainConectionAPI = /*"http://117.2.159.103:8012"*/"http://localhost:8012";
+        public const string MainConectionAPI = "http://117.2.159.103:8012";
     }
 }

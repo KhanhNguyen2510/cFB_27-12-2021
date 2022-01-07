@@ -43,11 +43,11 @@
                 <div class="row">
                     <div class="col-sm-6"></div>
                     <div class="col-sm-6" style="text-align: right; margin-top: 10px;">
-                        <a href="User/Create" style="padding: 7px; background-color: #5e72e4; color: white; border-radius: 5px; ">
-                            Thêm thành viên&nbsp;<i class="fa fa-plus"></i>
+                        <a href="User/Create" style="padding: 13px; background-color: #fb6340; color: white; border-radius: 5px; ">
+                            Thêm thành viên&nbsp;&nbsp;<i class="fas fa-user-plus" style="font-size:20px"></i>
                         </a>
-
-
+                        &nbsp;&nbsp;
+                        <button style="margin-bottom:5px" type="button" onclick="deleteUser()" id="delete-post" class="btn btn-danger" disabled>Xóa thành viên&nbsp;&nbsp; <i class="fas fa-user-minus" style="font-size:20px"></i></button>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                     {
                         <tr>
                             <td style="text-align:center; width:1%">
-                                <input type="checkbox" id="@item.AdministrativeDivisionID" name="SelectPost" class="checkbox" onchange="addFacebookIDToArray('@item.AdministrativeDivisionID')" style="margin-bottom: 10px; cursor: pointer" />
+                                <input type="checkbox" id="@item.AdministrativeDivisionID" name="SelectPost" class="checkbox" onchange="addPostIDToArray('@item.AdministrativeDivisionID')" style="margin-bottom: 10px; cursor: pointer" />
                             </td>
                             <td width="10%" style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                 @Html.DisplayFor(modelItem => item.AdministrativeDivisionID)
@@ -142,7 +142,7 @@
                         </div>
                         <div class="form-group hide">
                             <label>Mật khẩu</label>
-                            <input type="password" class="form-control" id="edit-facebook-password" name="Password" maxlength="100" required>
+                            <input type="password" class="form-control" id="edit-facebook-password" name="Password" maxlength="100">
 
                             <input style="margin: 20px 10px 0 0;" type="checkbox" onclick="myFunction()"> Hiện mật khẩu
                         </div>
@@ -157,6 +157,46 @@
     <script>
         baseUrl = '@SystemContants.MainConectionAPI';
         /*baseUrl = 'http://117.2.159.103:8012' ;*/
+
+        var listPostID = []; //list postID for delete button and export excel
+        var AddposId = [];
+        var AddposIdne = [];
+
+        function deleteItemInArray(arr, item) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] === item) {
+                    arr.splice(i, 1);
+                    i--;
+                }
+            }
+        };
+
+        function toggleButton() {
+            if (checkEmptyArray()) {
+                $('#delete-post').prop('disabled', true);
+                //$('#excel-export').prop('disabled', true);
+            } else {
+                $('#delete-post').prop('disabled', false);
+                //$('#excel-export').prop('disabled', false);
+            }
+
+        };
+        function addPostIDToArray(postID) {
+            if ($('#' + postID).is(':checked')) {
+                listPostID.push(postID);
+            } else {
+                deleteItemInArray(listPostID, postID);
+            }
+            toggleButton();
+           
+        }
+
+        function checkEmptyArray() {
+            if (listPostID.length == 0) {
+                return true;
+            }
+            return false;
+        }
 
         function myFunction() {
             var x = document.getElementById("edit-facebook-password");
@@ -177,18 +217,36 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
+                    
                     $("#edit-facebook-id").val(data.administrativeDivisionId)
                     $("#edit-facebook-name").val(data.administrativeDivisionName);
                     $("#edit-facebook-number").val(data.numberPhone);
                     $("#edit-facebook-addrees").val(data.addrees);
-                    $("#edit-facebook-password").val(data.password);
+                    /*$("#edit-facebook-password").val(data.password);*/
                 },
                 error: function () {
                     alert('Lỗi kết nối đến server!');
                 }
 
             });
+            
+        }
+
+        async function deleteUser(FacebookID) {
+            for (var i = 0; i < listPostID.length; i++) {
+                await $.ajax({
+                   
+                    url: baseUrl + '/api/User/Delete/' + listPostID[i] + '/',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                    },
+                    error: function () {
+                        console.log('Connect failled');
+                    },
+                });
+            }
+            location.reload();
         }
 
     </script>

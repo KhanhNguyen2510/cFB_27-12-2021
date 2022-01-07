@@ -575,7 +575,11 @@
                         $('#reprot-post').html("Lập báo cáo").prop('disabled', false)
                         $('#sentiment-label').prop('disabled', false)
                     }
-                    if (data.image != 'None') {
+                    if (data.image == '')
+                    {
+                        $('#image').attr('href', data.image).children('img').attr('src', data.image).hide();
+                    }
+                    else if (data.image != 'None') {
                         $('#image').attr('href', data.image).children('img').attr('src', data.image);
                     }
                     if (data.sentimentLabelID == 'NEG') {

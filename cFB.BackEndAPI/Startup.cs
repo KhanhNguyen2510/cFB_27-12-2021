@@ -50,7 +50,7 @@ namespace cFB.BackEndAPI
             services.AddTransient<IHistorySevice, HistorySevice>();
             services.AddTransient<IUserSevice, UserSevice>();
             services.AddTransient<IReportSevice, ReportSevice>();
-            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            
 
             services.AddSwaggerGen(c =>
             {

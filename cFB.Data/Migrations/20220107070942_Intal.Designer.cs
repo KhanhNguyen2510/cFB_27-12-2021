@@ -10,8 +10,8 @@ using cFB.Data.EFs;
 namespace cFB.Data.Migrations
 {
     [DbContext(typeof(cFBDbContext))]
-    [Migration("20220103100433_Add_HistoryClient")]
-    partial class Add_HistoryClient
+    [Migration("20220107070942_Intal")]
+    partial class Intal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,7 +52,7 @@ namespace cFB.Data.Migrations
                     b.Property<DateTime>("TimeOnline")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2022, 1, 3, 17, 4, 32, 905, DateTimeKind.Local).AddTicks(4067));
+                        .HasDefaultValue(new DateTime(2022, 1, 7, 14, 9, 41, 624, DateTimeKind.Local).AddTicks(7356));
 
                     b.HasKey("AdministrativeDivisionId");
 
@@ -67,9 +67,9 @@ namespace cFB.Data.Migrations
                             Addrees = "158 Đặng Văn Lãnh, TP Phan Thiết",
                             AdministrativeDivisionName = "Thành phố Phan Thiết",
                             CheckPass = false,
-                            ManagerId = "Admin",
+                            ManagerId = "User",
                             NumberPhone = "02523822694",
-                            Password = "1",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
                             TimeOnline = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -80,7 +80,7 @@ namespace cFB.Data.Migrations
                             CheckPass = false,
                             ManagerId = "User",
                             NumberPhone = "02523850163",
-                            Password = "1",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
                             TimeOnline = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -91,7 +91,7 @@ namespace cFB.Data.Migrations
                             CheckPass = false,
                             ManagerId = "User",
                             NumberPhone = "02523860133",
-                            Password = "1",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
                             TimeOnline = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -102,7 +102,7 @@ namespace cFB.Data.Migrations
                             CheckPass = false,
                             ManagerId = "User",
                             NumberPhone = "02523865113",
-                            Password = "1",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
                             TimeOnline = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -113,7 +113,7 @@ namespace cFB.Data.Migrations
                             CheckPass = false,
                             ManagerId = "User",
                             NumberPhone = "02523867113",
-                            Password = "1",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
                             TimeOnline = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -124,7 +124,7 @@ namespace cFB.Data.Migrations
                             CheckPass = false,
                             ManagerId = "User",
                             NumberPhone = "02523876100",
-                            Password = "1",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
                             TimeOnline = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -135,7 +135,7 @@ namespace cFB.Data.Migrations
                             CheckPass = false,
                             ManagerId = "User",
                             NumberPhone = "02523871988",
-                            Password = "1",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
                             TimeOnline = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -146,7 +146,7 @@ namespace cFB.Data.Migrations
                             CheckPass = false,
                             ManagerId = "User",
                             NumberPhone = "0794201396",
-                            Password = "1",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
                             TimeOnline = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -157,7 +157,7 @@ namespace cFB.Data.Migrations
                             CheckPass = false,
                             ManagerId = "User",
                             NumberPhone = "02523882113",
-                            Password = "1",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
                             TimeOnline = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -168,7 +168,7 @@ namespace cFB.Data.Migrations
                             CheckPass = false,
                             ManagerId = "User",
                             NumberPhone = "02523767434",
-                            Password = "1",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
                             TimeOnline = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -179,7 +179,7 @@ namespace cFB.Data.Migrations
                             CheckPass = false,
                             ManagerId = "Admin",
                             NumberPhone = "02523767434",
-                            Password = "1",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
                             TimeOnline = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -250,23 +250,30 @@ namespace cFB.Data.Migrations
 
             modelBuilder.Entity("cFB.Data.Entites.HistoryClient", b =>
                 {
-                    b.Property<string>("IPAddress")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("Time")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 1, 3, 17, 4, 32, 926, DateTimeKind.Local).AddTicks(9539));
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AdministrativeDivisionID")
                         .HasColumnType("varchar(10)");
+
+                    b.Property<string>("IPAddress")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("NameMachine")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("IPAddress", "Time", "AdministrativeDivisionID");
+                    b.Property<DateTime>("Time")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2022, 1, 7, 14, 9, 41, 648, DateTimeKind.Local).AddTicks(9328));
+
+                    b.HasKey("ID");
 
                     b.HasIndex("AdministrativeDivisionID");
 
@@ -397,7 +404,7 @@ namespace cFB.Data.Migrations
                     b.Property<DateTime>("CrawledTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2022, 1, 3, 17, 4, 32, 915, DateTimeKind.Local).AddTicks(6823));
+                        .HasDefaultValue(new DateTime(2022, 1, 7, 14, 9, 41, 636, DateTimeKind.Local).AddTicks(988));
 
                     b.Property<string>("FaceBookId")
                         .HasColumnType("nvarchar(450)");
@@ -448,7 +455,7 @@ namespace cFB.Data.Migrations
                     b.Property<DateTime>("UploadTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2022, 1, 3, 17, 4, 32, 915, DateTimeKind.Local).AddTicks(6467));
+                        .HasDefaultValue(new DateTime(2022, 1, 7, 14, 9, 41, 636, DateTimeKind.Local).AddTicks(581));
 
                     b.Property<string>("UserUrl")
                         .IsRequired()
@@ -479,7 +486,7 @@ namespace cFB.Data.Migrations
                     b.Property<DateTime>("DateReport")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 1, 3, 17, 4, 32, 925, DateTimeKind.Local).AddTicks(5215));
+                        .HasDefaultValue(new DateTime(2022, 1, 7, 14, 9, 41, 646, DateTimeKind.Local).AddTicks(7032));
 
                     b.Property<string>("FileReport")
                         .ValueGeneratedOnAdd()
@@ -594,7 +601,7 @@ namespace cFB.Data.Migrations
                     b.HasData(
                         new
                         {
-                            FaceBookId = "1648199831900386",
+                            FaceBookId = "1648199831900386Admin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Triệt Hạ Bò Đỏ",
                             FaceBookTypeId = "GR",
@@ -603,7 +610,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "1752456318197543",
+                            FaceBookId = "1752456318197543Admin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Xây Dựng Đảng",
                             FaceBookTypeId = "GR",
@@ -612,7 +619,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "187530275233978",
+                            FaceBookId = "187530275233978Admin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "BÀN LUẬN về KINH TẾ - CHÍNH TRỊ 2",
                             FaceBookTypeId = "GR",
@@ -621,7 +628,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "90trieunguoi",
+                            FaceBookId = "90trieunguoiAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "VIỆT NAM DÂN CHỦ",
                             FaceBookTypeId = "PAGE",
@@ -630,7 +637,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "bao.luong.5011516",
+                            FaceBookId = "bao.luong.5011516Admin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Luong Quang Bao",
                             FaceBookTypeId = "USER",
@@ -639,7 +646,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "BinhLuanVeDangCongSan",
+                            FaceBookId = "BinhLuanVeDangCongSanAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Bình Luận Về Đảng Cộng Sản",
                             FaceBookTypeId = "PAGE",
@@ -648,7 +655,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "DuaLeo.Stand.up.comedian",
+                            FaceBookId = "DuaLeo.Stand.up.comedianAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Dưa Leo - Stand up comedian",
                             FaceBookTypeId = "PAGE",
@@ -657,7 +664,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "HuyFreedomSaigon",
+                            FaceBookId = "HuyFreedomSaigonAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Huỳnh Quốc Huy (John Whale)",
                             FaceBookTypeId = "USER",
@@ -666,7 +673,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "kinhtechinhtrixahoivn",
+                            FaceBookId = "kinhtechinhtrixahoivnAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Bàn Luận về Kinh Tế - Chính Trị",
                             FaceBookTypeId = "GR",
@@ -675,7 +682,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "lukhach",
+                            FaceBookId = "lukhachAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Nguyen Huy Vu",
                             FaceBookTypeId = "USER",
@@ -684,7 +691,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "mothermushroom",
+                            FaceBookId = "mothermushroomAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Mẹ Nấm",
                             FaceBookTypeId = "USER",
@@ -693,7 +700,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "nhabaocongdan",
+                            FaceBookId = "nhabaocongdanAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Góc nhìn báo chí - Công dân",
                             FaceBookTypeId = "GR",
@@ -702,7 +709,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "nhatkyyeunuoc1",
+                            FaceBookId = "nhatkyyeunuoc1Admin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Nhật Ký Yêu Nước",
                             FaceBookTypeId = "PAGE",
@@ -711,7 +718,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "phapluatvacuocsong.vn",
+                            FaceBookId = "phapluatvacuocsong.vnAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Pháp luật & Cuộc sống",
                             FaceBookTypeId = "PAGE",
@@ -720,7 +727,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "TamConXuyenDiep",
+                            FaceBookId = "TamConXuyenDiepAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Tam Côn Xuyên Diệp",
                             FaceBookTypeId = "GR",
@@ -729,7 +736,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "thong.luan.1",
+                            FaceBookId = "thong.luan.1Admin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Tập Hợp Dân Chủ Đa Nguyên",
                             FaceBookTypeId = "PAGE",
@@ -738,7 +745,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "thuc.tranhuynhduy",
+                            FaceBookId = "thuc.tranhuynhduyAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Trần Huỳnh Duy Thức",
                             FaceBookTypeId = "USER",
@@ -747,7 +754,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "vietnamconghoa123",
+                            FaceBookId = "vietnamconghoa123Admin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Việt Nam Cộng Hòa",
                             FaceBookTypeId = "PAGE",
@@ -756,7 +763,7 @@ namespace cFB.Data.Migrations
                         },
                         new
                         {
-                            FaceBookId = "viettan",
+                            FaceBookId = "viettanAdmin",
                             AdministrativeDivisionId = "Admin",
                             FaceBookName = "Việt Tân",
                             FaceBookTypeId = "PAGE",
@@ -789,9 +796,7 @@ namespace cFB.Data.Migrations
                 {
                     b.HasOne("cFB.Data.Entites.AdministrativeDivision", "AdministrativeDivisions")
                         .WithMany("HistoryClients")
-                        .HasForeignKey("AdministrativeDivisionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdministrativeDivisionID");
 
                     b.Navigation("AdministrativeDivisions");
                 });

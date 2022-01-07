@@ -57,6 +57,7 @@ namespace cFB.Utilities.Constants
             return sb.ToString();
         }
 
+
         public static string SHA1(string pPass)
         {
             SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();

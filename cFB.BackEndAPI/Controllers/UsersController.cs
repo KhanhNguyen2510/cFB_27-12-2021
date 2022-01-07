@@ -67,7 +67,7 @@ namespace cFB.BackEndAPI.Controllers
             return Json(user);
         }
 
-        [HttpDelete("Delete/{administrativeDivision_Id}")]
+        [HttpPost("Delete/{administrativeDivision_Id}")]
         public async Task<JsonResult> DeleteUser(string administrativeDivision_Id)
         {
             var user = await _userSevice.DeleteUser(administrativeDivision_Id);

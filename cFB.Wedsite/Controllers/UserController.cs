@@ -113,6 +113,7 @@ namespace cFB.Wedsite.Controllers
         {
 
             request.AdministrativeDivisionID = "Admin";// hiện tại không có thời gian viết js cho hàm này 
+           
             var result = await _userApiClient.Update(request);
             if (result == false)
             {

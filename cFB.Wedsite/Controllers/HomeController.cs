@@ -24,14 +24,15 @@ namespace cFB.Wedsite.Controllers
         private readonly IUserApiSevice _userApiClient;
         private readonly IConfiguration _configuration;
         private readonly IHistoryApiClient _historyApiClient;
+        private readonly IHttpContextAccessor _accessor;
 
 
-
-        public HomeController(IUserApiSevice userApiSevice, IConfiguration configuration,IHistoryApiClient historyApiClient)
+        public HomeController(IUserApiSevice userApiSevice, IConfiguration configuration,IHistoryApiClient historyApiClient,IHttpContextAccessor httpContextAccessor)
         {
             _userApiClient = userApiSevice;
             _configuration = configuration;
             _historyApiClient = historyApiClient;
+            _accessor = httpContextAccessor;
         }
 
         [HttpGet]
@@ -70,8 +71,9 @@ namespace cFB.Wedsite.Controllers
                 }
 
                 var userAgent = Request.Headers["User-Agent"];
+                var ipAdress = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
                 var check = await _userApiClient.CheckRole(request.UserName);
-                await _historyApiClient.CreateHistoryClient(request.UserName, userAgent);
+                await _historyApiClient.CreateHistoryClient(request.UserName, userAgent,ipAdress);
                 TempData["Role"] = check.ManagerID;
                 TempData["name"] = request.UserName;
 

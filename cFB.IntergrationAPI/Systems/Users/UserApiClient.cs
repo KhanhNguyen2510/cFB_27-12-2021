@@ -97,7 +97,8 @@ namespace cFB.IntergrationAPI.Systems.Users
             requestContent.Add(new StringContent(request.AdministrativeDivisionName.ToString()), "AdministrativeDivisionName");
             requestContent.Add(new StringContent(request.NumberPhone.ToString()), "NumberPhone");
             requestContent.Add(new StringContent(request.Addrees.ToString()), "Addrees");
-            requestContent.Add(new StringContent(request.Password.ToString()), "Password");
+            
+            requestContent.Add(new StringContent(request.Password == null?"":request.Password.ToString()), "Password");
 
             var response = await client.PostAsync($"/api/User/UpdateToUser", requestContent);
 

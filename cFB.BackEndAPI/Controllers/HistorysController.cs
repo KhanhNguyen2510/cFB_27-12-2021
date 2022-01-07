@@ -14,12 +14,11 @@ namespace cFB.BackEndAPI.Controllers
     public class HistorysController : Controller
     {
         private readonly IHistorySevice _historySevice;
-        private readonly IHttpContextAccessor _accessor;
+        
         private readonly cFBDbContext _context;
-        public HistorysController(IHistorySevice historySevice, IHttpContextAccessor accessor, cFBDbContext context)
+        public HistorysController(IHistorySevice historySevice, cFBDbContext context)
         {
             _historySevice = historySevice;
-            _accessor = accessor;
             _context = context;
         }
 
@@ -40,14 +39,12 @@ namespace cFB.BackEndAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> CreateHistoryClient(string AdministrativeDivisionID, string UserAgent)
+        public async Task<JsonResult> CreateHistoryClient(string AdministrativeDivisionID, string UserAgent,string IpAdress)
         {
-            var ipAdress = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-
             var data = new HistoryClient()
             {
                 AdministrativeDivisionID = AdministrativeDivisionID,
-                IPAddress = ipAdress,
+                IPAddress = IpAdress,
                 NameMachine = UserAgent,
                 Time = DateTime.Now
             };
