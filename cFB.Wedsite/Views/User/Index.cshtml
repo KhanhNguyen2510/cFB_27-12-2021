@@ -47,7 +47,7 @@
                             Thêm thành viên&nbsp;&nbsp;<i class="fas fa-user-plus" style="font-size:20px"></i>
                         </a>
                         &nbsp;&nbsp;
-                        <button style="padding: 5px; margin-bottom: 5px " type="button" onclick="deleteUser()" id="delete-post" class="btn btn-danger" disabled>Xóa thành viên&nbsp;&nbsp; <i class="fas fa-user-minus" style="font-size:20px"></i></button>
+                        <button style="padding: 5px; margin-bottom: 3px " type="button" onclick="deleteUser()" id="delete-post" class="btn btn-danger" disabled>Xóa thành viên&nbsp;&nbsp; <i class="fas fa-user-minus" style="font-size:20px"></i></button>
                     </div>
                 </div>
             </div>
@@ -64,50 +64,54 @@
                         <th rowspan="1" colspan="1" style=" width: 10px; text-align: center">Mã</th>
                         <th rowspan="1" colspan="1" style=" width: 10px; text-align: center">Tên</th>
                         <th rowspan="1" colspan="1" style="width: 350px; text-align: center">SĐT</th>
-                        <th rowspan="1" colspan="1" style="width: 200px; text-align: center">Địa chỉ</th>
+
                         <th rowspan="1" colspan="1" style="width: 60px; text-align: center">Hoạt động</th>
                         @*<th rowspan="1" colspan="1" style="width: 20px; text-align: center">Cấp quyền</th>*@
+
+                        <th rowspan="1" colspan="1" style="width: 200px; text-align: center">Địa chỉ</th>
                         <th rowspan="1" colspan="1" style="width: 20px; text-align: center">Sửa</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td style="text-align:center; width:1%">
-                                <input type="checkbox" id="@item.AdministrativeDivisionID" name="SelectPost" class="checkbox" onchange="addPostIDToArray('@item.AdministrativeDivisionID')" style="margin-bottom: 10px; cursor: pointer" />
-                            </td>
-                            <td width="10%" style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                @Html.DisplayFor(modelItem => item.AdministrativeDivisionID)
-                            </td>
-                            <td width="10%" style="text-align:center;max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                @Html.DisplayFor(modelItem => item.AdministrativeDivisionName)
-                            </td>
-                            <td width="10%" style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                @Html.DisplayFor(modelItem => item.NumberPhone)
-                            </td>
-                            <td width="15%" style=" max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                @Html.DisplayFor(modelItem => item.Addrees)
-                            </td>
-                            <td style="width: 13%;text-align:center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                <a style="color: #f5365c ">@item.TimeOnline</a>
-                            </td>
+                    <tr>
+                        <td style="text-align:center; width:1%">
+                            <input type="checkbox" id="@item.AdministrativeDivisionID" name="SelectPost" class="checkbox" onchange="addPostIDToArray('@item.AdministrativeDivisionID')" style="margin-bottom: 10px; cursor: pointer" />
+                        </td>
+                        <td width="10%" style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            @Html.DisplayFor(modelItem => item.AdministrativeDivisionID)
+                        </td>
+                        <td width="15%" style="text-align:center;max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            @Html.DisplayFor(modelItem => item.AdministrativeDivisionName)
+                        </td>
+                        <td width="10%" style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            @Html.DisplayFor(modelItem => item.NumberPhone)
+                        </td>
 
-                            @*CHINH IMG CAP QUYEN*@
-                            <!--<td width="10%" style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                            <form asp-action="UpdateRole" asp-controller="User" method="post" enctype="multipart/form-data">
-                                <input type="text" name="AdministrativeDivision_Admin" value="@User.Identity.Name" hidden>
-                                <input type="text" name="AdministrativeDivision_Id" value="@item.AdministrativeDivisionID" hidden>-->
-                            @*<input type="submit" value="Xoa" />*@
-                            <!--<button type="submit" style=" background-color: Transparent; background-repeat: no-repeat; border: none; cursor: pointer; overflow: hidden;"><i class="fas fa-caret-square-up" style="font-size:25px;"></i></button>
-                                </form>
-                            </td>-->
-                            <td width="5%" style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#edit-to-users" onclick="editItemInWatchList('@item.AdministrativeDivisionID')" style="border:none">
-                                    <i class="fas fa-user-edit" style="font-size: 20px; color: #5e72e4"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        <td style="width: 13%;text-align:center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            <a style="color: #f5365c ">@item.TimeOnline</a>
+                        </td>
+
+                        @*CHINH IMG CAP QUYEN*@
+                        <!--<td width="10%" style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+    <form asp-action="UpdateRole" asp-controller="User" method="post" enctype="multipart/form-data">
+        <input type="text" name="AdministrativeDivision_Admin" value="@User.Identity.Name" hidden>
+        <input type="text" name="AdministrativeDivision_Id" value="@item.AdministrativeDivisionID" hidden>-->
+                        @*<input type="submit" value="Xoa" />*@
+                        <!--<button type="submit" style=" background-color: Transparent; background-repeat: no-repeat; border: none; cursor: pointer; overflow: hidden;"><i class="fas fa-caret-square-up" style="font-size:25px;"></i></button>
+        </form>
+    </td>-->
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Addrees)
+                        </td>
+                        <td width="5%" style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#edit-to-users" onclick="editItemInWatchList('@item.AdministrativeDivisionID')" style="border:none">
+                                <i class="fas fa-user-edit" style="font-size: 20px; color: #5e72e4"></i>
+                            </button>
+                        </td>
+                    </tr>
                     }
 
 

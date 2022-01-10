@@ -119,7 +119,7 @@ namespace cFB.Wedsite.Controllers
 
             ViewBag.WatchList = watchList.Select(x => new SelectListItem()
             {
-                Text = x.FaceBookName,
+                Text = $"({x.AdministrativeDivisionId}) -- " + x.FaceBookName,
                 Value = x.FaceBookId,
                 Selected = watchlistID == x.FaceBookId
             });
