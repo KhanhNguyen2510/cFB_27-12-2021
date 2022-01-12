@@ -13,10 +13,10 @@ namespace cFB.Data.Configurations
             builder.ToTable("Post");
             builder.HasKey(x => x.PostId);
             builder.Property(x => x.PostId).HasMaxLength(500);
-            builder.Property(x => x.PostUrl).IsRequired().HasMaxLength(400);
-            builder.Property(x => x.UserUrl).IsRequired().HasMaxLength(400);
-            builder.Property(x => x.PostContent);
-            builder.Property(x => x.Image);
+            builder.Property(x => x.PostUrl).IsRequired().HasMaxLength(500);
+            builder.Property(x => x.UserUrl).IsRequired().HasMaxLength(500);
+            builder.Property(x => x.PostContent).HasMaxLength(500);
+            builder.Property(x => x.Image).HasMaxLength(500);
             builder.Property(x => x.UploadTime).HasDefaultValue(DateTime.Now).HasColumnType("datetime");
             builder.Property(x => x.CrawledTime).HasDefaultValue(DateTime.Now).HasColumnType("datetime");
             builder.Property(x => x.TotalLikes).HasDefaultValue(0);

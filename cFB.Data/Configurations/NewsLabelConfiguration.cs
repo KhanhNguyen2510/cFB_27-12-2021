@@ -11,7 +11,7 @@ namespace cFB.Data.Configurations
             builder.ToTable("NewsLabel");
             builder.HasKey(x => x.NewsLabelId);
             builder.Property(x => x.NewsLabelId).HasColumnType("varchar(8)");
-            builder.Property(x => x.NewsLabelName).IsRequired().HasMaxLength(200);
+            builder.Property(x => x.NewsLabelName).IsRequired().HasMaxLength(100);
         }
     }
 }

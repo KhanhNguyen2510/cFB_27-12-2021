@@ -12,6 +12,7 @@ namespace cFB.Data.Configurations
             builder.HasKey(x => x.FaceBookTypeId);
             builder.Property(x => x.FaceBookTypeId).HasColumnType("varchar(8)");
             builder.Property(x => x.FaceBookTypeName).IsRequired().HasMaxLength(200);
+            builder.Property(x => x.Description).HasMaxLength(500);
         }
     }
 }

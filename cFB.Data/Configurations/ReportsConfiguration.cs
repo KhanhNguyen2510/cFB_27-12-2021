@@ -11,7 +11,7 @@ namespace cFB.Data.Configurations
         {
             builder.ToTable("Report");
             builder.HasKey(x => x.ReportId);
-            builder.Property(x => x.DateReport).HasDefaultValue(DateTime.Now);
+            builder.Property(x => x.DateReport).HasDefaultValue(DateTime.Now).HasColumnType("datetime");
             builder.Property(x => x.FileReport).HasDefaultValue("").HasMaxLength(500);
             builder.HasOne(x => x.AdministrativeDivision).WithMany(x => x.Reports).HasForeignKey(x => x.AdministrativeDivisionId);
             builder.HasOne(x => x.Posts).WithMany(x => x.Reports).HasForeignKey(x => x.PostId);

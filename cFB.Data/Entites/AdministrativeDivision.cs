@@ -12,7 +12,6 @@ namespace cFB.Data.Entites
         public DateTime TimeOnline { get; set; }
         public string Password { get; set; }
         public string ManagerId { get; set; }
-        public bool CheckPass { get; set; }
         public IEnumerable<Post> Posts { get; set; }
         public IEnumerable<WatchList> WatchLists { get; set; }
         public IEnumerable<History> Histories { get; set; }

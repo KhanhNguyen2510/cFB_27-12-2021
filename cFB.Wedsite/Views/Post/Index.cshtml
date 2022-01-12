@@ -458,10 +458,10 @@
         }
 
         async function ChangeSenmalLable(ten) {
-            hihi = baseUrl + '/api/Posts/ChangeSentimentLabelBy/' + AddposIdne + '/' + ten
+            hihi = baseUrl + '/api/Posts/ChangeSentimentLabelById/' + AddposIdne + '/' + ten
             console.log(hihi)
             await $.ajax({
-                url: baseUrl + '/api/Posts/ChangeSentimentLabelBy/' + AddposIdne + '/' + ten,
+                url: baseUrl + '/api/Posts/ChangeSentimentLabelById/' + AddposIdne + '/' + ten,
                 type: 'POST',
                 dataType: 'json',
                 success: function (data) {

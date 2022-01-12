@@ -156,7 +156,7 @@ namespace cFB.BackEndAPI.Controllers
             var post = await _postSevice.UnReported(posId);
             return Json(post);
         }
-        [HttpPost("ChangeSentimentLabelBy/{postId}/{sentimentLabel_Id}")]
+        [HttpPost("ChangeSentimentLabelById/{postId}/{sentimentLabel_Id}")]
         public async Task<JsonResult> ChangeSentimentLabelBy(string postId, string sentimentLabel_Id)
         {
             var post = await _postSevice.ChangeSentimentLabelBy(postId, sentimentLabel_Id);

@@ -35,7 +35,7 @@ namespace cFB.Wedsite.Controllers
 
         public async Task<IActionResult> AnalysisAll(string facebookID, string userId, string keyword)
         {
-            Response.Headers.Add("Refresh", "60000"); // reset sau 15 phút
+           /* Response.Headers.Add("Refresh", "60000");*/ // reset sau 15 phút
             ShareContants.NumberPageVisits = 0;
 
             var sentimentLabel = new[] { ShareContants.SentimentLabelName.Positive, ShareContants.SentimentLabelName.Normal, ShareContants.SentimentLabelName.Negative };

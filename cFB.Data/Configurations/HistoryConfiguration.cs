@@ -10,7 +10,7 @@ namespace cFB.Data.Configurations
         {
             builder.ToTable("History");
             builder.HasKey(x => new { x.AdministrativeDivisionId, x.Time });
-            builder.Property(x => x.StatusHistory).HasMaxLength(400);
+            builder.Property(x => x.StatusHistory).HasMaxLength(500);
             builder.Property(x => x.Event).IsRequired();
             builder.HasOne(x => x.AdministrativeDivisions).WithMany(x => x.Histories).HasForeignKey(x => x.AdministrativeDivisionId);
         }

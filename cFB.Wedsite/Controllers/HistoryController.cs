@@ -39,7 +39,7 @@ namespace cFB.Wedsite.Controllers
 
         public async Task<IActionResult> Index(string userId, Event? Event, DateTime? StartDate, DateTime? EndDate, int pageIndex = 1, int pageSize = 100)
         {
-            Response.Headers.Add("Refresh", "60000"); // reset sau 10 phút
+            /*Response.Headers.Add("Refresh", "60000");*/ // reset sau 10 phút
             ShareContants.NumberPageVisits = 0;
 
             if (pageSize == ShareContants.PageSizeErro) pageSize = 1;

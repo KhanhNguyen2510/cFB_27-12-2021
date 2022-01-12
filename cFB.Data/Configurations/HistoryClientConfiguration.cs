@@ -13,7 +13,7 @@ namespace cFB.Data.Configurations
             builder.HasKey(x => x.ID);
             builder.Property(x => x.ID).UseIdentityColumn();
             builder.Property(x => x.IPAddress).HasMaxLength(100);
-            builder.Property(x => x.NameMachine).HasMaxLength(200);
+            builder.Property(x => x.NameMachine).HasMaxLength(100);
             builder.Property(x => x.Time).HasDefaultValue(DateTime.Now);
             builder.HasOne(x => x.AdministrativeDivisions).WithMany(x => x.HistoryClients).HasForeignKey(x => x.AdministrativeDivisionID);
         }

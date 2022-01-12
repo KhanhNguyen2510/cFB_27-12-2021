@@ -10,7 +10,8 @@ namespace cFB.Data.Configurations
         {
             builder.ToTable("RoleManager");
             builder.HasKey(x => x.ManagerId);
-            builder.Property(x => x.ManagerName).IsRequired();
+            builder.Property(x => x.ManagerName).HasMaxLength(10).IsRequired();
+            builder.Property(x => x.ManagerName).HasMaxLength(100);
         }
     }
 }

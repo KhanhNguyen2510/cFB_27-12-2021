@@ -13,10 +13,10 @@ namespace cFB.Data.Configurations
             builder.HasKey(x => x.AdministrativeDivisionId);
             builder.Property(x => x.AdministrativeDivisionId).HasColumnType("varchar(10)");
             builder.Property(x => x.AdministrativeDivisionName).IsRequired().HasMaxLength(200);
-            builder.Property(x => x.NumberPhone).HasMaxLength(13).HasColumnType("varchar(12)");
+            builder.Property(x => x.NumberPhone).HasColumnType("varchar(13)");
             builder.Property(x => x.Addrees).HasMaxLength(300);
             builder.Property(x => x.TimeOnline).HasDefaultValue(DateTime.Now).HasColumnType("datetime");
-            builder.Property(x => x.Password).IsRequired();
+            builder.Property(x => x.Password).IsRequired().HasMaxLength(20);
             builder.HasOne(x => x.RoleManager).WithMany(x => x.AdministrativeDivision).HasForeignKey(x => x.ManagerId);
         }
     }
