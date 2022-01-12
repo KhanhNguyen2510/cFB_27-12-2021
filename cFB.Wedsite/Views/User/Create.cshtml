@@ -26,7 +26,7 @@
             <li class="breadcrumb-item active "><a href="/User">Danh sách tài khoản</a></li>
             <li class="breadcrumb-item">Thêm tài khoản</li>
         </ol>
-        <div class="card mb-4">
+        <div class="card mb-4" style="width:500px">
             <div class="card-header">
                 <div class="col-md-8">
                     <form method="post" enctype="multipart/form-data" action="/User/Create">
@@ -37,34 +37,37 @@
                         <div class="form-group">
                             <input type="text" name="AdministrativeDivision_Admin" value="@User.Identity.Name" hidden>
                             <label asp-for="AdministrativeDivisionName" class="control-label"></label>
-                            <input asp-for="AdministrativeDivisionName" class="form-control" style="width:600px" />
+                            <input asp-for="AdministrativeDivisionName" class="form-control" style="width:400px;position:absolute;" />
                             <span asp-validation-for="AdministrativeDivisionName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="NumberPhone" class="control-label"></label>
-                            <input asp-for="NumberPhone" class="form-control" style="width:600px" />
+                            <input asp-for="NumberPhone" class="form-control" style="width: 400px; position: absolute;" />
                             <span asp-validation-for="NumberPhone" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Addrees" class="control-label"></label>
-                            <input asp-for="Addrees" class="form-control" style="width:600px" />
+                            <input asp-for="Addrees" class="form-control" style="width: 400px; position: absolute;" />
                             <span asp-validation-for="Addrees" class="text-danger"></span>
                         </div>
                         <div class="form-group hide">
                             <label asp-for="Password" class="control-label"></label>
-                            <input asp-for="Password" type="password" class="form-control" id="ipnPassword" style="width:600px" />
+                            <input asp-for="Password" type="password" class="form-control" id="ipnPassword" style="width: 400px; position: absolute;" />
 
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         <div class="form-group hide">
                             <label asp-for="ConfirmPassword" class="control-label"></label>
-                            <input asp-for="ConfirmPassword" type="password" class="form-control" id="ipnPassword1" style="width:600px" />
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" id="ipnPassword1" style="width: 400px; position: absolute;" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
 
-                            <input style="margin: 20px 10px 0 0;" type="checkbox" onclick="myFunction()"> Hiện mật khẩu
+                            <div >
+                                <input style="margin: 35px 0px -16px 12px;" type="checkbox" onclick="myFunction()"> Hiện mật khẩu
+                            </div>
+                            
                         </div>
-                        <div class="form-group">
-                            <input type="submit"  value="Lưu" class="btn btn-primary" />
+                        <div >
+                            <button type="submit" class="btn btn-primary" style=" margin-top: -63px; position: absolute;"> Lưu</button>
                         </div>
                     </form>
                 </div>
