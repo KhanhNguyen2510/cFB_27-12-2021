@@ -16,7 +16,7 @@
             <li class="breadcrumb-item active "><h2>Lịch sử thiết bị đăng nhập</h2></li>
         </ol>
         <div class="card mb-4">
-            <div class="card-header">
+            <div class="card-header rowPC">
                 <i class="fas fa-clipboard-list"></i> Danh mục tìm kiếm
                 <div class="panel-heading" style="padding-top:20px">
                     <div class="row">
@@ -64,7 +64,54 @@
                     </div>
                 </div>
             </div>
+            <div class="card-header rowMobile" style="display:none;">
+                <i class="fas fa-clipboard-list"></i> Danh mục tìm kiếm
+                <div class="panel-heading" style="padding-top:20px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form method="get" asp-controller="History" asp-action="HistoryClient" style="text-align:left;">
+                                @if (@ViewBag.RoleOfUser == ShareContants.UserAdmin)
+                                {
+                                    <div style="padding-right:5px">
+                                        Địa phương:
+                                        <select class="form-control input-sm" id="news-label-id" onchange="this.form.submit()" asp-items="@ViewBag.AdministrativeDivision" name="userId" style="width:195px; height:46px">
+                                            <option></option>
+                                        </select>
+                                        <i class="fas fa-caret-down" style=" position: absolute; margin: -30px 0 0 175px;"></i>
+                                    </div>
+                                }
+                                <br />
+                                <div style="padding-right:5px">
+                                    &nbsp;
+                                    Từ ngày:
+                                    <input type="date" class="form-control input-sm" id="start-date" value="@ViewBag.StartDate" name="StartDate" />
+                                </div>
+                                <div>
+                                    &nbsp;
+                                    Đến ngày:
+                                    <input type="date" class="form-control input-sm" id="end-date" value="@ViewBag.EndDate" onchange="this.form.submit()" name="EndDate" />
+                                </div>
+                                <div class="bg-white border-radius-lg d-flex " style="padding-top: 23px; float: right;">
 
+                                    <p style="margin: 10px 7px 0 0;"></p>
+                                    <input type="text" class="form-control border-0 ps-3" value="@ViewBag.IpAdress" name="IpAdress" placeholder="Nhập từ khóa cần tìm..." style="background: #eee9e9;  height: 45px; width: 250px;">
+                                    <button class="btn" type="submit" style="height: 45px; width: 50px;  color: black; border: none; padding: 12px; margin-left: -3rem; "><i style=" margin-top: -6px;margin-right:6px;" class="fas fa-search"></i></button>
+
+                                </div>
+                                <button type="button" onclick="window.location.href='/History/Index'" class="btn btn-dark" style="height: 45px; width: 100%; margin: 25px 0 0 10px; padding: 0px; background-color: #5e72e4; border:none">Reset</button>
+                            </form>
+                            <div class="page" style="float:right;margin:-46px 0 0 0">
+                                <form method="get" asp-controller="History" asp-action="HistoryClient" style="text-align: left; display: flex; position: absolute; top: 416px;">
+                                    <p style=" margin: 9px 25px 0 185px;">Số trang:</p>
+                                    <input type="text" class="form-control border-0 ps-3" value="@ViewBag.PageSize" name="pageSize" placeholder="Nhập..." style="background: #eee9e9; margin: 4px 10px 0 -15px; width: 60px; height: 35px;">
+                                    @*<button class="btn btn-primary my-1 me-1" type="submit" style=" height: 33px; width: 48px; padding: 1px; color: white;">OK </button>*@
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card">
             <style>
@@ -80,7 +127,7 @@
                     margin-right: 0.5rem;
                 }
             </style>
-            <div class="table-responsive">
+            <div class="table-responsive" style="overflow-y: scroll; max-height: 350px;">
                 <table id="" class="table align-items-center mb-0" role="grid">
                     <thead>
                         <tr role="row">

@@ -43,6 +43,7 @@
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-clipboard-list"></i> Danh mục tìm kiếm
+                
                 <div class="panel-heading" style="padding-top:20px">
                     <div class="row">
                         <div class="col-sm-6">
@@ -60,7 +61,7 @@
                                         <option></option>
                                     </select>
                                 </label>
-                                <button type="button" onclick="window.location.href='/WatchList/Index'" class="btn btn-dark" style="width: 60px; padding: 0; margin: 23px 0 0 10px; height: 41px; background-color: #5e72e4; color: white;border:none">Reset</button>
+                                <button type="button" onclick="window.location.href='/WatchList/Index'" class="btn btn-dark btn-resetWatchlist" style="width: 60px; padding: 0; margin: 23px 0 0 10px; height: 41px; background-color: #5e72e4; color: white;border:none">Reset</button>
                             </form>
                             <div class="col-sm-9 form-inline" style="height: 30px">
                                 <form method="get" style="text-align:left; display:flex" action="/WatchList">
@@ -69,22 +70,23 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-sm-6" style="text-align: right;padding-top:31px">
-                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#add-to-watch-list" style="font-size:15px">
+                        <div class="col-sm-6 watchlist" style="text-align: right;padding-top:31px">
+                            <button class="btn btn-sm btn-primary btn-watchlist" data-toggle="modal" data-target="#add-to-watch-list" style="font-size:15px">
                                 Thêm mới&nbsp;&nbsp;<i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-sm btn-outline-success" id="follow" onclick="follow()" style="font-size:15px" disabled="">
+                            <button class="btn btn-sm btn-outline-success btn-watchlist" id="follow" onclick="follow()" style="font-size:15px" disabled="">
                                 Theo dõi&nbsp;
                                 <svg id="fa-plus-circle" class="svg-inline--fa fa-plus-circle fa-w-16" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="plus-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"></path></svg><!-- <i id="fa-plus-circle" class="fa fa-plus-circle"></i> Font Awesome fontawesome.com -->
                                 <div id="follow-loader" class="loader" style="float: right; margin-top: 1px; margin-left: 2px; margin-right: 1.34px" hidden=""></div>
                             </button>
-                            <button class="btn btn-sm btn-outline-danger" id="unfollow" onclick="unfollow()" style="font-size:15px" disabled="">
+                            <button class="btn btn-sm btn-outline-danger btn-watchlist" id="unfollow" onclick="unfollow()" style="font-size:15px" disabled="">
                                 Hủy theo dõi&nbsp;
                                 <i class="fas fa-minus-circle"></i>
                                 <div id="unfollow-loader" class="loader" style="float: right; margin-top: 1px; margin-left: 2px; margin-right: 1.34px" hidden=""></div>
                             </button>
-
                         </div>
+                        <div style="padding-top:15px;"></div>
+                        <button style="display:none;" type="button" onclick="window.location.href='/WatchList/Index'" class="btn btn-dark btn-resetWatchListMobile">Reset</button>
                     </div>
                 </div>
             </div>
@@ -104,7 +106,7 @@
                     margin-right: 0.5rem;
                 }
             </style>
-            <div class="table-responsive">
+            <div class="table-responsive" style="overflow-y: scroll; max-height: 350px;">
                 <table id="" class="table align-items-center mb-0" role="grid" style="margin-bottom:10px">
 
                     <thead>
@@ -244,7 +246,7 @@
                     </div>
                     <div class="modal-footer" style="border-top: 1px solid #ccc;">
 
-                        <input type="submit" class="btn btn-primary" value="Cập nhật">
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
                     </div>
                     <input name="__RequestVerificationToken" type="hidden" value="CfDJ8FL67Z1SjLdDsTvawd6QFin6pzRv7oNzwoY5-SOkjGcsL8yjXBkugNKC8lNDyFNQnLjMi7kDYnYeuEqykORpj_FsmSQwfCK_vxWT7Frrx4CXOD8b5xRY91sXY5ozSssCyNQhXMp_yEC019egpZ5NnmW3vxOUp_VITGaUtOpALNaIbtIr1s4biirhNtQ-svnKeg">
                 </form>

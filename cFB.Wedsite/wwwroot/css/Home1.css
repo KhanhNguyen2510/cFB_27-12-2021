@@ -65,13 +65,10 @@
         background-color: #4792f5;
     }
 
-
-
 /*.container-list {
     margin-top: 180px;
     margin-left: 150px;
 }*/
-
 .container-sn {
     color: blue;
     font-size: 50px;
@@ -673,6 +670,7 @@ form h1 {
 
     .container-form {
         height: 430px !important;
+        margin-top: 100px !important;
     }
 
     .watchlist {
@@ -692,35 +690,73 @@ form h1 {
     .btn-resetWatchListMobile {
         display: block !important;
     }
+
     .boderHit {
         position: absolute;
         top: -73px;
     }
+
     #change-SL {
         position: absolute;
         top: -96px;
     }
+
     .input-post {
         position: relative !important;
         left: 91px !important;
     }
+
     #table-Post {
         max-height: 318px !important;
     }
+
     .page {
         padding-top: 50px !important;
     }
+
     .form-History {
         flex-wrap: wrap !important;
     }
+
     .form-HistorySoTrang {
         position: relative !important;
         right: 163% !important;
     }
-    .rowMobile{
-        display:block !important;
+
+    .rowMobile {
+        display: block !important;
     }
-    .rowPC{
-        display:none !important;
+
+    .rowPC {
+        display: none !important;
+    }
+
+    .modal-content {
+        width: 100% !important;
+        margin: unset !important;
+        height: 700px !important;
+        overflow-y: scroll !important;
+    }
+
+    .modal-title {
+        font-size: 20px !important;
+        margin-top: 4px !important;
+        font-weight: bold !important;
+        margin-left:unset !important;
+    }
+
+    #modalThoigian {
+        float: unset !important;
+        margin-top: -34px !important;
+    }
+
+    .img-modal {
+        width: 350px !important;
+        height: 200px !important;
+    }
+
+    #sentiment-label {
+        margin-left: 60px;
+        margin-top: 10px;
     }
 }

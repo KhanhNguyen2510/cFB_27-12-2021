@@ -25,7 +25,7 @@
             <div class="card-header" style=" padding-bottom: 60px;">
                 <i class="fas fa-clipboard-list"></i> Danh mục tìm kiếm
                 <div class="panel-heading" style="padding-top:20px">
-                    <div class="row">
+                    <div class="row rowPC">
                         <div class="col-10">
                             <form method="get" style="text-align:left; display:flex" asp-controller="Report" asp-action="Index">
 
@@ -46,15 +46,51 @@
                                 <div class="col-3">
                                     <p style="padding-top: 13px; margin: 10px 7px 0 0;"></p>
                                     <input type="text" class="form-control border-0 ps-3" value="@ViewBag.Search" name="postId" placeholder="Nhập từ khóa cần tìm..." style="background: #eee9e9;  height: 45px; width: 250px;">
-                                    <button class="btn" type="submit" style="margin-top: -44px; margin-left: 12rem; position: absolute; z-index: 1; "><i class="fas fa-search"></i></button>
+                                    <button class="btn" type="submit" style="margin-top: -44px; margin-left: 12rem; position: absolute; z-index: 1; "><i style=" position: absolute; margin-top: 2px; margin-left: 23px;" class="fa fa-search"></i></button>
 
                                 </div>
-                                <button type="button" onclick="window.location.href='/Report'" class="btn btn-dark" style="width: 60px; padding: 0; margin: 23px 0 0 10px; height: 41px; background-color: #5e72e4; color: white;border:none">Reset</button>
+                                <button type="button" onclick="window.location.href='/Report'" class="btn btn-dark" style="width: 60px; padding: 0; margin: 45px 0 0 10px; height: 41px; background-color: #5e72e4; color: white;border:none">Reset</button>
 
                             </form>
                         </div>
                         <div class="col-2">
                             <button class="btn btn-sm btn-outline-danger" id="unfollow" onclick="unfollow()" style="margin-top: 32px; font-size: 15px;" disabled="">
+                                Hủy báo cáo&nbsp;
+                                <i class="fas fa-file-prescription" style="font-size:25px"></i>
+                                <div id="unfollow-loader" class="loader" style="float: right; margin-top: 1px; margin-left: 2px; margin-right: 1.34px" hidden=""></div>
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="row rowMobile" style="display:none;">
+                        <div>
+                            <form method="get" style="text-align: left;margin-top: -30px;" asp-controller="Report" asp-action="Index">
+                                @if (@ViewBag.RoleOfUser == ShareContants.UserAdmin)
+                                {
+                                    <div>
+                                        Đối tượng theo dõi:
+                                        <select name="userId" onchange="this.form.submit()" asp-items="@ViewBag.AdministrativeDivision" class="form-control input-sm" style="width:230px; height:46px">
+                                            <option></option>
+                                        </select>
+                                        <i class="fas fa-caret-down" style=" position: absolute; margin: -30px 0 0 204px;"></i>
+                                    </div>
+                                }
+                                <div style="margin-left: 82px; position: absolute; margin-top: 82px;">
+                                    <p style="margin: 11px 126px -37px -83px;">Số trang:</p>
+                                    <input type="text" class="form-control border-0 ps-3" value="@ViewBag.PageSize" name="pageSize" placeholder="Nhập..." style="background: #eee9e9; margin: 5px 10px 0 -15px; width: 60px; height: 35px; ">
+                                </div>
+                                <div style=" margin-top: -50px; margin-left: -51px;">
+                                    <p style="padding-top: 13px; margin: 10px 7px 0 0;"></p>
+                                    <input type="text" class="form-control border-0 ps-3" value="@ViewBag.Search" name="postId" placeholder="Nhập từ khóa cần tìm..." style="background: #eee9e9;  height: 45px; width: 250px;">
+                                    <button class="btn" type="submit" style="height: 45px; width: 50px;  color: black; border: none; padding: 12px; margin-left: -3rem; "><i style=" position: absolute; margin-top: -50px; margin-left: 294px;" class="fa fa-search"></i></button>
+
+                                </div>
+                                <button type="button" onclick="window.location.href='/Report'" class="btn btn-dark" style="width: 100%; padding: 0; margin: 0px 0 0 10px; height: 41px; background-color: #5e72e4; color: white; border: none;">Reset</button>
+
+                            </form>
+                        </div>
+                        <div style="padding-top:40px;">
+                            <button class="btn btn-sm btn-outline-danger" id="unfollow" onclick="unfollow()" style="margin-top: 32px; font-size: 15px; width:100%;" disabled="">
                                 Hủy báo cáo&nbsp;
                                 <i class="fas fa-file-prescription" style="font-size:25px"></i>
                                 <div id="unfollow-loader" class="loader" style="float: right; margin-top: 1px; margin-left: 2px; margin-right: 1.34px" hidden=""></div>
@@ -142,11 +178,11 @@
 
     <div id="view-post-detail" class="modal fade">
         <div class="modal-dialog" id="md-view-post-detail">
-            <div class="modal-content" style="width:1000px; height:860px; margin-left:-240px">
+            <div class="modal-content" style="width:1000px; height:700px;margin-left:-240px;overflow-y:scroll;">
 
                 <div class="modal-header" style="border-bottom: 1px solid #ccc;">
                     <button type="button" id="reprot-post" class="btn btn-outline-warning" data-dismiss="modal" onclick="Report()" style="" disabled="">Đã lập báo cáo </button>
-                    <h4 class="modal-title" id="title-h4" style="margin-left: 230px; font-size: 28px; margin-top: 4px; font-weight: bold;">Thông tin bài viết</h4>
+                    <h4 class="modal-title" id="title-h4"style="margin-left: unset !important; font-size: 14px !important; margin-top: 4px; font-weight: bold;">Thông tin bài viết</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearLabelColor()">×</button>
                 </div>
                 <div class="modal-body">
@@ -162,7 +198,8 @@
                             <p style="margin-left: 150px; margin-top: -36px;">Url người đăng</p>
                         </a>
                     </div>
-                    <div class="form-group" style=" float: right; margin-top: -48px;">
+                    <div class="form-group" id="modalThoigian"style=" float: right; margin-top: -48px;">
+                        <br />
                         <label style="font-weight: bold; margin-right: 166px;">Thời gian đăng:</label>
                         <p id="upload-time" style="margin-left: 135px; margin-top: -34px;">25/12/2020 21:16:13</p>
                     </div>
@@ -177,7 +214,7 @@
                                 <label id="img-name" style="font-weight: bold;">Hình ảnh</label>
                                 <br />
                                 <a href="#" target="_blank" id="image">
-                                    <img src="~/assets/img/huy-hieu-cong-an-nhan.png" width="400" height="300" />
+                                    <img src="~/assets/img/huy-hieu-cong-an-nhan.png" class="img-modal" style=" width:400px;height:300px;" />
                                 </a>
                             </div>
                         </div>
