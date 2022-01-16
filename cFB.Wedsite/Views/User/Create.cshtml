@@ -26,7 +26,7 @@
             <li class="breadcrumb-item active "><a href="/User">Danh sách tài khoản</a></li>
             <li class="breadcrumb-item">Thêm tài khoản</li>
         </ol>
-        <div class="card mb-4" style="width:500px">
+        <div class="card mb-4" style="width:740px">
             <div class="card-header">
                 <div class="col-md-8">
                     <form method="post" enctype="multipart/form-data" action="/User/Create">
@@ -34,34 +34,34 @@
 
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 55px;">
                             <input type="text" name="AdministrativeDivision_Admin" value="@User.Identity.Name" hidden>
                             <label asp-for="AdministrativeDivisionName" class="control-label"></label>
-                            <input asp-for="AdministrativeDivisionName" class="form-control" style="width:400px;position:absolute;" />
-                            <span asp-validation-for="AdministrativeDivisionName" class="text-danger"></span>
+                            <input asp-for="AdministrativeDivisionName" class="form-control" style="width:500px;position:absolute;" />
+                            <span asp-validation-for="AdministrativeDivisionName" class="text-danger" style=" margin-left: -115px; margin-top: 90px; position: absolute;"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group"style="margin-bottom: 55px;">
                             <label asp-for="NumberPhone" class="control-label"></label>
-                            <input asp-for="NumberPhone" class="form-control" style="width: 400px; position: absolute;" />
-                            <span asp-validation-for="NumberPhone" class="text-danger"></span>
+                            <input asp-for="NumberPhone" class="form-control" style="width: 500px; position: absolute;" />
+                            <span asp-validation-for="NumberPhone" class="text-danger" style="margin-left: -94px; margin-top: 90px; position: absolute;" ></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group"style="margin-bottom: 55px;">
                             <label asp-for="Addrees" class="control-label"></label>
-                            <input asp-for="Addrees" class="form-control" style="width: 400px; position: absolute;" />
-                            <span asp-validation-for="Addrees" class="text-danger"></span>
+                            <input asp-for="Addrees" class="form-control" style="width: 500px; position: absolute;" />
+                            <span asp-validation-for="Addrees" style="margin-left: -115px; margin-top: 90px; position: absolute;" class="text-danger"></span>
                         </div>
-                        <div class="form-group hide">
+                        <div class="form-group hide" style="margin-bottom: 55px;">
                             <label asp-for="Password" class="control-label"></label>
-                            <input asp-for="Password" type="password" class="form-control" id="ipnPassword" style="width: 400px; position: absolute;" />
+                            <input asp-for="Password" type="password" class="form-control" id="ipnPassword" style="width: 500px; position: absolute;" />
 
-                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <span asp-validation-for="Password" class="text-danger" style="margin-left: -68px; margin-top: 90px; position: absolute;"></span>
                         </div>
-                        <div class="form-group hide">
+                        <div class="form-group hide" style="margin-bottom:55px;">
                             <label asp-for="ConfirmPassword" class="control-label"></label>
-                            <input asp-for="ConfirmPassword" type="password" class="form-control" id="ipnPassword1" style="width: 400px; position: absolute;" />
-                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" id="ipnPassword1" style="width: 500px; position: absolute;" />
+                            <div><span asp-validation-for="ConfirmPassword" style="margin-left: -8px; margin-top: 35px; position: absolute;" class="text-danger"></span></div>
 
-                            <div >
+                            <div class="check_hide">
                                 <input style="margin: 35px 0px -16px 12px;" type="checkbox" onclick="myFunction()"> Hiện mật khẩu
                             </div>
                             

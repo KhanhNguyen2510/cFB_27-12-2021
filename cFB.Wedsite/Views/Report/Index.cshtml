@@ -46,7 +46,7 @@
                                 <div class="col-3">
                                     <p style="padding-top: 13px; margin: 10px 7px 0 0;"></p>
                                     <input type="text" class="form-control border-0 ps-3" value="@ViewBag.Search" name="postId" placeholder="Nhập từ khóa cần tìm..." style="background: #eee9e9;  height: 45px; width: 250px;">
-                                    <button class="btn" type="submit" style="margin-top: -44px; margin-left: 12rem; position: absolute; z-index: 1; "><i style=" position: absolute; margin-top: 2px; margin-left: 23px;" class="fa fa-search"></i></button>
+                                    <button class="btn" type="submit" style="margin-top: -44px; margin-left: 225px; position: absolute; z-index: 1; width: 50px; height: 45px; "><i style=" position: absolute; margin-top: -6px; margin-left: -5px;" class="fa fa-search"></i></button>
 
                                 </div>
                                 <button type="button" onclick="window.location.href='/Report'" class="btn btn-dark" style="width: 60px; padding: 0; margin: 45px 0 0 10px; height: 41px; background-color: #5e72e4; color: white;border:none">Reset</button>
@@ -178,7 +178,7 @@
 
     <div id="view-post-detail" class="modal fade">
         <div class="modal-dialog" id="md-view-post-detail">
-            <div class="modal-content" style="width:1000px; height:700px;margin-left:-240px;overflow-y:scroll;">
+            <div class="modal-content" style="width:1000px; height:880px;margin-left:-240px;overflow-y:scroll;">
 
                 <div class="modal-header" style="border-bottom: 1px solid #ccc;">
                     <button type="button" id="reprot-post" class="btn btn-outline-warning" data-dismiss="modal" onclick="Report()" style="" disabled="">Đã lập báo cáo </button>
@@ -224,13 +224,13 @@
                                 <br />
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <strong><i class="fa fa-thumbs-up"></i>&nbsp;Thích:&nbsp;</strong><span id="like">0</span>
+                                        <strong><i class="fa fa-thumbs-up"></i>&nbsp;Thích:&nbsp;</strong><span id="like" style="margin-left:0px">0</span>
                                     </div>
                                     <div class="col-sm-4">
-                                        <strong><i class="fa fa-comment"></i>&nbsp;Bình luận:&nbsp;</strong><span id="comment">0</span>
+                                        <strong><i class="fa fa-comment"></i>&nbsp;Bình luận:&nbsp;</strong><span id="comment"style="margin-left:0px">0</span>
                                     </div>
                                     <div class="col-sm-4">
-                                        <strong><i class="fa fa-share"></i>&nbsp;Chia sẻ:&nbsp;</strong><span id="share">0</span>
+                                        <strong><i class="fa fa-share"></i>&nbsp;Chia sẻ:&nbsp;</strong><span id="share"style="margin-left:0px">0</span>
                                     </div>
                                 </div>
                                 <br /> (Cập nhật lúc: <span id="crawled-time">25/12/2020 21:16:13</span>)
@@ -260,7 +260,7 @@
                             </div>
                             <div class="form-group" style="display:flex">
                                 <p id="title-pdf" style="font-weight:bold;margin-top:10px">Xem File PDF</p>
-                                <span>
+                                <span style="margin-left:0px">
                                     <a href="#" target="_blank" id="pdf">
                                         <i class="fas fa-file-pdf" id="this-pdf" style="background-color:white; font-size: 40px;margin-left:30px ; color:red"></i>
                                     </a>

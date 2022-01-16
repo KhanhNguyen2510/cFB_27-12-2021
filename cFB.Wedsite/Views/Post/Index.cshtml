@@ -98,7 +98,7 @@
                             <div class="col-2">
                                 <form method="get" asp-controller="Post" asp-action="Index" style="text-align:left; display:flex;padding-top:5px">
                                     <p style="margin: 10px 5px 0 0px;">Số trang :</p>
-                                    <input type="text" class="form-control border-0 ps-3 input-post" value="@ViewBag.PageSize" name="pageSize" placeholder="Nhập..." style="background: #eee9e9;  width: 60px; height: 45px; ">
+                                    <input type="text" class="form-control border-0 ps-3 input-post" value="@ViewBag.PageSize" name="pageSize" placeholder="Nhập..." style="background: #eee9e9; width: 60px; height: 45px; margin-left: 10px; ">
                                     @*<button class="btn my-1 me-1" type="submit" style="height: 36px; width: 45px; padding: 0px; color: white; background-color: #5e72e4; border: none ">OK </button>*@
                                 </form>
                             </div>
@@ -107,7 +107,7 @@
                                     <form method="get" asp-controller="Post" asp-action="Index" style="text-align:left; display:flex; padding-top:5px">
                                         <p style="margin: 10px 7px 0 0;"></p>
                                         <input type="text" class="form-control border-0 ps-3" value="@ViewBag.Search" name="Search" placeholder="Nhập từ khóa cần tìm..." style="background: #eee9e9;  height: 45px; width: 250px;">
-                                        <button class="btn" type="submit" style="height: 45px; width: 50px;  color: black; border: none; padding: 12px; margin-left: -3rem; "><i style="position:absolute;margin-top:-9px;" class="fas fa-search"></i></button>
+                                        <button class="btn" type="submit" style="height: 45px; width: 48px;  color: black; border: none; padding: 12px; margin-left: -50px; "><i style="position:absolute;margin-top:-7px; margin-left:-6px" class="fas fa-search"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                                         <form method="get" asp-controller="Post" asp-action="Index" style="text-align: left; display: flex; padding-top: 5px;">
                                             <p style="margin: 10px 7px 0 0;"></p>
                                             <input type="text" class="form-control border-0 ps-3" value="@ViewBag.Search" name="Search" placeholder="Nhập từ khóa cần tìm..." style="background: #eee9e9;  height: 45px; width: 250px;">
-                                            <button class="btn" type="submit" style="height: 45px; width: 50px;  color: black; border: none; padding: 12px; margin-left: -3rem; "><i style="position: absolute; margin-top: -9px; margin-left: -16px;" class="fas fa-search"></i></button>
+                                            <button class="btn" type="submit" style="height: 45px; width: 48px; color: black; border: none; padding: 12px; margin-left: -51px; "><i style="position: absolute; margin-top: -7px; margin-left: -7px;" class="fas fa-search"></i></button>
                                         </form>
                                     </div>
                                 </div>
@@ -312,13 +312,13 @@
                                 <br />
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <strong><i class="fa fa-thumbs-up"></i>&nbsp;Thích:&nbsp;</strong><span id="like">0</span>
+                                        <strong><i class="fa fa-thumbs-up"></i>&nbsp;Thích:&nbsp;</strong><span id="like" style="margin-left:0px">0</span>
                                     </div>
                                     <div class="col-sm-4">
-                                        <strong><i class="fa fa-comment"></i>&nbsp;Bình luận:&nbsp;</strong><span id="comment">0</span>
+                                        <strong><i class="fa fa-comment"></i>&nbsp;Bình luận:&nbsp;</strong><span id="comment" style="margin-left:0px">0</span>
                                     </div>
                                     <div class="col-sm-4">
-                                        <strong><i class="fa fa-share"></i>&nbsp;Chia sẻ:&nbsp;</strong><span id="share">0</span>
+                                        <strong><i class="fa fa-share"></i>&nbsp;Chia sẻ:&nbsp;</strong><span id="share"style="margin-left:0px">0</span>
                                     </div>
                                 </div>
                                 <br /> (Cập nhật lúc: <span id="crawled-time">25/12/2020 21:16:13</span>)
@@ -348,7 +348,7 @@
                             </div>
                             <div class="form-group" style="display:flex">
                                 <p id="title-pdf" style="font-weight:bold;margin-top:10px">Xem File PDF</p>
-                                <span>
+                                <span style="margin-left:0px">
                                     <a href="#" target="_blank" id="pdf">
                                         <i class="fas fa-file-pdf" id="this-pdf" style="background-color:white; font-size: 40px;margin-left:30px ; color:red"></i>
                                     </a>

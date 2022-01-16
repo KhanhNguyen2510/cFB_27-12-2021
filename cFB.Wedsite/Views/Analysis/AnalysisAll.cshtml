@@ -128,7 +128,7 @@
             <i class="fas fa-chart-line"></i> Danh mục thống kê
             <div class="row" style="padding-bottom: 20px; padding-top:20px">
                 <form method="get" asp-controller="Analysis" asp-action="AnalysisAll">
-                    <div class="row">
+                    <div class="row rowPC">
                         <div class="col-3">
                             Đối tượng theo dõi :
                             <select class="form-control input-sm" id="news-label-id" onchange="this.form.submit()" asp-items="@ViewBag.WatchList" name="facebookID" style="width: 330px; height: 50px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
@@ -143,10 +143,31 @@
                             </select>
                             <i class="fas fa-caret-down" style="position: absolute; margin: -30px 0 0 298px; "></i>
                         </div>
-                        <div class="col-2" style="padding-top: 15px;">
+                        <div class="col-2" style="padding-top: 15px; margin-top: 17px;">
                             <p style="margin: 10px 7px 0 0;"></p>
                             <input type="text" placeholder="Nhập từ khóa cần tìm..." class="form-control border-0 ps-3" value="@ViewBag.KeyWord" name="keyword" style="background: #eee9e9; height: 45px; width: 260px; position: absolute;" />
-                            <button class="btn" type="submit" style="height: 45px; width: 50px;  color: black; border: none; padding: 12px; margin-left: 13rem; "><i class="fas fa-search"></i></button>
+                            <button class="btn" type="submit" style="height: 45px; width: 50px;  color: black; border: none; padding: 12px; margin-left: 13rem; "><i style=" position: absolute; margin-top: -6px; margin-left: -4px" class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="row rowMobile" style="display:none;">
+                        <div>
+                            Đối tượng theo dõi :
+                            <select class="form-control input-sm" id="news-label-id" onchange="this.form.submit()" asp-items="@ViewBag.WatchList" name="facebookID" style="width: 330px; height: 50px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                <option></option>
+                            </select>
+                            <i class="fas fa-caret-down" style=" position: absolute; margin: -30px 0 0 298px;"></i>
+                        </div>
+                        <div>
+                            Địa phương:
+                            <select class="form-control input-sm" id="news-label-id" onchange="this.form.submit()" asp-items="@ViewBag.AdministrativeDivision" name="userId" style="width: 330px; height: 50px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size:18px ">
+                                <option></option>
+                            </select>
+                            <i class="fas fa-caret-down" style="position: absolute; margin: -30px 0 0 298px; "></i>
+                        </div>
+                        <div style="padding-top: 15px;">
+                            <p style="margin: 10px 7px 0 0;"></p>
+                            <input type="text" placeholder="Nhập từ khóa cần tìm..." class="form-control border-0 ps-3" value="@ViewBag.KeyWord" name="keyword" style="background: #eee9e9; height: 45px; width: 260px; position: absolute;" />
+                            <button class="btn" type="submit" style="height: 45px; width: 50px;  color: black; border: none; padding: 12px; margin-left: 13rem; "><i style="position: absolute; margin-top: -6px; margin-left:-4px" class="fas fa-search"></i></button>
                         </div>
                     </div>
                 </form>
@@ -369,7 +390,7 @@
             <div class="col-12">
                 <div class="card-header" style="margin-bottom:30px; text-align:center">
                     <h4 class="card-title" style="text-align:center; font-size:25px"> Biểu đồ hình tròn thống kê - đánh giá mức độ của từ khóa tìm kiếm <a style="color:#f5365c"> @ViewBag.Keyword </a></h4>
-                    <div id="donutchart1" style=" height: 500px;width:655px; display:inline-block"></div>
+                    <div id="donutchart1" style=" height: 500px;width:500px; display:inline-block"></div>
                 </div>
             </div>
             <div class="col-12">
@@ -527,17 +548,17 @@
         var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
         chart.draw(view, options);
         }
-            window.onscroll = function () { myFunction() };
+            //window.onscroll = function () { myFunction() };
 
-            var header = document.getElementById("myHeader");
-            var sticky = header.offsetTop;
+            //var header = document.getElementById("myHeader");
+            //var sticky = header.offsetTop;
 
-            function myFunction() {
-                if (window.pageYOffset > sticky) {
-                    header.classList.add("sticky");
-                } else {
-                    header.classList.remove("sticky");
-                }
-            }
+            //function myFunction() {
+            //    if (window.pageYOffset > sticky) {
+            //        header.classList.add("sticky");
+            //    } else {
+            //        header.classList.remove("sticky");
+            //    }
+            //}
         </script>
 
