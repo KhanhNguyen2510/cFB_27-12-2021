@@ -1,5 +1,7 @@
-﻿using cFB.Data.EFs;
+﻿using cFB.Applications.Catalog.Historys;
+using cFB.Data.EFs;
 using cFB.Data.Entites;
+using cFB.Data.Enums;
 using cFB.Utilities.AutoStrings;
 using cFB.Utilities.Constants;
 using cFB.ViewModels.Catalog.Reports;
@@ -15,10 +17,12 @@ namespace cFB.Applications.Catalog.Reports
     public class ReportSevice : IReportSevice
     {
         private readonly cFBDbContext _context;
+        private readonly IHistorySevice _historySevice;
 
-        public ReportSevice(cFBDbContext context)
+        public ReportSevice(cFBDbContext context, IHistorySevice historySevice)
         {
             _context = context;
+            _historySevice = historySevice;
         }
 
         //Create
@@ -36,8 +40,8 @@ namespace cFB.Applications.Catalog.Reports
                 };
 
                 _context.Reports.Add(reports);
-
                 await _context.SaveChangesAsync();
+                await _historySevice.CreateInHistory(request.AdministrativeDivisionID, Event.Report, $"Đã lập báo với bài đăng {request.PostID} có mã báo cáo {reports.ReportId}");
             }
             catch (Exception)
             {

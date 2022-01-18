@@ -111,7 +111,7 @@ namespace cFB.Applications.System.Users
                 _context.AdministrativeDivisions.Add(data);
                 await _context.SaveChangesAsync();
 
-                await _historySevice.CreateInHistory(request.AdministrativeDivision_Admin, Event.Create, $"Tài khoản {request.AdministrativeDivision_Admin} đã thêm một tài khoản với tên là {administrativeDivisionId}");
+                await _historySevice.CreateInHistory(request.AdministrativeDivision_Admin, Event.Create, $"Tài khoản {request.AdministrativeDivision_Admin} thêm tài khoản {administrativeDivisionId}");
                 return true;
             }
             catch (Exception)
@@ -137,8 +137,7 @@ namespace cFB.Applications.System.Users
             {
                 var user = await _context.AdministrativeDivisions.FirstOrDefaultAsync(x => x.NumberPhone == request.NumberPhone);
 
-                if (user == null)
-                    return false;
+                if (user == null) return false;
 
                 user.AdministrativeDivisionName = (request.AdministrativeDivisionName != null) ? request.AdministrativeDivisionName : user.AdministrativeDivisionName;
                 user.NumberPhone = (request.NumberPhone != null) ? request.NumberPhone : user.NumberPhone;
@@ -146,7 +145,7 @@ namespace cFB.Applications.System.Users
                 user.Password = (request.Password != null) ? ShareContants.MD5(request.Password) : user.Password;
 
                 await _context.SaveChangesAsync();
-                await _historySevice.CreateInHistory(user.AdministrativeDivisionId, Event.Update, $"Tài khoản {user.AdministrativeDivisionId} đã cập nhật lại thông tin của mình");
+                await _historySevice.CreateInHistory(user.AdministrativeDivisionId, Event.Update, $"Tài khoản {user.AdministrativeDivisionId} đã cập nhật lại thông tin");
                 return true;
             }
             catch (Exception)
@@ -178,16 +177,40 @@ namespace cFB.Applications.System.Users
                 return false;
             }
         }
+
         //Delete
         public async Task<bool> DeleteUser(string administrativeDivision_Id)
         {
             try
             {
-                var user = await _context.AdministrativeDivisions.FirstOrDefaultAsync(x => x.AdministrativeDivisionId == administrativeDivision_Id);
-                if (user == null) return false;
+                int number = 0;
 
-                _context.AdministrativeDivisions.Remove(user);
+                var user = await _context.AdministrativeDivisions.FirstOrDefaultAsync(x => x.AdministrativeDivisionId == administrativeDivision_Id);
+                var watchList = await _context.WatchLists.FirstOrDefaultAsync(x => x.AdministrativeDivisionId == administrativeDivision_Id);
+                var post = await _context.Posts.FirstOrDefaultAsync(x => x.AdministrativeDivisionId == administrativeDivision_Id);
+
+                if (user == null) return false;
+                if (user != null) number++;
+                if (watchList != null) number++;
+                if (post != null) number++;
+
+                switch (number)
+                {
+                    case 1:
+                        _context.AdministrativeDivisions.Remove(user);
+                        break;
+                    case 2:
+                        _context.WatchLists.Remove(watchList);
+                        _context.AdministrativeDivisions.Remove(user);
+                        break;
+                    case 3:
+                        _context.Posts.Remove(post);
+                        _context.WatchLists.Remove(watchList);
+                        _context.AdministrativeDivisions.Remove(user);
+                        break;
+                }
                 await _context.SaveChangesAsync();
+                await _historySevice.CreateInHistory(ShareContants.UserAdmin, Event.Delete, $"Đã xóa tài khoản {administrativeDivision_Id}");
                 return true;
             }
             catch (Exception)

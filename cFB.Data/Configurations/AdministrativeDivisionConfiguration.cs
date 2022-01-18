@@ -16,7 +16,7 @@ namespace cFB.Data.Configurations
             builder.Property(x => x.NumberPhone).HasColumnType("varchar(13)");
             builder.Property(x => x.Addrees).HasMaxLength(300);
             builder.Property(x => x.TimeOnline).HasDefaultValue(DateTime.Now).HasColumnType("datetime");
-            builder.Property(x => x.Password).IsRequired().HasMaxLength(20);
+            builder.Property(x => x.Password).IsRequired().HasMaxLength(100);
             builder.HasOne(x => x.RoleManager).WithMany(x => x.AdministrativeDivision).HasForeignKey(x => x.ManagerId);
         }
     }

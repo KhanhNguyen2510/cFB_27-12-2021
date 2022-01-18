@@ -396,7 +396,7 @@ namespace cFB.Applications.Catalog.Posts
 
                 await _context.SaveChangesAsync();
 
-                await _historySevice.CreateInHistory(post.AdministrativeDivisionId, Event.Update, $"Cập nhật bài đăng với URL là {post.PostId}");
+                await _historySevice.CreateInHistory(post.AdministrativeDivisionId, Event.Update, $"Cập nhật bài đăng {post.PostId}");
 
                 return true;
             }
@@ -439,6 +439,7 @@ namespace cFB.Applications.Catalog.Posts
 
                 _context.Reports.Remove(report);
                 await _context.SaveChangesAsync();
+                await _historySevice.CreateInHistory(post.AdministrativeDivisionId, Event.Report, $"Đã hủy báo cáo bài viết {post.FaceBookId}");
                 return true;
             }
             catch (Exception)
@@ -470,7 +471,7 @@ namespace cFB.Applications.Catalog.Posts
 
                 await _reportsSevice.CreateReport(report);
 
-                await _historySevice.CreateInHistory(post.AdministrativeDivisionId, Event.Create, $"Đã báo cáo bài viết với URL {post.PostUrl} từ Id trang {post.FaceBookId}");
+                await _historySevice.CreateInHistory(post.AdministrativeDivisionId, Event.Report, $"Đã báo cáo bài viết {post.FaceBookId}");
 
                 return true;
             }
@@ -536,7 +537,7 @@ namespace cFB.Applications.Catalog.Posts
                 _context.Posts.Remove(post);
                 await _context.SaveChangesAsync();
 
-                await _historySevice.CreateInHistory(post.AdministrativeDivisionId, Event.Delete, $"Đã xóa :{post.PostUrl}");
+                await _historySevice.CreateInHistory(post.AdministrativeDivisionId, Event.Delete, $"Đã xóa {post.PostUrl}");
 
                 return true;
             }

@@ -91,7 +91,7 @@ namespace cFB.Applications.Catalog.WatchLists
                 };
                 _context.WatchLists.Add(watchList);
                 await _context.SaveChangesAsync();
-                await _historySevice.CreateInHistory(request.AdministrativeDivisionID, Event.Create, $"Thêm vào đối tượng :{request.FaceBookUrl} ");
+                await _historySevice.CreateInHistory(request.AdministrativeDivisionID, Event.Create, $"Thêm vào đối tượng {request.FaceBookUrl} ");
                 return true;
             }
             catch (Exception)
@@ -113,7 +113,7 @@ namespace cFB.Applications.Catalog.WatchLists
                 watchlist.FaceBookTypeId = (FaceBookTypeId != null) ? FaceBookTypeId : watchlist.FaceBookTypeId;
 
                 await _context.SaveChangesAsync();
-                await _historySevice.CreateInHistory(watchlist.AdministrativeDivisionId, Event.Update, $"Cập nhật thông tin theo dõi :{watchlist.FaceBookUrl}");
+                await _historySevice.CreateInHistory(watchlist.AdministrativeDivisionId, Event.Update, $"Cập nhật thông tin theo dõi {watchlist.FaceBookUrl}");
                 return true;
             }
             catch (Exception)
@@ -162,7 +162,7 @@ namespace cFB.Applications.Catalog.WatchLists
 
                 await _context.SaveChangesAsync();
 
-                await _historySevice.CreateInHistory(watchlist.AdministrativeDivisionId, Event.Update, $"Bật theo dõi :{watchlist.FaceBookUrl}");
+                await _historySevice.CreateInHistory(watchlist.AdministrativeDivisionId, Event.Update, $"Bật theo dõi {watchlist.FaceBookUrl}");
 
                 return true;
             }
@@ -182,7 +182,7 @@ namespace cFB.Applications.Catalog.WatchLists
                 watchlist.Status = Status.Inactive;
                 await _context.SaveChangesAsync();
 
-                await _historySevice.CreateInHistory(watchlist.AdministrativeDivisionId, Event.Update, $"Tắt theo dõi :{watchlist.FaceBookUrl}");
+                await _historySevice.CreateInHistory(watchlist.AdministrativeDivisionId, Event.Update, $"Tắt theo dõi {watchlist.FaceBookUrl}");
 
                 return true;
             }

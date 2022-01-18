@@ -16,25 +16,27 @@ namespace cFB.Data.Extensions
                 new FaceBookType { FaceBookTypeId = "USER", FaceBookTypeName = "Cá nhân", Description = "Tài khoản của người dùng thông thường" }
                 );
             modelBuilder.Entity<NewsLabel>().HasData(
-                new NewsLabel { NewsLabelId = "AN", NewsLabelName = "Âm nhạc" },
                  new NewsLabel { NewsLabelId = "ANQG", NewsLabelName = "An ninh quốc gia" },
                  new NewsLabel { NewsLabelId = "ANTT", NewsLabelName = "An ninh trật tự" },
-                 new NewsLabel { NewsLabelId = "AT", NewsLabelName = "Ẩm thực" },
+                 new NewsLabel { NewsLabelId = "TT", NewsLabelName = "Thể thao" },
+                 new NewsLabel { NewsLabelId = "AN", NewsLabelName = "Âm nhạc" },
+                 new NewsLabel { NewsLabelId = "DS", NewsLabelName = "Đời sống" },
                  new NewsLabel { NewsLabelId = "CN", NewsLabelName = "Công nghệ" },
+                 new NewsLabel { NewsLabelId = "TS", NewsLabelName = "Thời sự" },
+                 new NewsLabel { NewsLabelId = "TG", NewsLabelName = "Thế giới" },
+                 new NewsLabel { NewsLabelId = "TTS", NewsLabelName = "Thời trang" },
                  new NewsLabel { NewsLabelId = "DL", NewsLabelName = "Du lịch" },
+                 new NewsLabel { NewsLabelId = "ST", NewsLabelName = "Sống trẻ" },
                  new NewsLabel { NewsLabelId = "GD", NewsLabelName = "Giáo dục" },
+                 new NewsLabel { NewsLabelId = "KD", NewsLabelName = "Kinh doanh" },
+                 new NewsLabel { NewsLabelId = "PL", NewsLabelName = "Pháp luật" },
                  new NewsLabel { NewsLabelId = "GT", NewsLabelName = "Giải trí" },
-                 new NewsLabel { NewsLabelId = "KD", NewsLabelName = "Kinh Doanh" },
-                  new NewsLabel { NewsLabelId = "PA", NewsLabelName = "Phim ảnh" },
-                  new NewsLabel { NewsLabelId = "PL", NewsLabelName = "Pháp luật" },
-                  new NewsLabel { NewsLabelId = "SK", NewsLabelName = "Sức khỏe" },
-                  new NewsLabel { NewsLabelId = "ST", NewsLabelName = "Sống trẻ" },
-                  new NewsLabel { NewsLabelId = "TG", NewsLabelName = "Thế giới" },
-                  new NewsLabel { NewsLabelId = "TS", NewsLabelName = "Thời sự" },
-                  new NewsLabel { NewsLabelId = "TTH", NewsLabelName = "Thể thao" },
-                  new NewsLabel { NewsLabelId = "TTR", NewsLabelName = "Thời trang" },
-                  new NewsLabel { NewsLabelId = "XB", NewsLabelName = "Xuất bản" },
-                  new NewsLabel { NewsLabelId = "XE", NewsLabelName = "Xe" }
+                 new NewsLabel { NewsLabelId = "PA", NewsLabelName = "Phim ảnh" },
+                 new NewsLabel { NewsLabelId = "XE", NewsLabelName = "Xe" },
+                 new NewsLabel { NewsLabelId = "AT", NewsLabelName = "Ẩm thực" },
+                 new NewsLabel { NewsLabelId = "XB", NewsLabelName = "Nhà xuất bản" },
+                 new NewsLabel { NewsLabelId = "SK", NewsLabelName = "Sức khỏe" },
+                 new NewsLabel { NewsLabelId = "XES", NewsLabelName = "Xe 360" }
                 );
             modelBuilder.Entity<SentimentLabel>().HasData(
                 new SentimentLabel { SentimentLabelId = "NEG", SentimentLabelName = "Tiêu cực" },
@@ -46,7 +48,7 @@ namespace cFB.Data.Extensions
                 new RoleManager { ManagerId = "Admin", ManagerName = "Nơi quản lý cao nhất" },
                 new RoleManager { ManagerId = "User", ManagerName = "Các địa phương sử dụng" }
                 );
-            var pass = ShareContants.MD5("1");
+            var pass = ShareContants.MD5("Phanthiet1@");
             modelBuilder.Entity<AdministrativeDivision>().HasData(
                 new AdministrativeDivision { AdministrativeDivisionId = "86C1", AdministrativeDivisionName = "Thành phố Phan Thiết", NumberPhone = "02523822694", Addrees = "158 Đặng Văn Lãnh, TP Phan Thiết", Password = pass, ManagerId = "User" },
                 new AdministrativeDivision { AdministrativeDivisionId = "86B1", AdministrativeDivisionName = "Huyện Tuy Phong", NumberPhone = "02523850163", Addrees = "Đường 17/4, thị trấn Liên Hương, huyện Tuy Phong", Password = pass, ManagerId = "User" },
