@@ -230,7 +230,7 @@
                                 else if (item.SentimentLabelID == "POS")
                                 {
                                     <td style="width: 10%; text-align: center; ">
-                                        <span class="badge badge-dot me-4">
+                                        <span class="badge badge-dot me-4" >
                                             <i class="bg-success"></i>
                                             <span class="text-dark text-xs">@item.SentimentLabelName</span>
                                         </span>
@@ -239,7 +239,7 @@
                                 else
                                 {
                                     <td style="width: 10%; text-align: center; ">
-                                        <span class="badge badge-dot me-4">
+                                        <span class="badge badge-dot me-4"style="margin-left:82px">
                                             <i class="bg-info"></i>
                                             <span class="text-dark text-xs">@item.SentimentLabelName</span>
                                         </span>
@@ -362,21 +362,21 @@
     </div>
     <div id="view-post-excel" class="modal fade">
         <div class="modal-dialog" id="md-view-post-detail">
-            <div class="modal-content" style="width: 460px;">
+            <div class="modal-content" style="width: 520px;">
                 <div class="modal-header" style="border-bottom: 1px solid #ccc;  margin-bottom: 10px;">
-                    <h4 class="modal-title" style="margin-left:111px; font-size:25px">Xuất File Excel</h4>
+                    <h4 class="modal-title" style="margin-left:140px; font-size:25px">Xuất File Excel</h4>
                     @*<button type="button" class="close" data-dismiss="modal" onclick="clearLabelColor()">&times;</button>*@
                 </div>
                 <form method="post" asp-controller="Post" asp-action="Export" style="text-align:left; display:flex">
                     <div class="model-body">
                         <div class="form-group" style="margin:0 5px">
                             <label style="width: 380px; margin-left: 10px;">Tên file excel</label>
-                            <input type="text" class="form-control" id="edit-facebook-name" name="NameFileExcel" style="width: 430px; margin-left: 10px;" maxlength="100" required>
+                            <input type="text" class="form-control" id="edit-facebook-name" name="NameFileExcel" style="width: 450px; margin-left: 10px;" maxlength="100" required>
                         </div>
-                        <div class="form-group" style="margin:20px;">
-                            <label style="width: 430px; margin-left: -3px; ">
+                        <div class="form-group" style="margin: 20px; ">
+                            <label style="width: 430px; margin-left: -3px; margin-top: -15px;">
                                 Nhãn:
-                                <select class="form-control input-sm" id="news-label-id" name="newsLabelID">
+                                <select class="form-control input-sm" id="news-label-id" name="newsLabelID" style=" width: 450px; height: 48px;">
                                     <option value="">Tất cả</option>
                                     <option value="ANQG">An ninh quốc gia</option>
                                     <option value="ANTT">An ninh trật tự</option>
@@ -384,47 +384,47 @@
                             </label>
                         </div>
                         <div class="form-group" style="margin:20px;">
-                            <label style="width: 430px; margin-left: -3px; ">
+                            <label style="width: 430px; margin-left: -3px; margin-top: -15px; ">
                                 @*&nbsp;*@
                                 Mức độ:
-                                <select class="form-control input-sm" id="sentiment-label-id" name="sentimentLabelID">
+                                <select class="form-control input-sm" id="sentiment-label-id" name="sentimentLabelID" style=" width: 450px; height: 48px;">
                                     <option value="">Tất cả</option>
                                     <option value="POS">Tích cực</option>
-                                    <option value="NEU">Bình thường</option>
+                                    <option value="NEU" >Bình thường</option>
                                     <option value="NEG">Tiêu cực</option>
                                 </select>
                             </label>
                         </div>
                         <div class="form-group" style="margin:20px;">
-                            <label style="padding-right:5px">
+                            <label style="padding-right: 5px; margin-top: -15px;">
 
                                 Trạng thái:
-                                <select class="form-control input-sm" id="sentiment-label-id" name="report" style="width:430px; height:46px; margin-left:-3px">
+                                <select style=" width: 450px; height: 48px;" class="form-control input-sm" id="sentiment-label-id"  name="report" >
                                     <option value="">Chọn thông tin</option>
                                     <option value="0">Đã lập báo cáo</option>
                                     <option value="1">Chưa lập báo cáo</option>
                                 </select>
-                                <i class="fas fa-caret-down" style=" position: absolute; margin: -31px 0 0 401px;"></i>
+                                <i class="fas fa-caret-down" style=" position: absolute; margin: -31px 0 0 420px;"></i>
                             </label>
                         </div>
                         <div class="form-group" style="margin:20px">
-                            <label style="width: 430px; margin-left: -3px; ">
+                            <label style="width: 430px; margin-left: -3px; margin-top: -15px; ">
                                 @*&nbsp;*@
                                 Từ ngày:
-                                <input type="date" class="form-control input-sm" id="start-date" name="StartDate" />
+                                <input type="date" class="form-control input-sm" id="start-date" name="StartDate"style=" width: 450px; height: 48px;" />
                             </label>
                         </div>
                         <div class="form-group" style="margin:20px;">
-                            <label style="width: 430px; margin-left: -3px; ">
+                            <label style="width: 430px; margin-left: -3px; margin-top: -15px;">
                                 @*&nbsp;*@
                                 Đến ngày:
-                                <input type="date" class="form-control input-sm" id="end-date" name="EndDate" />
+                                <input type="date" class="form-control input-sm" id="end-date" name="EndDate"style=" width: 450px; height: 48px;"    />
 
                             </label>
                         </div>
-                        <div class="modal-footer" style=" margin-left: 1px; width: 457px; border-top: 1px solid #adb5bd;">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelAdd()">Hủy</button>
-                            <input type="submit" class="btn btn-sm btn-primary" value="Xuất Excel" style="width:80px; height:44px" />
+                        <div class="modal-footer" style=" margin-left: 1px; width: 505px; border-top: 1px solid #adb5bd;">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelAdd()" style="margin-left: 295px; margin-top: 11px;">Hủy</button>
+                            <input type="submit" class="btn btn-sm btn-primary" value="Xuất Excel" style=" width: 80px; height: 44px; color: white; background-color: blue; float: right; " />
                         </div>
                     </div>
                 </form>
