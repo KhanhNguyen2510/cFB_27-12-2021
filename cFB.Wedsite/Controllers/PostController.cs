@@ -55,7 +55,8 @@ namespace cFB.Wedsite.Controllers
 
             if (endDate != null && startDate == null) startDate = endDate;
 
-            if (ShareContants.NumberPageVisits == 1) timeCrawl = DateTime.Now.AddHours(-8);
+            if (ShareContants.NumberPageVisits == 1) timeCrawl = DateTime.Now;
+
 
             var request = new GetManagePostRequest()
             {
@@ -73,6 +74,7 @@ namespace cFB.Wedsite.Controllers
             };
 
             var post = await _postApiClient.GetAllPostStatus(request);
+            
 
             ViewBag.Search = search;
             ViewBag.StartDate = startDate?.Date;

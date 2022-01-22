@@ -471,7 +471,6 @@ namespace cFB.Applications.Catalog.Posts
 
                 await _reportsSevice.CreateReport(report);
 
-                await _historySevice.CreateInHistory(post.AdministrativeDivisionId, Event.Report, $"Đã báo cáo bài viết {post.FaceBookId}");
 
                 return true;
             }

@@ -61,6 +61,7 @@ namespace cFB.Wedsite.Controllers
             envent.Add(new HistoryEnventsModel() { Id = Data.Enums.Event.Create, Name = "Thao tác thêm" });
             envent.Add(new HistoryEnventsModel() { Id = Data.Enums.Event.Update, Name = "Thao tác cập nhật" });
             envent.Add(new HistoryEnventsModel() { Id = Data.Enums.Event.Delete, Name = "Thao tác xóa" });
+            envent.Add(new HistoryEnventsModel() { Id = Data.Enums.Event.Report, Name = "Thao tác lập báo cáo" });
             ViewBag.Event = envent.Select(x => new SelectListItem()
             {
                 Text = x.Name,

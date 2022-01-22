@@ -287,6 +287,12 @@
                             <p style="margin-left: 150px; margin-top: -36px;">Url người đăng</p>
                         </a>
                     </div>
+                    <div>
+                        <label style="font-weight: bold;">Tên địa phương lấy về:</label>
+                        <a  id="post-ad" >
+                            <p style="margin-left: 200px; margin-top: -32px;">Url bài viết</p>
+                        </a>
+                    </div>
                     <div style=" float: right; margin-right: 63px;">
                         <label style="font-weight: bold; margin-right: 166px;">Thời gian đăng:</label>
                         <p id="upload-time" style="margin-left: 135px; margin-top: -34px;">25/12/2020 21:16:13</p>
@@ -318,10 +324,10 @@
                                         <strong><i class="fa fa-comment"></i>&nbsp;Bình luận:&nbsp;</strong><span id="comment" style="margin-left:0px">0</span>
                                     </div>
                                     <div class="col-sm-4">
-                                        <strong><i class="fa fa-share"></i>&nbsp;Chia sẻ:&nbsp;</strong><span id="share"style="margin-left:0px">0</span>
+                                        <strong><i class="fa fa-share"></i>&nbsp;Chia sẻ:&nbsp;</strong><span id="share" style="margin-left:0px">0</span>
                                     </div>
                                 </div>
-                                <br /> (Cập nhật lúc: <span id="crawled-time">25/12/2020 21:16:13</span>)
+                                <br /> (Cập nhật lúc:<span id="crawled-time">25/12/2020 21:16:13</span>)
                                 <br />
                             </div>
                             <div class="form-group">
@@ -603,7 +609,8 @@
                     $('#comment').html(data.totalComment);
                     $('#share').html(data.totalShare);
                     $('#news-label').html(data.newsLabelName);
-
+                    
+                    $('#post-ad').html(data.administrativeDivisionName);
                     if (data.report == 0) {
                         $('#reprot-post').html("Đã lập báo cáo").prop('disabled', true)
                         $('#sentiment-label').prop('disabled', true)

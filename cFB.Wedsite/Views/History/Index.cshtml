@@ -109,24 +109,31 @@
                                 {
                                     <td style="width: 10%; text-align: center; ">
                                         @*<b style=" background-color: darkorange; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
-                                        <span class="badge badge-primary">Create</span>
+                                        <span class="badge badge-primary">Thêm</span>
                                     </td>
                                 }
                                 else if (item.Event == Event.Update)
                                 {
                                     <td style="width: 10%; text-align: center; ">
                                         @*<b style=" background-color: royalblue; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
-                                        <span class="badge badge-warning">Update</span>
+                                        <span class="badge badge-info">Cập nhật</span>
                                     </td>
                                 }
-                                else
+                                else if (item.Event == Event.Report)
                                 {
                                     <td style="width: 10%; text-align: center;  ">
                                         @*<b style=" background-color: green; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
-                                        <span class="badge badge-warning">Delete</span>
+                                        <span class="badge badge-danger">Báo cáo</span>
                                     </td>
                                 }
-                                <td >
+                                else 
+                                {
+                                    <td style="width: 10%; text-align: center;  ">
+                                        @*<b style=" background-color: green; color: white; border-radius: 10px; padding: 5px">@item.Event</b>*@
+                                        <span class="badge badge-secondary">Xóa</span>
+                                    </td>
+                                }
+                                <td>
                                     <span><a>@item.StatusHistory</a></span>
                                 </td>
                             </tr>
